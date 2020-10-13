@@ -28,10 +28,10 @@
         <TextBox x:Name="addressTextBox" HorizontalAlignment="Left" Margin="98,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172"/>
         <TextBox x:Name="zipTextBox" HorizontalAlignment="Left" Margin="98,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172"/>
         <TextBox x:Name="cityTextBox" HorizontalAlignment="Left" Margin="98,222,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172"/>
-        <TextBox x:Name="stateTextBox" HorizontalAlignment="Left" Margin="98,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172"/>
         <TextBox x:Name="address2TextBox" HorizontalAlignment="Left" Margin="98,296,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172"/>
         <Button x:Name="registerPatientButton" Foreground="White" Background="#3c6e71" Content="Register Patient" Margin="1,339,0,0" VerticalAlignment="Top" Click="registerPatientButton_Click"/>
         <Button x:Name="closeButton" Foreground="White" Background="#3c6e71" Content="Close" Margin="152,339,0,0" VerticalAlignment="Top" Width="118" Click="closeButton_Click"/>
+        <ComboBox x:Name="stateComboBox" Margin="98,259,0,0" Width="172"/>
 
     </Grid>
 </ContentDialog>

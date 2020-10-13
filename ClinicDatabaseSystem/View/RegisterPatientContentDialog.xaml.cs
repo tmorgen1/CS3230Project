@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ClinicDatabaseSystem.DAL;
+using ClinicDatabaseSystem.Enums;
 using ClinicDatabaseSystem.Model;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -28,6 +29,7 @@ namespace ClinicDatabaseSystem.View
         public RegisterPatientContentDialog()
         {
             this.InitializeComponent();
+            this.addStatesToComboBox();
         }
 
         private void registerPatientButton_Click(object sender, RoutedEventArgs e)
@@ -35,7 +37,7 @@ namespace ClinicDatabaseSystem.View
             if (PatientDAL.InsertPatient(this.lastNameTextBox.Text, this.firstNameTextBox.Text,
                 DateTime.Parse(this.birthdateTextBox.Text), this.phoneNumberTextBox.Text,
                 new Address(this.addressTextBox.Text, this.address2TextBox.Text, this.zipTextBox.Text,
-                    this.cityTextBox.Text, this.stateTextBox.Text), this.zipTextBox.Text))
+                    this.cityTextBox.Text, this.stateComboBox.SelectionBoxItem.ToString()), this.zipTextBox.Text))
             {
                 (Window.Current.Content as Frame)?.Navigate(typeof(PatientRecordsPage), null);
                 this.Hide();
@@ -48,6 +50,14 @@ namespace ClinicDatabaseSystem.View
         private void closeButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
+        }
+
+        private void addStatesToComboBox()
+        {
+            foreach (var state in Enum.GetValues(typeof(States)))
+            {
+                this.stateComboBox.Items?.Add(state);
+            }
         }
     }
 }
