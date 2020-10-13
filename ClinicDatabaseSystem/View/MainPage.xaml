@@ -6,9 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="#353535">
 
-    <Grid>
-
+    <Grid >
+        <Canvas HorizontalAlignment="Center" Height="150" Margin="0,180,0,0" VerticalAlignment="Top" Width="150" Background="#284b63">
+            <Button x:Name="nurseLoginButton" Content="Nurse Login" Foreground="White" Background="Transparent" Click="nurseLoginButton_Click" Height="150" Width="150"/>
+        </Canvas>
+        <Canvas HorizontalAlignment="Center" Height="150" Margin="0,330,0,0" VerticalAlignment="Top" Width="150" Background="#FF2D5876">
+            <Button x:Name="accessAdminButton" Height="150" Width="150" Content="Access Admin Page" Foreground="White" Background="Transparent" Click="accessAdminButton_Click"/>
+        </Canvas>
     </Grid>
 </Page>
