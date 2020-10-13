@@ -20,8 +20,8 @@ namespace ClinicDatabaseSystem.DAL
                 using (MySqlCommand comm = new MySqlCommand(query, conn))
                 {
                     comm.Parameters.Add("@nurseId", MySqlDbType.Int32);
-                    comm.Parameters["nurseId"].Value = nurseId;
-
+                    comm.Parameters["@nurseId"].Value = nurseId;
+                    
                     using (MySqlDataReader reader = comm.ExecuteReader())
                     {
                         int nurseIdOrdinal = reader.GetOrdinal("nurseID");
@@ -72,3 +72,4 @@ namespace ClinicDatabaseSystem.DAL
             return AddressDAL.GetAddressWithNurseId(nurseId, address1, zip);
         }
     }
+}

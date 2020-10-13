@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ClinicDatabaseSystem.Controller;
 using ClinicDatabaseSystem.DAL;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -27,8 +28,10 @@ namespace ClinicDatabaseSystem.View
 
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
-            if (AuthDAL.AuthenticateNurse(this.usernameTextBox.Text, this.passwordBox.Password))
+            var nurseId = AuthDAL.AuthenticateNurse(this.usernameTextBox.Text, this.passwordBox.Password);
+            if (nurseId > 0)
             {
+                LoginController.CurrentUser = NurseDAL.GetNurse(nurseId);
                 (Window.Current.Content as Frame)?.Navigate(typeof(PatientRecordsPage), null);
                 this.Hide();
             }

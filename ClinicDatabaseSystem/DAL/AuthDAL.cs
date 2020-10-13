@@ -15,7 +15,7 @@ namespace ClinicDatabaseSystem.DAL
             {
                 conn.Open();
                 string query =
-                    "select count(*) from account_credential where accountID = @username and password = @password";
+                    "select N.nurseID from account_credential A, nurse N where A.accountID = @username and A.password = @password and A.accountID = N.accountID";
 
                 using (MySqlCommand comm = new MySqlCommand(query, conn))
                 {

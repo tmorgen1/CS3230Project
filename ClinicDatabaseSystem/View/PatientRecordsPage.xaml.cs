@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ClinicDatabaseSystem.Controller;
 using ClinicDatabaseSystem.DAL;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -63,7 +64,10 @@ namespace ClinicDatabaseSystem.View
 
         private void updateCurrentUserTextBlocks()
         {
-            
+            this.fullNameTextBlock.Text =
+                LoginController.CurrentUser.FirstName + " " + LoginController.CurrentUser.LastName;
+            this.usernameTextBlock.Text = LoginController.CurrentUser.AccountId;
+            this.idTextBlock.Text = LoginController.CurrentUser.NurseId.ToString();
         }
     }
 }
