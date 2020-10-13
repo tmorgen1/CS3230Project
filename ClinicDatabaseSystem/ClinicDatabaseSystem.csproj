@@ -128,10 +128,19 @@
     <Compile Include="Model\Doctor.cs" />
     <Compile Include="Model\Nurse.cs" />
     <Compile Include="Model\Patient.cs" />
+    <Compile Include="View\PatientRecordsPage.xaml.cs">
+      <DependentUpon>PatientRecordsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoginContentDialog.xaml.cs">
+      <DependentUpon>LoginContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\RegisterPatientContentDialog.xaml.cs">
+      <DependentUpon>RegisterPatientContentDialog.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -153,9 +162,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="View\PatientRecordsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoginContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\RegisterPatientContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

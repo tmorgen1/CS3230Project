@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
 using ClinicDatabaseSystem.DAL;
 using ClinicDatabaseSystem.Model;
@@ -16,9 +15,22 @@ namespace ClinicDatabaseSystem.View
         public MainPage()
         {
             this.InitializeComponent();
+        }
 
-            PatientDAL.InsertPatient("Doe", "John", DateTime.Now, "1234569999", new Address("some funny address", null, "30222", "newnan", "Georgia"), "30222");
-            var patients = PatientDAL.GetPatients();
+        private void nurseLoginButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            this.displayLoginContentDialog();
+        }
+
+        private void accessAdminButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+
+        }
+
+        private async void displayLoginContentDialog()
+        {
+            LoginContentDialog loginContentDialog = new LoginContentDialog();
+            ContentDialogResult result = await loginContentDialog.ShowAsync();
         }
     }
 }
