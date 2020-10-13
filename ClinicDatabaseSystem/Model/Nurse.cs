@@ -20,11 +20,11 @@ namespace ClinicDatabaseSystem.Model
 
         public string AccountId { get; set; }
 
-        public string Address { get; set; }
+        public Address Address { get; set; }
 
         public string Zip { get; set; }
 
-        public Nurse(int nurseId, string lastName, string firstName, DateTime dob, string phoneNumber, string accountId, string address, string zip)
+        public Nurse(int nurseId, string lastName, string firstName, DateTime dob, string phoneNumber, string accountId, Address address)
         {
             this.NurseId = nurseId;
             this.LastName = lastName;
@@ -33,7 +33,6 @@ namespace ClinicDatabaseSystem.Model
             this.PhoneNumber = phoneNumber;
             this.AccountId = accountId;
             this.Address = address;
-            this.Zip = zip;
         }
 
     }

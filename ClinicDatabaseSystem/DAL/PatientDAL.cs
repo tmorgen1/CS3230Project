@@ -93,7 +93,7 @@ namespace ClinicDatabaseSystem.DAL
 
         private static Address GetAddressAndZipNewConnection(int patientId, string address1, string zip)
         {
-            return AddressDAL.GetAddress(patientId, address1, zip);
+            return AddressDAL.GetAddressWithPatientId(patientId, address1, zip);
         }
     }
 }

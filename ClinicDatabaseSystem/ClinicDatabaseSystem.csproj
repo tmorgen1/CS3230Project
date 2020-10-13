@@ -122,6 +122,7 @@
     <Compile Include="DAL\AddressDAL.cs" />
     <Compile Include="DAL\AuthDAL.cs" />
     <Compile Include="DAL\DbConnection.cs" />
+    <Compile Include="DAL\NurseDAL.cs" />
     <Compile Include="DAL\PatientDAL.cs" />
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\Administrator.cs" />

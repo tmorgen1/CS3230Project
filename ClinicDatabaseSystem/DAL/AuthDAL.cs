@@ -9,7 +9,7 @@ namespace ClinicDatabaseSystem.DAL
 {
     public class AuthDAL
     {
-        public static bool AuthenticateNurse(string username, string password)
+        public static int AuthenticateNurse(string username, string password)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())
             {
@@ -26,7 +26,7 @@ namespace ClinicDatabaseSystem.DAL
 
                     int count = Convert.ToInt32(comm.ExecuteScalar());
 
-                    return count > 0;
+                    return count;
                 }
             }
         }
