@@ -13,8 +13,8 @@
     <Grid>
         <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="0,10,0,0" Text="Username:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="0,51,0,0" Text="Password:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="85,44,0,0" VerticalAlignment="Top" Width="185"/>
         <TextBox x:Name="usernameTextBox" HorizontalAlignment="Left" Margin="85,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
+        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="85,44,0,0" VerticalAlignment="Top" Width="185"/>
         <Button x:Name="loginButton" Foreground="White" Background="#284b63" Content="Login" Margin="65,91,0,0" VerticalAlignment="Top" Click="loginButton_Click"/>
         <Button x:Name="closeButton" Foreground="White" Background="#284b63" Content="Close" Margin="158,91,0,0" VerticalAlignment="Top" Click="closeButton_Click"/>
     </Grid>
