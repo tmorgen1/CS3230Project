@@ -9,7 +9,7 @@
     Title="Register Patient"
     Background="#353535" 
     Foreground="White"
-    >
+>
 
     <Grid>
         <TextBlock HorizontalAlignment="Left" Text="First Name:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="1,7,0,0"/>

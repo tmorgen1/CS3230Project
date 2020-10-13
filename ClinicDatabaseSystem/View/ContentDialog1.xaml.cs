@@ -12,31 +12,24 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using ClinicDatabaseSystem.DAL;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ClinicDatabaseSystem.View
 {
-    public sealed partial class LoginContentDialog : ContentDialog
+    public sealed partial class ContentDialog1 : ContentDialog
     {
-        public LoginContentDialog()
+        public ContentDialog1()
         {
             this.InitializeComponent();
         }
 
-        private void loginButton_Click(object sender, RoutedEventArgs e)
+        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            if (AuthDAL.AuthenticateNurse(this.usernameTextBox.Text, this.passwordBox.Password))
-            {
-                (Window.Current.Content as Frame)?.Navigate(typeof(PatientRecordsPage), null);
-                this.Hide();
-            }
         }
 
-        private void closeButton_Click(object sender, RoutedEventArgs e)
+        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            this.Hide();
         }
     }
 }
