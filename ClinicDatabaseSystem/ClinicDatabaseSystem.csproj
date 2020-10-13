@@ -121,6 +121,9 @@
     </Compile>
     <Compile Include="DAL\AuthDAL.cs" />
     <Compile Include="DAL\DbConnection.cs" />
+    <Compile Include="Model\Administrator.cs" />
+    <Compile Include="Model\Doctor.cs" />
+    <Compile Include="Model\Nurse.cs" />
     <Compile Include="Model\Patient.cs" />
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
