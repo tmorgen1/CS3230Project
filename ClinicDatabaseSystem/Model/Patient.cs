@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ClinicDatabaseSystem.Model
 {
-    class Patient
+    public class Patient
     {
-        public int PatientID { get; set; }
+        public int PatientId { get; set; }
 
         public string LastName { get; set; }
 
@@ -24,7 +24,7 @@ namespace ClinicDatabaseSystem.Model
 
         public Patient(int patientId, string lastName, string firstName, DateTime dob, string phoneNumber, string address, string zip)
         {
-            this.PatientID = patientId;
+            this.PatientId = patientId;
             this.LastName = lastName;
             this.FirstName = firstName;
             this.Dob = dob;
