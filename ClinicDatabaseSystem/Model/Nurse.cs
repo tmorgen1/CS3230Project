@@ -6,31 +6,35 @@ using System.Threading.Tasks;
 
 namespace ClinicDatabaseSystem.Model
 {
-    public class Patient
+    public class Nurse
     {
-        public int PatientId { get; set; }
+        public int NuseId { get; set; }
 
         public string LastName { get; set; }
 
         public string FirstName { get; set; }
 
-        public DateTime Dob { get; set; }
+        public DateTime DoB { get; set; }
 
         public string PhoneNumber { get; set; }
+
+        public string AccountId { get; set; }
 
         public string Address { get; set; }
 
         public string Zip { get; set; }
 
-        public Patient(int patientId, string lastName, string firstName, DateTime dob, string phoneNumber, string address, string zip)
+        public Nurse(int nurseId, string lastName, string firstName, DateTime dob, string phoneNumber, string accountId, string address, string zip)
         {
-            this.PatientId = patientId;
+            this.NuseId = nurseId;
             this.LastName = lastName;
             this.FirstName = firstName;
-            this.Dob = dob;
+            this.DoB = dob;
             this.PhoneNumber = phoneNumber;
+            this.AccountId = accountId;
             this.Address = address;
             this.Zip = zip;
         }
+
     }
 }
