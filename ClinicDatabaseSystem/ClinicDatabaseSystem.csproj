@@ -119,8 +119,11 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DAL\AddressDAL.cs" />
     <Compile Include="DAL\AuthDAL.cs" />
     <Compile Include="DAL\DbConnection.cs" />
+    <Compile Include="DAL\PatientDAL.cs" />
+    <Compile Include="Model\Address.cs" />
     <Compile Include="Model\Administrator.cs" />
     <Compile Include="Model\Doctor.cs" />
     <Compile Include="Model\Nurse.cs" />

@@ -8,7 +8,7 @@ namespace ClinicDatabaseSystem.Model
 {
     public class Nurse
     {
-        public int NuseId { get; set; }
+        public int NurseId { get; set; }
 
         public string LastName { get; set; }
 
@@ -26,7 +26,7 @@ namespace ClinicDatabaseSystem.Model
 
         public Nurse(int nurseId, string lastName, string firstName, DateTime dob, string phoneNumber, string accountId, string address, string zip)
         {
-            this.NuseId = nurseId;
+            this.NurseId = nurseId;
             this.LastName = lastName;
             this.FirstName = firstName;
             this.DoB = dob;
