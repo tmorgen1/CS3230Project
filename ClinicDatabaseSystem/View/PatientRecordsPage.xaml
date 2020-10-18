@@ -1,17 +1,19 @@
 ﻿<Page
-    x:Class="ClinicDatabaseSystem.View.PatientRecordsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ClinicDatabaseSystem.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Custom="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:converters="using:ClinicDatabaseSystem.Converters"
+    x:Class="ClinicDatabaseSystem.View.PatientRecordsPage"
     mc:Ignorable="d"
     Background="#353535">
+    <UserControl.Resources>
+        <converters:DateTimeConverter x:Key="converter"/>
+    </UserControl.Resources>
 
     <Grid>
-        <Border BorderBrush="Black" BorderThickness="4" Height="800" Width="1000" Margin="250,100,250,100">
-            <ListView x:Name="patientRecordsListView" Height="800" Width="1000" Background="#d9d9d9"/>
-        </Border>
         <Button x:Name="newPatientButton" Foreground="White" Background="#3c6e71" Content="New Patient" Margin="74,161,0,0" VerticalAlignment="Top" Click="newPatientButton_Click"/>
         <Button x:Name="logoutButton" Foreground="White" Background="#3c6e71" Content="Logout" Margin="74,211,0,0" VerticalAlignment="Top" Width="95" Click="logoutButton_Click"/>
         <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Margin="10,10,0,0" Text="Current User" TextWrapping="Wrap" VerticalAlignment="Top"/>
@@ -22,5 +24,16 @@
         <TextBlock x:Name="usernameTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="80,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="idTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="32,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
+        <Custom:DataGrid x:Name="recordsDataGrid" HorizontalAlignment="Center" VerticalAlignment="Center" Height="800" Width="1100" AutoGenerateColumns="False" ItemsSource="{x:Bind viewModel.Patients}" Foreground="White">
+            <Custom:DataGrid.Columns>
+                <Custom:DataGridTextColumn Header="Patient ID" Width="SizeToHeader" Binding="{Binding PatientId}" FontSize="20"/>
+                <Custom:DataGridTextColumn Header="First Name" Width="SizeToHeader"  Binding="{Binding FirstName}" FontSize="20"/>
+                <Custom:DataGridTextColumn Header="Last Name" Width="SizeToHeader" Binding="{Binding LastName}" FontSize="20"/>
+                <Custom:DataGridTextColumn Header="Birthdate" Width="150" Binding="{Binding Dob, Converter={StaticResource converter}}" FontSize="20"/>
+                <Custom:DataGridTextColumn Header="Phone Number" Width="200" Binding="{Binding PhoneNumber}" FontSize="20"/>
+                <Custom:DataGridTextColumn Header="Address" Width="300" Binding="{Binding Address.Address1}" FontSize="20"/>
+                <Custom:DataGridTextColumn Header="Zip" Width="150" Binding="{Binding Address.Zip}" FontSize="20"/>
+            </Custom:DataGrid.Columns>
+        </Custom:DataGrid>
     </Grid>
 </Page>

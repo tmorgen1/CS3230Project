@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ClinicDatabaseSystem.Controller;
 using ClinicDatabaseSystem.DAL;
+using ClinicDatabaseSystem.ViewModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,10 +26,12 @@ namespace ClinicDatabaseSystem.View
     /// </summary>
     public sealed partial class PatientRecordsPage : Page
     {
+        private readonly PatientRecordsViewModel viewModel;
+
         public PatientRecordsPage()
         {
             this.InitializeComponent();
-            this.getPatients();
+            this.viewModel = new PatientRecordsViewModel();
             this.updateCurrentUserTextBlocks();
         }
 
@@ -43,23 +46,13 @@ namespace ClinicDatabaseSystem.View
             ContentDialogResult result = await registerPatientContentDialog.ShowAsync();
             if (registerPatientContentDialog.RegisterSuccessful)
             {
-                this.getPatients();
+                this.viewModel.LoadPatients();
             }
         }
 
         private void logoutButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MainPage));
-        }
-
-        private void getPatients()
-        {
-            this.patientRecordsListView.Items?.Clear();
-            var patients = PatientDAL.GetPatients();
-            foreach (var patient in patients)
-            {
-                this.patientRecordsListView.Items?.Add(patient);
-            }
         }
 
         private void updateCurrentUserTextBlocks()
