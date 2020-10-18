@@ -30,6 +30,37 @@ namespace ClinicDatabaseSystem.View
         {
             this.InitializeComponent();
             this.addStatesToComboBox();
+
+            this.firstNameTextBox.MaxLength = 15;
+            this.lastNameTextBox.MaxLength = 15;
+            this.firstNameTextBox.TextChanged += onFirstNameChanged;
+            this.lastNameTextBox.TextChanged += onLastNameChanged;
+        }
+
+        private void onFirstNameChanged(object e, TextChangedEventArgs args)
+        {
+            if (this.firstNameTextBox.Text.Length >= this.firstNameTextBox.MaxLength)
+            {
+                this.firstNameErrorTextBlock.Text = "First name should be 15 characters at max.";
+                this.firstNameErrorTextBlock.Opacity = 100.0;
+            }
+            else
+            {
+                this.firstNameErrorTextBlock.Opacity = 0.0;
+            }
+        }
+
+        private void onLastNameChanged(object e, TextChangedEventArgs args)
+        {
+            if (this.lastNameTextBox.Text.Length >= this.lastNameTextBox.MaxLength)
+            {
+                this.lastNameErrorTextBlock.Text = "Last name should be 15 characters at max.";
+                this.lastNameErrorTextBlock.Opacity = 100.0;
+            }
+            else
+            {
+                this.lastNameErrorTextBlock.Opacity = 0.0;
+            }
         }
 
         private void registerPatientButton_Click(object sender, RoutedEventArgs e)
