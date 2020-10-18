@@ -35,7 +35,7 @@ namespace ClinicDatabaseSystem.View
         private void registerPatientButton_Click(object sender, RoutedEventArgs e)
         {
             if (PatientDAL.InsertPatient(this.lastNameTextBox.Text, this.firstNameTextBox.Text,
-                DateTime.Parse(this.birthdateTextBox.Text), this.phoneNumberTextBox.Text,
+                this.birthdateDatePicker.Date.Date, this.phoneNumberTextBox.Text,
                 new Address(this.addressTextBox.Text, this.address2TextBox.Text, this.zipTextBox.Text,
                     this.cityTextBox.Text, this.stateComboBox.SelectionBoxItem.ToString()), this.zipTextBox.Text))
             {

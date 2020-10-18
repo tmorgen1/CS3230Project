@@ -17,21 +17,21 @@
         <TextBlock HorizontalAlignment="Left" Margin="0,81,0,0" Text="Birthdate:" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.525,0.132"/>
         <TextBlock HorizontalAlignment="Left" Text="PhoneNumber:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,117,0,0"/>
         <TextBlock HorizontalAlignment="Left" Text="Address:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,155,0,0"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,192,0,0" Text="Zip:" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.457,0.5"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,229,0,0" Text="City:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,266,0,0" Text="State:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,303,0,0" Text="Address2:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="firstNameTextBox" HorizontalAlignment="Left" Margin="98,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172"/>
-        <TextBox x:Name="lastNameTextBox" HorizontalAlignment="Left" Margin="98,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172"/>
-        <TextBox x:Name="birthdateTextBox" HorizontalAlignment="Left" Margin="98,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172"/>
-        <TextBox x:Name="phoneNumberTextBox" HorizontalAlignment="Left" Margin="98,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172"/>
-        <TextBox x:Name="addressTextBox" HorizontalAlignment="Left" Margin="98,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172"/>
-        <TextBox x:Name="zipTextBox" HorizontalAlignment="Left" Margin="98,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172"/>
-        <TextBox x:Name="cityTextBox" HorizontalAlignment="Left" Margin="98,222,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172"/>
-        <TextBox x:Name="address2TextBox" HorizontalAlignment="Left" Margin="98,296,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,233,0,0" Text="Zip:" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.457,0.5"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,270,0,0" Text="City:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,307,0,0" Text="State:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,193,0,0" Text="Address2:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="firstNameTextBox" HorizontalAlignment="Left" Margin="98,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
+        <TextBox x:Name="lastNameTextBox" HorizontalAlignment="Left" Margin="98,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
+        <TextBox x:Name="phoneNumberTextBox" HorizontalAlignment="Left" Margin="98,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
+        <TextBox x:Name="addressTextBox" HorizontalAlignment="Left" Margin="98,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
+        <TextBox x:Name="zipTextBox" HorizontalAlignment="Left" Margin="98,226,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
+        <TextBox x:Name="cityTextBox" HorizontalAlignment="Left" Margin="98,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
+        <TextBox x:Name="address2TextBox" HorizontalAlignment="Left" Margin="98,186,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
         <Button x:Name="registerPatientButton" Foreground="White" Background="#3c6e71" Content="Register Patient" Margin="1,339,0,0" VerticalAlignment="Top" Click="registerPatientButton_Click"/>
         <Button x:Name="closeButton" Foreground="White" Background="#3c6e71" Content="Close" Margin="152,339,0,0" VerticalAlignment="Top" Width="118" Click="closeButton_Click"/>
-        <ComboBox x:Name="stateComboBox" Margin="98,259,0,0" Width="172"/>
+        <ComboBox x:Name="stateComboBox" Margin="98,300,0,0" Width="296"/>
+        <DatePicker x:Name="birthdateDatePicker" Margin="98,73,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </ContentDialog>
