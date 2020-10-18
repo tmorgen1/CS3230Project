@@ -21,9 +21,9 @@
         <TextBlock HorizontalAlignment="Left" Margin="0,479,0,0" Text="City:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,546,0,0" Text="State:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,343,0,0" Text="Address2:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="firstNameTextBox" HorizontalAlignment="Left" Margin="98,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
-        <TextBox x:Name="lastNameTextBox" HorizontalAlignment="Left" Margin="98,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
-        <TextBox x:Name="phoneNumberTextBox" HorizontalAlignment="Left" Margin="98,201,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
+        <TextBox x:Name="firstNameTextBox" HorizontalAlignment="Left" Margin="98,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" MaxLength="15" KeyDown="onFirstNameReachedMaxLength" LostFocus="FirstNameTextBox_OnLostFocus"/>
+        <TextBox x:Name="lastNameTextBox" HorizontalAlignment="Left" Margin="98,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" MaxLength="15" KeyDown="onLastNameReachedMaxLength" LostFocus="LastNameTextBox_OnLostFocus"/>
+        <TextBox x:Name="phoneNumberTextBox" HorizontalAlignment="Left" Margin="98,201,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" MaxLength="12" LostFocus="onPhoneNumberLostFocus"/>
         <TextBox x:Name="addressTextBox" HorizontalAlignment="Left" Margin="98,268,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" KeyDown="addressTextBox_KeyDown" MaxLength="30" LostFocus="AddressTextBox_OnLostFocus"/>
         <TextBox x:Name="zipTextBox" HorizontalAlignment="Left" Margin="98,402,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" MaxLength="5" IsColorFontEnabled="False" LostFocus="zipTextBox_LostFocus" KeyDown="zipTextBox_KeyDown" BeforeTextChanging="ZipTextBox_OnBeforeTextChanging"/>
         <TextBox x:Name="cityTextBox" HorizontalAlignment="Left" Margin="98,472,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" MaxLength="30" KeyDown="onCityTextKeyDown" LostFocus="CityTextBox_OnLostFocus"/>
@@ -31,7 +31,7 @@
         <Button x:Name="registerPatientButton" Foreground="White" Background="#3c6e71" Content="Register Patient" Margin="62,609,0,0" VerticalAlignment="Top" Click="registerPatientButton_Click"/>
         <Button x:Name="closeButton" Foreground="White" Background="#3c6e71" Content="Close" Margin="226,609,0,0" VerticalAlignment="Top" Width="118" Click="closeButton_Click"/>
         <ComboBox x:Name="stateComboBox" Margin="98,539,0,0" Width="296"/>
-        <DatePicker x:Name="birthdateDatePicker" Margin="98,133,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="birthdateDatePicker" Margin="98,133,0,0" VerticalAlignment="Top" SelectedDateChanged="onSelectedDateChanged"/>
         <TextBlock x:Name="firstNameErrorTextBlock" HorizontalAlignment="Left" Margin="98,37,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Foreground="Red" FocusVisualPrimaryBrush="Black" Visibility="Collapsed"/>
         <TextBlock x:Name="lastNameErrorTextBlock" HorizontalAlignment="Left" Margin="98,104,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Foreground="Red" FocusVisualPrimaryBrush="Black" Visibility="Collapsed"/>
         <TextBlock x:Name="birthdateErrorTextBlock" HorizontalAlignment="Left" Margin="98,170,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Foreground="Red" FocusVisualPrimaryBrush="Black" Visibility="Collapsed"/>

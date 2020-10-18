@@ -32,15 +32,6 @@ namespace ClinicDatabaseSystem.View
         {
             this.InitializeComponent();
             this.addStatesToComboBox();
-
-            this.firstNameTextBox.MaxLength = 15;
-            this.lastNameTextBox.MaxLength = 15;
-            this.phoneNumberTextBox.MaxLength = 12;
-
-            this.firstNameTextBox.KeyDown += onFirstNameReachedMaxLength;
-            this.lastNameTextBox.KeyDown += onLastNameReachedMaxLength;
-            this.birthdateDatePicker.SelectedDateChanged += onSelectedDateChanged;
-            this.phoneNumberTextBox.LostFocus += onPhoneNumberKeyDown;
         }
 
         private void onFirstNameReachedMaxLength(object e, KeyRoutedEventArgs args)
@@ -83,7 +74,7 @@ namespace ClinicDatabaseSystem.View
             }
         }
 
-        private void onPhoneNumberKeyDown(object sender, RoutedEventArgs e)
+        private void onPhoneNumberLostFocus(object sender, RoutedEventArgs e)
         {
             Regex regex = new Regex(@"[0-9]{3}-[0-9]{3}-[0-9]{4}");
             if (!regex.IsMatch(this.phoneNumberTextBox.Text) && this.phoneNumberTextBox.Text != String.Empty)
@@ -229,6 +220,16 @@ namespace ClinicDatabaseSystem.View
             {
                 this.zipErrorTextBlock.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void FirstNameTextBox_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            this.firstNameErrorTextBlock.Visibility = Visibility.Collapsed;
+        }
+
+        private void LastNameTextBox_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            this.lastNameErrorTextBlock.Visibility = Visibility.Collapsed;
         }
     }
 }
