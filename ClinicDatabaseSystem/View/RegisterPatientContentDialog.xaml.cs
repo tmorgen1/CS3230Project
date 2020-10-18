@@ -34,6 +34,74 @@ namespace ClinicDatabaseSystem.View
             this.addStatesToComboBox();
         }
 
+        private bool validateInput()
+        {
+            return this.validateFirstName() && this.validateLastName() && this.validateBirthdate() &&
+                   this.validatePhoneNumber() && this.validateAddress() && this.validateZip() && this.validateCity() &&
+                   this.validateState();
+        }
+
+        private void checkButtonStatus()
+        {
+            if (this.validateInput())
+            {
+                this.registerPatientButton.IsEnabled = true;
+            }
+            else
+            {
+                this.registerPatientButton.IsEnabled = false;
+            }
+        }
+
+        private bool validateFirstName()
+        {
+            return this.firstNameTextBox.Text != string.Empty;
+        }
+
+        private bool validateLastName()
+        {
+            return this.lastNameTextBox.Text != string.Empty;
+        }
+
+        private bool validateBirthdate()
+        {
+            int datetimeCompare = DateTime.Compare(this.birthdateDatePicker.Date.Date, DateTime.Today);
+            return datetimeCompare <= 0 && this.birthdateDatePicker.SelectedDate != null;
+        }
+
+        private bool validatePhoneNumber()
+        {
+            Regex regex = new Regex(@"[0-9]{3}-[0-9]{3}-[0-9]{4}");
+            if (!regex.IsMatch(this.phoneNumberTextBox.Text) && this.phoneNumberTextBox.Text != String.Empty)
+            {
+                this.phoneNumberErrorTextBlock.Text = "Incorrect format. E.g. 123-456-7890";
+                this.phoneNumberErrorTextBlock.Visibility = Visibility.Visible;
+                return false;
+            }
+            this.phoneNumberErrorTextBlock.Visibility = Visibility.Collapsed;
+            return true;
+        }
+
+        private bool validateAddress()
+        {
+            return this.addressTextBox.Text != string.Empty;
+        }
+
+        private bool validateZip()
+        {
+            return this.zipTextBox.Text != string.Empty && this.zipTextBox.Text.Length == 5;
+        }
+
+        private bool validateCity()
+        {
+            return this.cityTextBox.Text != string.Empty;
+        }
+
+        private bool validateState()
+        {
+            return this.stateComboBox.SelectedIndex != -1;
+        }
+
         private void onFirstNameReachedMaxLength(object e, KeyRoutedEventArgs args)
         {
             if (this.firstNameTextBox.Text.Length >= this.firstNameTextBox.MaxLength)
@@ -76,31 +144,26 @@ namespace ClinicDatabaseSystem.View
 
         private void onPhoneNumberLostFocus(object sender, RoutedEventArgs e)
         {
-            Regex regex = new Regex(@"[0-9]{3}-[0-9]{3}-[0-9]{4}");
-            if (!regex.IsMatch(this.phoneNumberTextBox.Text) && this.phoneNumberTextBox.Text != String.Empty)
-            {
-                this.phoneNumberErrorTextBlock.Text = "Incorrect format. E.g. 123-456-7890";
-                this.phoneNumberErrorTextBlock.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                this.phoneNumberErrorTextBlock.Visibility = Visibility.Collapsed;
-            }
+            this.checkButtonStatus();
+            this.validatePhoneNumber();
         }
 
         private void registerPatientButton_Click(object sender, RoutedEventArgs e)
         {
-            if (PatientDAL.InsertPatient(this.lastNameTextBox.Text, this.firstNameTextBox.Text,
-                this.birthdateDatePicker.Date.Date, this.phoneNumberTextBox.Text,
-                new Address(this.addressTextBox.Text, this.address2TextBox.Text, this.zipTextBox.Text,
-                    this.cityTextBox.Text, this.stateComboBox.SelectionBoxItem.ToString()), this.zipTextBox.Text))
+            if (this.validateInput())
             {
-                (Window.Current.Content as Frame)?.Navigate(typeof(PatientRecordsPage), null);
-                this.Hide();
-                this.RegisterSuccessful = true;
-            }
+                if (PatientDAL.InsertPatient(this.lastNameTextBox.Text, this.firstNameTextBox.Text,
+                    this.birthdateDatePicker.Date.Date, this.phoneNumberTextBox.Text,
+                    new Address(this.addressTextBox.Text, this.address2TextBox.Text, this.zipTextBox.Text,
+                        this.cityTextBox.Text, this.stateComboBox.SelectionBoxItem.ToString()), this.zipTextBox.Text))
+                {
+                    (Window.Current.Content as Frame)?.Navigate(typeof(PatientRecordsPage), null);
+                    this.Hide();
+                    this.RegisterSuccessful = true;
+                }
 
-            this.RegisterSuccessful = false;
+                this.RegisterSuccessful = false;
+            }
         }
 
         private void closeButton_Click(object sender, RoutedEventArgs e)
@@ -114,18 +177,6 @@ namespace ClinicDatabaseSystem.View
             {
                 this.stateComboBox.Items?.Add(state);
             }
-        }
-
-        private bool isStateEmpty()
-        {
-            if (this.stateComboBox.SelectedIndex == -1)
-            {
-                this.stateErrorTextBlock.Text = "Must select a state.";
-                this.stateErrorTextBlock.Visibility = Visibility.Visible;
-                return true;
-            }
-
-            return false;
         }
 
         private void onCityTextKeyDown(object sender, KeyRoutedEventArgs e)
@@ -143,7 +194,8 @@ namespace ClinicDatabaseSystem.View
 
         private void zipTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (this.zipTextBox.Text.Length < 5)
+            this.checkButtonStatus();
+            if (this.zipTextBox.Text.Length < 5 && this.zipTextBox.Text != string.Empty)
             {
                 this.zipErrorTextBlock.Text = "Zip must be 5 characters.";
                 this.zipErrorTextBlock.Visibility = Visibility.Visible;
@@ -195,16 +247,19 @@ namespace ClinicDatabaseSystem.View
 
         private void AddressTextBox_OnLostFocus(object sender, RoutedEventArgs e)
         {
+            this.checkButtonStatus();
             this.addressErrorTextBlock.Visibility = Visibility.Collapsed;
         }
 
         private void Address2TextBox_OnLostFocus(object sender, RoutedEventArgs e)
         {
+            this.checkButtonStatus();
             this.address2ErrorTextBlock.Visibility = Visibility.Collapsed;
         }
 
         private void CityTextBox_OnLostFocus(object sender, RoutedEventArgs e)
         {
+            this.checkButtonStatus();
             this.cityErrorTextBlock.Visibility = Visibility.Collapsed;
         }
 
@@ -224,12 +279,33 @@ namespace ClinicDatabaseSystem.View
 
         private void FirstNameTextBox_OnLostFocus(object sender, RoutedEventArgs e)
         {
+            this.checkButtonStatus();
             this.firstNameErrorTextBlock.Visibility = Visibility.Collapsed;
         }
 
         private void LastNameTextBox_OnLostFocus(object sender, RoutedEventArgs e)
         {
+            this.checkButtonStatus();
             this.lastNameErrorTextBlock.Visibility = Visibility.Collapsed;
+        }
+
+        private void BirthdateDatePicker_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            this.checkButtonStatus();
+        }
+
+        private void StateComboBox_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            this.checkButtonStatus();
+            if (this.stateComboBox.SelectedIndex != -1)
+            {
+                this.stateErrorTextBlock.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                this.stateErrorTextBlock.Text = "Must select a state.";
+                this.stateErrorTextBlock.Visibility = Visibility.Visible;
+            }
         }
     }
 }

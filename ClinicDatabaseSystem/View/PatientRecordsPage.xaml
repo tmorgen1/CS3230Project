@@ -24,7 +24,7 @@
         <TextBlock x:Name="usernameTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="80,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="idTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="32,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
-        <Custom:DataGrid x:Name="recordsDataGrid" HorizontalAlignment="Center" VerticalAlignment="Center" Height="800" Width="1100" AutoGenerateColumns="False" ItemsSource="{x:Bind viewModel.Patients}" Foreground="White">
+        <Custom:DataGrid x:Name="recordsDataGrid" HorizontalAlignment="Center" VerticalAlignment="Center" Height="800" Width="1100" AutoGenerateColumns="False" ItemsSource="{x:Bind viewModel.Patients}" Foreground="White" IsReadOnly="True">
             <Custom:DataGrid.Columns>
                 <Custom:DataGridTextColumn Header="Patient ID" Width="SizeToHeader" Binding="{Binding PatientId}" FontSize="20"/>
                 <Custom:DataGridTextColumn Header="First Name" Width="SizeToHeader"  Binding="{Binding FirstName}" FontSize="20"/>

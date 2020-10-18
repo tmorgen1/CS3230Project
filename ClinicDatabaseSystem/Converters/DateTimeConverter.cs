@@ -22,7 +22,7 @@ namespace ClinicDatabaseSystem.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            if (value == null)
+            if (value == null || string.IsNullOrEmpty(value.ToString()))
             {
                 return null;
             }
