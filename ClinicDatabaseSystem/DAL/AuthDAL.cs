@@ -15,7 +15,7 @@ namespace ClinicDatabaseSystem.DAL
             {
                 conn.Open();
                 string query =
-                    "select N.nurseID from account_credential A, nurse N where A.accountID = @username and A.password = @password and A.accountID = N.accountID";
+                    "select N.nurseID, A.accountID from account_credential A, nurse N where A.accountID = @username and A.password = @password and A.accountID = N.accountID";
 
                 using (MySqlCommand comm = new MySqlCommand(query, conn))
                 {
@@ -24,9 +24,32 @@ namespace ClinicDatabaseSystem.DAL
                     comm.Parameters.Add("@password", MySqlDbType.VarChar);
                     comm.Parameters["@password"].Value = password;
 
-                    int count = Convert.ToInt32(comm.ExecuteScalar());
+                    using (MySqlDataReader reader = comm.ExecuteReader())
+                    {
+                        int usernameOrdinal = reader.GetOrdinal("accountID");
+                        int nurseIdOrdinal = reader.GetOrdinal("nurseID");
 
-                    return count;
+                        while (reader.Read())
+                        {
+                            string readUsername = !reader.IsDBNull(usernameOrdinal)
+                                ? reader.GetString(usernameOrdinal)
+                                : null;
+                            int nurseId = !reader.IsDBNull(nurseIdOrdinal)
+                                ? reader.GetInt32(nurseIdOrdinal)
+                                : 0;
+
+                            if (readUsername == null)
+                            {
+                                continue;
+                            }
+                            if (readUsername.Equals(username))
+                            {
+                                return nurseId;
+                            }
+                        }
+                    }
+
+                    return 0;
                 }
             }
         }
