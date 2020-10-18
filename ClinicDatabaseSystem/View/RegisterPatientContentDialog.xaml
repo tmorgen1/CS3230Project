@@ -32,15 +32,15 @@
         <Button x:Name="closeButton" Foreground="White" Background="#3c6e71" Content="Close" Margin="226,609,0,0" VerticalAlignment="Top" Width="118" Click="closeButton_Click"/>
         <ComboBox x:Name="stateComboBox" Margin="98,539,0,0" Width="296"/>
         <DatePicker x:Name="birthdateDatePicker" Margin="98,133,0,0" VerticalAlignment="Top"/>
-        <TextBlock x:Name="firstNameErrorTextBlock" HorizontalAlignment="Left" Margin="98,37,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Foreground="Red" FocusVisualPrimaryBrush="Black" Opacity="0"/>
-        <TextBlock x:Name="lastNameErrorTextBlock" HorizontalAlignment="Left" Margin="98,104,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Foreground="Red" FocusVisualPrimaryBrush="Black" Opacity="0"/>
-        <TextBlock x:Name="birthdateErrorTextBlock" HorizontalAlignment="Left" Margin="98,170,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Foreground="Red" FocusVisualPrimaryBrush="Black" Opacity="0"/>
-        <TextBlock x:Name="phoneNumberErrorTextBlock" HorizontalAlignment="Left" Margin="98,238,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Foreground="Red" FocusVisualPrimaryBrush="Black" Opacity="0"/>
-        <TextBlock x:Name="addressErrorTextBlock" HorizontalAlignment="Left" Margin="98,305,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Foreground="Red" FocusVisualPrimaryBrush="Black" Opacity="0"/>
-        <TextBlock x:Name="address2ErrorTextBlock" HorizontalAlignment="Left" Margin="98,373,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Foreground="Red" FocusVisualPrimaryBrush="Black" Opacity="0"/>
-        <TextBlock x:Name="zipErrorTextBlock" HorizontalAlignment="Left" Margin="98,439,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Foreground="Red" FocusVisualPrimaryBrush="Black" Opacity="0"/>
-        <TextBlock x:Name="cityErrorTextBlock" HorizontalAlignment="Left" Margin="98,509,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Foreground="Red" FocusVisualPrimaryBrush="Black" Opacity="0"/>
-        <TextBlock x:Name="stateErrorTextBlock" HorizontalAlignment="Left" Margin="98,576,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Foreground="Red" FocusVisualPrimaryBrush="Black" Opacity="0"/>
+        <TextBlock x:Name="firstNameErrorTextBlock" HorizontalAlignment="Left" Margin="98,37,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Foreground="Red" FocusVisualPrimaryBrush="Black" Visibility="Collapsed"/>
+        <TextBlock x:Name="lastNameErrorTextBlock" HorizontalAlignment="Left" Margin="98,104,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Foreground="Red" FocusVisualPrimaryBrush="Black" Visibility="Collapsed"/>
+        <TextBlock x:Name="birthdateErrorTextBlock" HorizontalAlignment="Left" Margin="98,170,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Foreground="Red" FocusVisualPrimaryBrush="Black" Visibility="Collapsed"/>
+        <TextBlock x:Name="phoneNumberErrorTextBlock" HorizontalAlignment="Left" Margin="98,238,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Foreground="Red" FocusVisualPrimaryBrush="Black" Visibility="Collapsed"/>
+        <TextBlock x:Name="addressErrorTextBlock" HorizontalAlignment="Left" Margin="98,305,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Foreground="Red" FocusVisualPrimaryBrush="Black" Visibility="Collapsed"/>
+        <TextBlock x:Name="address2ErrorTextBlock" HorizontalAlignment="Left" Margin="98,373,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Foreground="Red" FocusVisualPrimaryBrush="Black" Visibility="Collapsed"/>
+        <TextBlock x:Name="zipErrorTextBlock" HorizontalAlignment="Left" Margin="98,439,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Foreground="Red" FocusVisualPrimaryBrush="Black" Visibility="Collapsed"/>
+        <TextBlock x:Name="cityErrorTextBlock" HorizontalAlignment="Left" Margin="98,509,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Foreground="Red" FocusVisualPrimaryBrush="Black" Visibility="Collapsed"/>
+        <TextBlock x:Name="stateErrorTextBlock" HorizontalAlignment="Left" Margin="98,576,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Foreground="Red" FocusVisualPrimaryBrush="Black" Visibility="Collapsed"/>
 
     </Grid>
 </ContentDialog>
