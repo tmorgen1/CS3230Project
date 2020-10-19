@@ -35,6 +35,33 @@ namespace ClinicDatabaseSystem.DAL
             }
         }
 
+        public static bool EditAddress(Address address, int patientId)
+        {
+            using (MySqlConnection conn = DbConnection.GetConnection())
+            {
+                conn.Open();
+                string updateStatement = "update address A, patient P set A.address1 = @address1, A.zip = @zip, A.city = @city, A.state = @state, A.address2 = @address2 where P.address = A.address1 and P.zip = A.zip and P.patientId = @patientId";
+
+                using (MySqlCommand comm = new MySqlCommand(updateStatement, conn))
+                {
+                    comm.Parameters.Add("@address1", MySqlDbType.VarChar);
+                    comm.Parameters["@address1"].Value = address.Address1;
+                    comm.Parameters.Add("@zip", MySqlDbType.VarChar);
+                    comm.Parameters["@zip"].Value = address.Zip;
+                    comm.Parameters.Add("@city", MySqlDbType.VarChar);
+                    comm.Parameters["@city"].Value = address.City;
+                    comm.Parameters.Add("@state", MySqlDbType.VarChar);
+                    comm.Parameters["@state"].Value = address.State;
+                    comm.Parameters.Add("@address2", MySqlDbType.VarChar);
+                    comm.Parameters["@address2"].Value = address.Address2;
+                    comm.Parameters.Add("@patientId", MySqlDbType.Int32);
+                    comm.Parameters["@patientId"].Value = patientId;
+
+                    return comm.ExecuteNonQuery() > 0;
+                }
+            }
+        }
+
         public static Address GetAddressWithPatientId(int patientId, string address1, string zip)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())

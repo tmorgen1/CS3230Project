@@ -41,6 +41,33 @@ namespace ClinicDatabaseSystem.DAL
             }
         }
 
+        public static bool EditPatient(Patient patient)
+        {
+            using (MySqlConnection conn = DbConnection.GetConnection())
+            {
+                conn.Open();
+                string updateStatement =
+                    "update patient set lastName = @lastName, firstName = @firstName, dob = @dob, phoneNumber = @phoneNumber where patientId = @patientId";
+
+                using (MySqlCommand comm = new MySqlCommand(updateStatement, conn))
+                {
+                    comm.Parameters.Add("@lastName", MySqlDbType.VarChar);
+                    comm.Parameters["@lastName"].Value = patient.LastName;
+                    comm.Parameters.Add("@firstName", MySqlDbType.VarChar);
+                    comm.Parameters["@firstName"].Value = patient.FirstName;
+                    comm.Parameters.Add("@dob", MySqlDbType.Date);
+                    comm.Parameters["@dob"].Value = patient.Dob;
+                    comm.Parameters.Add("@phoneNumber", MySqlDbType.VarChar);
+                    comm.Parameters["@phoneNumber"].Value = patient.PhoneNumber;
+                    comm.Parameters.Add("@patientId", MySqlDbType.Int32);
+                    comm.Parameters["@patientId"].Value = patient.PatientId;
+
+                    bool addressAdded = AddressDAL.EditAddress(patient.Address, patient.PatientId);
+                    return comm.ExecuteNonQuery() > 0 && addressAdded;
+                }
+            }
+        }
+
         public static IList<Patient> GetAllPatients()
         {
             List<Patient> patients = new List<Patient>();

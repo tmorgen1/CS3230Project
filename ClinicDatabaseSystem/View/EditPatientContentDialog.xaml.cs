@@ -24,11 +24,14 @@ namespace ClinicDatabaseSystem.View
 {
     public sealed partial class EditPatientContentDialog : ContentDialog
     {
-        public bool RegisterSuccessful { get; private set; }
+        private Patient patient;
+
+        public bool UpdateSuccessful { get; private set; }
 
         public EditPatientContentDialog(Patient patient)
         {
             this.InitializeComponent();
+            this.patient = patient;
             this.addStatesToComboBox();
             this.loadPatientInfo(patient);
         }
@@ -306,15 +309,29 @@ namespace ClinicDatabaseSystem.View
         {
             if (this.validateInput())
             {
-                if (true)
+                this.updatePatientInfo();
+                if (PatientDAL.EditPatient(this.patient))
                 {
                     (Window.Current.Content as Frame)?.Navigate(typeof(PatientRecordsPage), null);
                     this.Hide();
-                    this.RegisterSuccessful = true;
+                    this.UpdateSuccessful = true;
                 }
 
-                this.RegisterSuccessful = false;
+                this.UpdateSuccessful = false;
             }
+        }
+
+        private void updatePatientInfo()
+        {
+            this.patient.Address.Address1 = this.addressTextBox.Text;
+            this.patient.Address.Address2 = this.address2TextBox.Text;
+            this.patient.Address.Zip = this.zipTextBox.Text;
+            this.patient.Address.City = this.cityTextBox.Text;
+            this.patient.Address.State = this.stateComboBox.SelectionBoxItem.ToString();
+            this.patient.Dob = this.birthdateDatePicker.Date.Date;
+            this.patient.FirstName = this.firstNameTextBox.Text;
+            this.patient.LastName = this.lastNameTextBox.Text;
+            this.patient.PhoneNumber = this.phoneNumberTextBox.Text;
         }
     }
 }

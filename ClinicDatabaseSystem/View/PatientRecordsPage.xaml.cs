@@ -76,6 +76,10 @@ namespace ClinicDatabaseSystem.View
         {
             EditPatientContentDialog editPatientContentDialog = new EditPatientContentDialog(patient);
             await editPatientContentDialog.ShowAsync();
+            if (editPatientContentDialog.UpdateSuccessful)
+            {
+                this.viewModel.LoadPatients();
+            }
         }
 
         private void recordsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
