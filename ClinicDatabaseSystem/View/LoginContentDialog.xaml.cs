@@ -35,11 +35,45 @@ namespace ClinicDatabaseSystem.View
                 (Window.Current.Content as Frame)?.Navigate(typeof(PatientRecordsPage), null);
                 this.Hide();
             }
+            else
+            {
+                this.loginErrorTextBox.Text = "Invalid Credentials.";
+                this.loginErrorTextBox.Visibility = Visibility.Visible;
+            }
         }
 
         private void closeButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
+        }
+
+        private void UsernameTextBox_OnTextChanged(object sender, RoutedEventArgs e)
+        {
+            this.checkLoginButtonStatus();
+            this.loginErrorTextBox.Visibility = Visibility.Collapsed;
+        }
+
+        private void checkLoginButtonStatus()
+        {
+            if (this.validateInput())
+            {
+                this.loginButton.IsEnabled = true;
+            }
+            else
+            {
+                this.loginButton.IsEnabled = false;
+            }
+        }
+
+        private bool validateInput()
+        {
+            return this.usernameTextBox.Text != string.Empty && this.passwordBox.Password != string.Empty;
+        }
+
+        private void PasswordBox_OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            this.checkLoginButtonStatus();
+            this.loginErrorTextBox.Visibility = Visibility.Collapsed;
         }
     }
 }
