@@ -21,7 +21,7 @@ namespace ClinicDatabaseSystem.ViewModel
         public void LoadPatients()
         {
             this.Patients.Clear();
-            var patients = PatientDAL.GetPatients();
+            var patients = PatientDAL.GetAllPatients();
             foreach (var patient in patients)
             {
                 this.Patients?.Add(patient);

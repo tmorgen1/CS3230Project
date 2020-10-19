@@ -34,13 +34,14 @@ namespace ClinicDatabaseSystem.DAL
                     comm.Parameters.Add("@zip", MySqlDbType.VarChar);
                     comm.Parameters["@zip"].Value = zip;
 
+                    // look into sql transactions
                     bool addressAdded = AddressDAL.InsertAddress(address);
                     return comm.ExecuteNonQuery() > 0 && addressAdded;
                 }
             }
         }
 
-        public static IList<Patient> GetPatients()
+        public static IList<Patient> GetAllPatients()
         {
             List<Patient> patients = new List<Patient>();
 
@@ -83,6 +84,174 @@ namespace ClinicDatabaseSystem.DAL
                             Address address = GetAddressAndZipNewConnection(id, address1, zip);
 
                             patients.Add(new Patient(id, lastName, firstName, dob, phoneNumber, address));
+                        }
+                    }
+                }
+            }
+
+            return patients;
+        }
+
+        public static IList<Patient> SearchForPatients(DateTime dob)
+        {
+            List<Patient> patients = new List<Patient>();
+
+            using (MySqlConnection conn = DbConnection.GetConnection())
+            {
+                conn.Open();
+                string query = "select * from patient where dob = @dob";
+
+                using (MySqlCommand comm = new MySqlCommand(query, conn))
+                {
+                    comm.Parameters.Add("@dob", MySqlDbType.Date);
+                    comm.Parameters["@dob"].Value = dob;
+
+                    using (MySqlDataReader reader = comm.ExecuteReader())
+                    {
+                        int idOrdinal = reader.GetOrdinal("patientID");
+                        int lastNameOrdinal = reader.GetOrdinal("lastName");
+                        int firstNameOrdinal = reader.GetOrdinal("firstName");
+                        int dobOrdinal = reader.GetOrdinal("dob");
+                        int phoneNumberOrdinal = reader.GetOrdinal("phoneNumber");
+                        int addressOrdinal = reader.GetOrdinal("address");
+                        int zipOrdinal = reader.GetOrdinal("zip");
+
+                        while (reader.Read())
+                        {
+                            int id = !reader.IsDBNull(idOrdinal) ? reader.GetInt32(idOrdinal) : 0;
+                            string lastName = !reader.IsDBNull(lastNameOrdinal)
+                                ? reader.GetString(lastNameOrdinal)
+                                : null;
+                            string firstName = !reader.IsDBNull(firstNameOrdinal)
+                                ? reader.GetString(firstNameOrdinal)
+                                : null;
+                            DateTime localDob = !reader.IsDBNull(dobOrdinal)
+                                ? reader.GetDateTime(dobOrdinal)
+                                : default(DateTime);
+                            string phoneNumber = !reader.IsDBNull(phoneNumberOrdinal)
+                                ? reader.GetString(phoneNumberOrdinal)
+                                : null;
+                            string address1 = !reader.IsDBNull(addressOrdinal)
+                                ? reader.GetString(addressOrdinal)
+                                : null;
+                            string zip = !reader.IsDBNull(zipOrdinal) ? reader.GetString(zipOrdinal) : null;
+                            Address address = GetAddressAndZipNewConnection(id, address1, zip);
+
+                            patients.Add(new Patient(id, lastName, firstName, localDob, phoneNumber, address));
+                        }
+                    }
+                }
+            }
+
+            return patients;
+        }
+
+        public static IList<Patient> SearchForPatients(string firstName, string lastName)
+        {
+            List<Patient> patients = new List<Patient>();
+
+            using (MySqlConnection conn = DbConnection.GetConnection())
+            {
+                conn.Open();
+                string query = "select * from patient where firstName = @firstName and lastName = @lastName";
+
+                using (MySqlCommand comm = new MySqlCommand(query, conn))
+                {
+                    comm.Parameters.Add("@firstName", MySqlDbType.VarChar);
+                    comm.Parameters["@firstName"].Value = firstName;
+                    comm.Parameters.Add("@lastName", MySqlDbType.VarChar);
+                    comm.Parameters["@lastName"].Value = lastName;
+
+                    using (MySqlDataReader reader = comm.ExecuteReader())
+                    {
+                        int idOrdinal = reader.GetOrdinal("patientID");
+                        int lastNameOrdinal = reader.GetOrdinal("lastName");
+                        int firstNameOrdinal = reader.GetOrdinal("firstName");
+                        int dobOrdinal = reader.GetOrdinal("dob");
+                        int phoneNumberOrdinal = reader.GetOrdinal("phoneNumber");
+                        int addressOrdinal = reader.GetOrdinal("address");
+                        int zipOrdinal = reader.GetOrdinal("zip");
+
+                        while (reader.Read())
+                        {
+                            int id = !reader.IsDBNull(idOrdinal) ? reader.GetInt32(idOrdinal) : 0;
+                            string localLastName = !reader.IsDBNull(lastNameOrdinal)
+                                ? reader.GetString(lastNameOrdinal)
+                                : null;
+                            string localFirstName = !reader.IsDBNull(firstNameOrdinal)
+                                ? reader.GetString(firstNameOrdinal)
+                                : null;
+                            DateTime dob = !reader.IsDBNull(dobOrdinal)
+                                ? reader.GetDateTime(dobOrdinal)
+                                : default(DateTime);
+                            string phoneNumber = !reader.IsDBNull(phoneNumberOrdinal)
+                                ? reader.GetString(phoneNumberOrdinal)
+                                : null;
+                            string address1 = !reader.IsDBNull(addressOrdinal)
+                                ? reader.GetString(addressOrdinal)
+                                : null;
+                            string zip = !reader.IsDBNull(zipOrdinal) ? reader.GetString(zipOrdinal) : null;
+                            Address address = GetAddressAndZipNewConnection(id, address1, zip);
+
+                            patients.Add(new Patient(id, lastName, firstName, dob, phoneNumber, address));
+                        }
+                    }
+                }
+            }
+
+            return patients;
+        }
+
+        public static IList<Patient> SearchForPatients(string firstName, string lastName, DateTime dob)
+        {
+            List<Patient> patients = new List<Patient>();
+
+            using (MySqlConnection conn = DbConnection.GetConnection())
+            {
+                conn.Open();
+                string query = "select * from patient where firstName = @firstName and lastName = @lastName and dob = @dob";
+
+                using (MySqlCommand comm = new MySqlCommand(query, conn))
+                {
+                    comm.Parameters.Add("@firstName", MySqlDbType.VarChar);
+                    comm.Parameters["@firstName"].Value = firstName;
+                    comm.Parameters.Add("@lastName", MySqlDbType.VarChar);
+                    comm.Parameters["@lastName"].Value = lastName;
+                    comm.Parameters.Add("@dob", MySqlDbType.Date);
+                    comm.Parameters["@dob"].Value = dob;
+
+                    using (MySqlDataReader reader = comm.ExecuteReader())
+                    {
+                        int idOrdinal = reader.GetOrdinal("patientID");
+                        int lastNameOrdinal = reader.GetOrdinal("lastName");
+                        int firstNameOrdinal = reader.GetOrdinal("firstName");
+                        int dobOrdinal = reader.GetOrdinal("dob");
+                        int phoneNumberOrdinal = reader.GetOrdinal("phoneNumber");
+                        int addressOrdinal = reader.GetOrdinal("address");
+                        int zipOrdinal = reader.GetOrdinal("zip");
+
+                        while (reader.Read())
+                        {
+                            int id = !reader.IsDBNull(idOrdinal) ? reader.GetInt32(idOrdinal) : 0;
+                            string localLastName = !reader.IsDBNull(lastNameOrdinal)
+                                ? reader.GetString(lastNameOrdinal)
+                                : null;
+                            string localFirstName = !reader.IsDBNull(firstNameOrdinal)
+                                ? reader.GetString(firstNameOrdinal)
+                                : null;
+                            DateTime localDob = !reader.IsDBNull(dobOrdinal)
+                                ? reader.GetDateTime(dobOrdinal)
+                                : default(DateTime);
+                            string phoneNumber = !reader.IsDBNull(phoneNumberOrdinal)
+                                ? reader.GetString(phoneNumberOrdinal)
+                                : null;
+                            string address1 = !reader.IsDBNull(addressOrdinal)
+                                ? reader.GetString(addressOrdinal)
+                                : null;
+                            string zip = !reader.IsDBNull(zipOrdinal) ? reader.GetString(zipOrdinal) : null;
+                            Address address = GetAddressAndZipNewConnection(id, address1, zip);
+
+                            patients.Add(new Patient(id, lastName, firstName, localDob, phoneNumber, address));
                         }
                     }
                 }
