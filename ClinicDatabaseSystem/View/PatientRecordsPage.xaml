@@ -16,6 +16,7 @@
     <Grid>
         <Button x:Name="newPatientButton" Foreground="White" Background="#3c6e71" Content="New Patient" Margin="74,161,0,0" VerticalAlignment="Top" Click="newPatientButton_Click"/>
         <Button x:Name="logoutButton" Foreground="White" Background="#3c6e71" Content="Logout" Margin="74,211,0,0" VerticalAlignment="Top" Width="95" Click="logoutButton_Click"/>
+        <Button x:Name="editPatientButton" IsEnabled="True" Foreground="White" Background="#3c6e71" Content="Edit Patient" Margin="74,262,0,0" VerticalAlignment="Top" Width="95" Click="editPatientButton_Click"/>
         <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Margin="10,10,0,0" Text="Current User" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,42,0,0" Text="FullName:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="fullNameTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="79,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
@@ -24,7 +25,7 @@
         <TextBlock x:Name="usernameTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="80,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="idTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="32,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
-        <Custom:DataGrid x:Name="recordsDataGrid" HorizontalAlignment="Center" VerticalAlignment="Center" Height="800" Width="1100" AutoGenerateColumns="False" ItemsSource="{x:Bind viewModel.Patients}" Foreground="White" IsReadOnly="True">
+        <Custom:DataGrid x:Name="recordsDataGrid" HorizontalAlignment="Center" VerticalAlignment="Center" Height="800" Width="1100" AutoGenerateColumns="False" ItemsSource="{x:Bind viewModel.Patients}" Foreground="White" IsReadOnly="True" SelectionChanged="recordsDataGrid_SelectionChanged" LostFocus="RecordsDataGrid_OnLostFocus">
             <Custom:DataGrid.Columns>
                 <Custom:DataGridTextColumn Header="Patient ID" Width="SizeToHeader" Binding="{Binding PatientId}" FontSize="20"/>
                 <Custom:DataGridTextColumn Header="First Name" Width="SizeToHeader"  Binding="{Binding FirstName}" FontSize="20"/>

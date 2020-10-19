@@ -29,14 +29,5 @@ namespace ClinicDatabaseSystem.Model
             this.PhoneNumber = phoneNumber;
             this.Address = address;
         }
-
-        public override string ToString()
-        {
-            //probably replace with a real formatter, yoder wouldnt be happy
-            return "PatientID: " + this.PatientId + ", Last Name: " + this.LastName + ", First Name: " + this.FirstName +
-                   ", Birthdate: " + this.Dob + ", Phone Number: " + this.PhoneNumber + ", Address: " + this.Address.Address1 + 
-                   ", Zip: " + this.Address.Zip + ", City: " + this.Address.City + ", State: " + this.Address.State + ", Address2: " + 
-                   this.Address.Address2;
-        }
     }
 }

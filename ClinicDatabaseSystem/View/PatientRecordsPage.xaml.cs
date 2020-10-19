@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -15,6 +16,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ClinicDatabaseSystem.Controller;
 using ClinicDatabaseSystem.DAL;
+using ClinicDatabaseSystem.Model;
 using ClinicDatabaseSystem.ViewModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -43,7 +45,7 @@ namespace ClinicDatabaseSystem.View
         private async void displayRegisterPatientContentDialog()
         {
             RegisterPatientContentDialog registerPatientContentDialog = new RegisterPatientContentDialog();
-            ContentDialogResult result = await registerPatientContentDialog.ShowAsync();
+            await registerPatientContentDialog.ShowAsync();
             if (registerPatientContentDialog.RegisterSuccessful)
             {
                 this.viewModel.LoadPatients();
@@ -61,6 +63,29 @@ namespace ClinicDatabaseSystem.View
                 LoginController.CurrentUser.FirstName + " " + LoginController.CurrentUser.LastName;
             this.usernameTextBlock.Text = LoginController.CurrentUser.AccountId;
             this.idTextBlock.Text = LoginController.CurrentUser.NurseId.ToString();
+        }
+
+        private void editPatientButton_Click(object sender, RoutedEventArgs e)
+        {
+            var index = this.recordsDataGrid.SelectedIndex;
+            var patient = this.viewModel.Patients[index];
+            this.displayEditPatientContentDialog(patient);
+        }
+
+        private async void displayEditPatientContentDialog(Patient patient)
+        {
+            EditPatientContentDialog editPatientContentDialog = new EditPatientContentDialog(patient);
+            await editPatientContentDialog.ShowAsync();
+        }
+
+        private void recordsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
+
+        private void RecordsDataGrid_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

@@ -132,7 +132,11 @@
     <Compile Include="Model\Doctor.cs" />
     <Compile Include="Model\Nurse.cs" />
     <Compile Include="Model\Patient.cs" />
+    <Compile Include="Utils\StateConverter.cs" />
     <Compile Include="ViewModel\PatientRecordsViewModel.cs" />
+    <Compile Include="View\EditPatientContentDialog.xaml.cs">
+      <DependentUpon>EditPatientContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PatientRecordsPage.xaml.cs">
       <DependentUpon>PatientRecordsPage.xaml</DependentUpon>
     </Compile>
@@ -167,6 +171,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="View\EditPatientContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\PatientRecordsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
