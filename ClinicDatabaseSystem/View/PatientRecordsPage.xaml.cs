@@ -84,12 +84,50 @@ namespace ClinicDatabaseSystem.View
 
         private void recordsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            //TODO: fix edit button enabled
         }
 
         private void RecordsDataGrid_OnLostFocus(object sender, RoutedEventArgs e)
         {
-            
+            //TODO: fix edit button enabled
+        }
+
+        private void searchFullName_LostFocus(object sender, RoutedEventArgs e)
+        {
+            this.searchPatients();
+        }
+
+        private void searchDatePicker_LostFocus(object sender, RoutedEventArgs e)
+        {
+            this.searchPatients();
+        }
+
+        private void searchPatients()
+        {
+            if (!this.searchDatePicker.SelectedDate.HasValue && this.searchFullName.Text != string.Empty)
+            {
+                string fullName = this.searchFullName.Text;
+                fullName = fullName.Trim();
+                var firstName = fullName.Split(' ')[0];
+                var lastName = fullName.Split(' ')[1];
+                this.viewModel.Patients = (List<Patient>)(PatientDAL.SearchForPatients(firstName, lastName));
+            }
+            else if (this.searchFullName.Text == string.Empty && this.searchDatePicker.SelectedDate.HasValue)
+            {
+                this.viewModel.Patients = (List<Patient>)(PatientDAL.SearchForPatients(this.searchDatePicker.Date.Date));
+            }
+            else if (this.searchFullName.Text != string.Empty && this.searchDatePicker.SelectedDate.HasValue)
+            {
+                string fullName = this.searchFullName.Text;
+                fullName = fullName.Trim();
+                var firstName = fullName.Split(' ')[0];
+                var lastName = fullName.Split(' ')[1];
+                this.viewModel.Patients = (List<Patient>)(PatientDAL.SearchForPatients(firstName, lastName, this.searchDatePicker.Date.Date));
+            }
+            else
+            {
+                this.viewModel.LoadPatients();
+            }
         }
     }
 }

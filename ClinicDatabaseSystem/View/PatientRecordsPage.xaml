@@ -14,9 +14,9 @@
     </UserControl.Resources>
 
     <Grid>
-        <Button x:Name="newPatientButton" Foreground="White" Background="#3c6e71" Content="New Patient" Margin="74,161,0,0" VerticalAlignment="Top" Click="newPatientButton_Click"/>
-        <Button x:Name="logoutButton" Foreground="White" Background="#3c6e71" Content="Logout" Margin="74,211,0,0" VerticalAlignment="Top" Width="95" Click="logoutButton_Click"/>
-        <Button x:Name="editPatientButton" IsEnabled="True" Foreground="White" Background="#3c6e71" Content="Edit Patient" Margin="74,262,0,0" VerticalAlignment="Top" Width="95" Click="editPatientButton_Click"/>
+        <Button x:Name="newPatientButton" Foreground="White" Background="#3c6e71" Content="New Patient" Margin="34,161,0,0" VerticalAlignment="Top" Click="newPatientButton_Click"/>
+        <Button x:Name="logoutButton" Foreground="White" Background="#3c6e71" Content="Logout" Margin="34,316,0,0" VerticalAlignment="Top" Width="95" Click="logoutButton_Click"/>
+        <Button x:Name="editPatientButton" IsEnabled="True" Foreground="White" Background="#3c6e71" Content="Edit Patient" Margin="34,217,0,0" VerticalAlignment="Top" Width="95" Click="editPatientButton_Click"/>
         <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Margin="10,10,0,0" Text="Current User" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,42,0,0" Text="FullName:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="fullNameTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="79,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
@@ -25,16 +25,20 @@
         <TextBlock x:Name="usernameTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="80,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="idTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="32,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
-        <Custom:DataGrid x:Name="recordsDataGrid" HorizontalAlignment="Center" VerticalAlignment="Center" Height="800" Width="1100" AutoGenerateColumns="False" ItemsSource="{x:Bind viewModel.Patients}" Foreground="White" IsReadOnly="True" SelectionChanged="recordsDataGrid_SelectionChanged" LostFocus="RecordsDataGrid_OnLostFocus">
+        <Custom:DataGrid x:Name="recordsDataGrid" HorizontalAlignment="Left" VerticalAlignment="Center" Height="679" Width="1297" AutoGenerateColumns="False" ItemsSource="{x:Bind viewModel.Patients, Mode=TwoWay}" Foreground="White" IsReadOnly="True" SelectionChanged="recordsDataGrid_SelectionChanged" LostFocus="RecordsDataGrid_OnLostFocus" Margin="169,0,0,0">
             <Custom:DataGrid.Columns>
                 <Custom:DataGridTextColumn Header="Patient ID" Width="SizeToHeader" Binding="{Binding PatientId}" FontSize="20"/>
-                <Custom:DataGridTextColumn Header="First Name" Width="SizeToHeader"  Binding="{Binding FirstName}" FontSize="20"/>
-                <Custom:DataGridTextColumn Header="Last Name" Width="SizeToHeader" Binding="{Binding LastName}" FontSize="20"/>
+                <Custom:DataGridTextColumn Header="First Name" Width="200"  Binding="{Binding FirstName}" FontSize="20"/>
+                <Custom:DataGridTextColumn Header="Last Name" Width="200" Binding="{Binding LastName}" FontSize="20"/>
                 <Custom:DataGridTextColumn Header="Birthdate" Width="150" Binding="{Binding Dob, Converter={StaticResource converter}}" FontSize="20"/>
                 <Custom:DataGridTextColumn Header="Phone Number" Width="200" Binding="{Binding PhoneNumber}" FontSize="20"/>
                 <Custom:DataGridTextColumn Header="Address" Width="300" Binding="{Binding Address.Address1}" FontSize="20"/>
                 <Custom:DataGridTextColumn Header="Zip" Width="150" Binding="{Binding Address.Zip}" FontSize="20"/>
             </Custom:DataGrid.Columns>
         </Custom:DataGrid>
+        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="169,57,0,0" Text="Full Name:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="searchFullName" HorizontalAlignment="Left" Margin="239,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="325" LostFocus="searchFullName_LostFocus"/>
+        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="789,57,0,0" Text="Birthdate:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <DatePicker x:Name="searchDatePicker" Margin="853,50,0,0" VerticalAlignment="Top" Width="325" LostFocus="searchDatePicker_LostFocus"/>
     </Grid>
 </Page>

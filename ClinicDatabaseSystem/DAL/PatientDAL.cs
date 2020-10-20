@@ -220,7 +220,7 @@ namespace ClinicDatabaseSystem.DAL
                             string zip = !reader.IsDBNull(zipOrdinal) ? reader.GetString(zipOrdinal) : null;
                             Address address = GetAddressAndZipNewConnection(id, address1, zip);
 
-                            patients.Add(new Patient(id, lastName, firstName, dob, phoneNumber, address));
+                            patients.Add(new Patient(id, localLastName, localFirstName, dob, phoneNumber, address));
                         }
                     }
                 }
