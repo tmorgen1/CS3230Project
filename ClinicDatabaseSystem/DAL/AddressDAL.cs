@@ -35,6 +35,29 @@ namespace ClinicDatabaseSystem.DAL
             }
         }
 
+        public static bool InsertAddressUsingCommand(Address address, MySqlCommand command)
+        {
+            string insertStatement = "insert into address values (@2address1, @2zip, @2city, @2state, @2address2)";
+
+            using (MySqlCommand comm = command)
+            {
+                comm.CommandText = insertStatement;
+
+                comm.Parameters.Add("@2address1", MySqlDbType.VarChar);
+                comm.Parameters["@2address1"].Value = address.Address1;
+                comm.Parameters.Add("@2zip", MySqlDbType.VarChar);
+                comm.Parameters["@2zip"].Value = address.Zip;
+                comm.Parameters.Add("@2city", MySqlDbType.VarChar);
+                comm.Parameters["@2city"].Value = address.City;
+                comm.Parameters.Add("@2state", MySqlDbType.VarChar);
+                comm.Parameters["@2state"].Value = address.State;
+                comm.Parameters.Add("@2address2", MySqlDbType.VarChar);
+                comm.Parameters["@2address2"].Value = address.Address2;
+
+                return comm.ExecuteNonQuery() > 0;
+            }
+        }
+
         public static bool EditAddress(Address address, int patientId)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())
@@ -60,6 +83,32 @@ namespace ClinicDatabaseSystem.DAL
                     return comm.ExecuteNonQuery() > 0;
                 }
             }
+        }
+
+        public static bool EditAddressUsingCommand(Address address, int patientId, MySqlCommand command)
+        {
+            string updateStatement = "update address A, patient P set A.address1 = @2address1, A.zip = @2zip, A.city = @2city, A.state = @2state, A.address2 = @2address2 where P.address = A.address1 and P.zip = A.zip and P.patientId = @2patientId";
+
+            using (MySqlCommand comm = command)
+            {
+                comm.CommandText = updateStatement;
+
+                comm.Parameters.Add("@2address1", MySqlDbType.VarChar);
+                comm.Parameters["@2address1"].Value = address.Address1;
+                comm.Parameters.Add("@2zip", MySqlDbType.VarChar);
+                comm.Parameters["@2zip"].Value = address.Zip;
+                comm.Parameters.Add("@2city", MySqlDbType.VarChar);
+                comm.Parameters["@2city"].Value = address.City;
+                comm.Parameters.Add("@2state", MySqlDbType.VarChar);
+                comm.Parameters["@2state"].Value = address.State;
+                comm.Parameters.Add("@2address2", MySqlDbType.VarChar);
+                comm.Parameters["@2address2"].Value = address.Address2;
+                comm.Parameters.Add("@2patientId", MySqlDbType.Int32);
+                comm.Parameters["@2patientId"].Value = patientId;
+
+                return comm.ExecuteNonQuery() > 0;
+            }
+
         }
 
         public static Address GetAddressWithPatientId(int patientId, string address1, string zip)

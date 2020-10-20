@@ -35,8 +35,28 @@ namespace ClinicDatabaseSystem.DAL
                     comm.Parameters["@zip"].Value = zip;
 
                     // look into sql transactions
-                    bool addressAdded = AddressDAL.InsertAddress(address);
-                    return comm.ExecuteNonQuery() > 0 && addressAdded;
+                    try
+                    {
+                        comm.Transaction = conn.BeginTransaction();
+                        AddressDAL.InsertAddressUsingCommand(address, comm);
+                        comm.CommandText = insertStatement;
+                        comm.ExecuteNonQuery();
+                        comm.Transaction.Commit();
+
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        try
+                        {
+                            comm.Transaction.Rollback();
+                            throw ex;
+                        }
+                        catch (Exception ex2)
+                        {
+                            throw ex2;
+                        }
+                    }
                 }
             }
         }
@@ -62,8 +82,28 @@ namespace ClinicDatabaseSystem.DAL
                     comm.Parameters.Add("@patientId", MySqlDbType.Int32);
                     comm.Parameters["@patientId"].Value = patient.PatientId;
 
-                    bool addressAdded = AddressDAL.EditAddress(patient.Address, patient.PatientId);
-                    return comm.ExecuteNonQuery() > 0 && addressAdded;
+                    try
+                    {
+                        comm.Transaction = conn.BeginTransaction();
+                        AddressDAL.EditAddressUsingCommand(patient.Address, patient.PatientId, comm);
+                        comm.CommandText = updateStatement;
+                        comm.ExecuteNonQuery();
+                        comm.Transaction.Commit();
+
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        try
+                        {
+                            comm.Transaction.Rollback();
+                            throw ex;
+                        }
+                        catch (Exception ex2)
+                        {
+                            throw ex2;
+                        }
+                    }
                 }
             }
         }
