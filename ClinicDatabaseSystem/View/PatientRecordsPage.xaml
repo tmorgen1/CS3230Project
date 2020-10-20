@@ -14,6 +14,7 @@
     </UserControl.Resources>
 
     <Grid>
+        <SymbolIcon Symbol="Cancel" Foreground="White" Tapped="SymbolIcon_Tapped" VerticalAlignment="Top" Margin="1183,57,717,0" Height="20" Width="20"  />
         <Button x:Name="newPatientButton" Foreground="White" Background="#3c6e71" Content="New Patient" Margin="34,161,0,0" VerticalAlignment="Top" Click="newPatientButton_Click"/>
         <Button x:Name="logoutButton" Foreground="White" Background="#3c6e71" Content="Logout" Margin="34,316,0,0" VerticalAlignment="Top" Width="95" Click="logoutButton_Click"/>
         <Button x:Name="editPatientButton" IsEnabled="True" Foreground="White" Background="#3c6e71" Content="Edit Patient" Margin="34,217,0,0" VerticalAlignment="Top" Width="95" Click="editPatientButton_Click"/>
@@ -39,6 +40,7 @@
         <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="169,57,0,0" Text="Full Name:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox x:Name="searchFullName" HorizontalAlignment="Left" Margin="239,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="325" LostFocus="searchFullName_LostFocus"/>
         <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="789,57,0,0" Text="Birthdate:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <DatePicker x:Name="searchDatePicker" Margin="853,50,0,0" VerticalAlignment="Top" Width="325" LostFocus="searchDatePicker_LostFocus"/>
+        <DatePicker x:Name="searchDatePicker" Margin="853,50,0,0" VerticalAlignment="Top" Width="325" LostFocus="searchDatePicker_LostFocus" SelectedDateChanged="SearchDatePicker_OnSelectedDateChanged"/>
+        <TextBlock x:Name="searchFullNameErrorTextBlock" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Left" Margin="239,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
     </Grid>
 </Page>

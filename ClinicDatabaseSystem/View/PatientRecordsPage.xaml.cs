@@ -94,7 +94,22 @@ namespace ClinicDatabaseSystem.View
 
         private void searchFullName_LostFocus(object sender, RoutedEventArgs e)
         {
-            this.searchPatients();
+            var fullName = this.searchFullName.Text.Trim();
+            if (fullName.Contains(" "))
+            {
+                this.searchFullNameErrorTextBlock.Visibility = Visibility.Collapsed;
+                this.searchPatients();
+            }
+            else if (this.searchFullName.Text != string.Empty && !fullName.Contains(" "))
+            {
+                this.searchFullNameErrorTextBlock.Text = "Please enter both first and last name.";
+                this.searchFullNameErrorTextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.searchFullNameErrorTextBlock.Visibility = Visibility.Collapsed;
+                this.viewModel.LoadPatients();
+            }
         }
 
         private void searchDatePicker_LostFocus(object sender, RoutedEventArgs e)
@@ -106,10 +121,9 @@ namespace ClinicDatabaseSystem.View
         {
             if (!this.searchDatePicker.SelectedDate.HasValue && this.searchFullName.Text != string.Empty)
             {
-                string fullName = this.searchFullName.Text;
-                fullName = fullName.Trim();
-                var firstName = fullName.Split(' ')[0];
-                var lastName = fullName.Split(' ')[1];
+                var names = this.getFirstAndLastName();
+                var firstName = names[0];
+                var lastName = names[1];
                 this.viewModel.Patients = (List<Patient>)(PatientDAL.SearchForPatients(firstName, lastName));
             }
             else if (this.searchFullName.Text == string.Empty && this.searchDatePicker.SelectedDate.HasValue)
@@ -118,10 +132,9 @@ namespace ClinicDatabaseSystem.View
             }
             else if (this.searchFullName.Text != string.Empty && this.searchDatePicker.SelectedDate.HasValue)
             {
-                string fullName = this.searchFullName.Text;
-                fullName = fullName.Trim();
-                var firstName = fullName.Split(' ')[0];
-                var lastName = fullName.Split(' ')[1];
+                var names = this.getFirstAndLastName();
+                var firstName = names[0];
+                var lastName = names[1];
                 this.viewModel.Patients = (List<Patient>)(PatientDAL.SearchForPatients(firstName, lastName, this.searchDatePicker.Date.Date));
             }
             else
@@ -129,5 +142,28 @@ namespace ClinicDatabaseSystem.View
                 this.viewModel.LoadPatients();
             }
         }
+
+        private string[] getFirstAndLastName()
+        {
+            string fullName = this.searchFullName.Text;
+            fullName = fullName.Trim();
+            var firstSpaceIndex = fullName.IndexOf(" ", StringComparison.Ordinal);
+            var firstName = fullName.Substring(0, firstSpaceIndex);
+            var lastName = fullName.Substring(firstSpaceIndex + 1);
+            var names = new[] { firstName, lastName };
+            return names;
+        }
+
+        private void SymbolIcon_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            this.searchDatePicker.SelectedDate = null;
+            this.searchPatients();
+        }
+
+        private void SearchDatePicker_OnSelectedDateChanged(DatePicker sender, DatePickerSelectedValueChangedEventArgs args)
+        {
+            this.searchPatients();
+        }
+
     }
 }
