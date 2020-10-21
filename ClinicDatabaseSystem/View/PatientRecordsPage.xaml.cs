@@ -84,7 +84,7 @@ namespace ClinicDatabaseSystem.View
 
         private void recordsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //TODO: fix edit button enabled
+            this.editPatientButton.IsEnabled = true;
         }
 
         private void RecordsDataGrid_OnLostFocus(object sender, RoutedEventArgs e)
