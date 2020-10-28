@@ -89,7 +89,25 @@ namespace ClinicDatabaseSystem.DAL
 
         public static bool InsertAppointment(Appointment appointment)
         {
-            return false;
+            using (MySqlConnection conn = DbConnection.GetConnection())
+            {
+                conn.Open();
+                string insertStatement = "insert into appointment values (@pId, @appDateTime, @dId, @reason)";
+
+                using (MySqlCommand comm = new MySqlCommand(insertStatement, conn))
+                {
+                    comm.Parameters.Add("@pId", MySqlDbType.Int32);
+                    comm.Parameters["@pId"].Value = appointment.PatientId;
+                    comm.Parameters.Add("@appDateTime", MySqlDbType.DateTime);
+                    comm.Parameters["@appDateTime"].Value = appointment.ScheduledDate;
+                    comm.Parameters.Add("@dId", MySqlDbType.Int32);
+                    comm.Parameters["@dId"].Value = appointment.DoctorId;
+                    comm.Parameters.Add("@reason", MySqlDbType.String);
+                    comm.Parameters["@reason"].Value = appointment.Reason;
+
+                    return comm.ExecuteNonQuery() > 0;
+                }
+            }
         }
     }
 }
