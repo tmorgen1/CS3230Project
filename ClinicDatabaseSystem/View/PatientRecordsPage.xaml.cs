@@ -85,6 +85,7 @@ namespace ClinicDatabaseSystem.View
         private void recordsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.editPatientButton.IsEnabled = true;
+            this.createAppointmentButton.IsEnabled = true;
         }
 
         private void RecordsDataGrid_OnLostFocus(object sender, RoutedEventArgs e)
@@ -165,5 +166,10 @@ namespace ClinicDatabaseSystem.View
             this.searchPatients();
         }
 
+        private async void createAppointmentButton_Click(object sender, RoutedEventArgs e)
+        {
+            CreateAppointmentContentDialog createAppointmentContentDialog = new CreateAppointmentContentDialog(null);
+            await createAppointmentContentDialog.ShowAsync();
+        }
     }
 }
