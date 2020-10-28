@@ -8,7 +8,7 @@ using MySql.Data.MySqlClient;
 
 namespace ClinicDatabaseSystem.DAL
 {
-    public class AddressDAL
+    public static class AddressDAL
     {
         public static bool InsertAddress(Address address)
         {
@@ -147,7 +147,46 @@ namespace ClinicDatabaseSystem.DAL
                 // look at this
                 return null;
             }
-            
+
+        }
+
+        public static Address GetAddressWithDoctorId(int doctorId, string address1, string zip)
+        {
+            using (MySqlConnection conn = DbConnection.GetConnection())
+            {
+                conn.Open();
+                string query =
+                    "select A.address2, A.city, A.state from doctor D, address A where D.doctorID = @id and A.address1 = @address and A.zip = @zip";
+                using (MySqlCommand comm = new MySqlCommand(query, conn))
+                {
+                    comm.Parameters.Add("@id", MySqlDbType.Int32);
+                    comm.Parameters["@id"].Value = doctorId;
+                    comm.Parameters.Add("@address", MySqlDbType.VarChar);
+                    comm.Parameters["@address"].Value = address1;
+                    comm.Parameters.Add("@zip", MySqlDbType.VarChar);
+                    comm.Parameters["@zip"].Value = zip;
+
+                    using (MySqlDataReader reader = comm.ExecuteReader())
+                    {
+                        int address2Ordinal = reader.GetOrdinal("address2");
+                        int cityOrdinal = reader.GetOrdinal("city");
+                        int stateOrdinal = reader.GetOrdinal("state");
+
+                        while (reader.Read())
+                        {
+                            string address2 = !reader.IsDBNull(address2Ordinal) ? reader.GetString(address2Ordinal) : null;
+                            string city = !reader.IsDBNull(cityOrdinal) ? reader.GetString(cityOrdinal) : null;
+                            string state = !reader.IsDBNull(stateOrdinal) ? reader.GetString(stateOrdinal) : null;
+
+                            return new Address(address1, address2, zip, city, state);
+                        }
+                    }
+                }
+
+                // look at this
+                return null;
+            }
+
         }
 
         public static Address GetAddressWithNurseId(int nurseId, string address1, string zip)

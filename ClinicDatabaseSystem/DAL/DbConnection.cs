@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace ClinicDatabaseSystem.DAL
 {
-    public class DbConnection
+    public static class DbConnection
     {
         private static readonly string connString = "Server=160.10.25.16;Port=3306;Database=cs3230f20h;Uid=cs3230f20h;Pwd=Fi8q2ZyuVWUwwUMz;";
 

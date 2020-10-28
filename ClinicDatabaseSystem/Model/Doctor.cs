@@ -18,22 +18,19 @@ namespace ClinicDatabaseSystem.Model
 
         public string PhoneNumber { get; set; }
 
-        public string AccountId { get; set; }
+        public Address Address { get; set; }
 
-        public string Address { get; set; }
+        public IList<DoctorSpecialty> Specialties { get; set; }
 
-        public string Zip { get; set; }
-
-        public Doctor(int doctorId, string lastName, string firstName, DateTime dob, string phoneNumber, string accountId, string address, string zip)
+        public Doctor(int doctorId, string lastName, string firstName, DateTime dob, string phoneNumber, Address address, IList<DoctorSpecialty> specialties)
         {
             this.DoctorId = doctorId;
             this.LastName = lastName;
             this.FirstName = firstName;
             this.DoB = dob;
             this.PhoneNumber = phoneNumber;
-            this.AccountId = accountId;
             this.Address = address;
-            this.Zip = zip;
+            this.Specialties = specialties;
         }
     }
 }

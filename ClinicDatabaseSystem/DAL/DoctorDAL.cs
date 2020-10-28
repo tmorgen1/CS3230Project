@@ -8,34 +8,32 @@ using MySql.Data.MySqlClient;
 
 namespace ClinicDatabaseSystem.DAL
 {
-    public static class NurseDAL
+    public static class DoctorDAL
     {
-        public static Nurse GetNurse(int nurseId)
+        public static IList<Doctor> GetAllDoctors()
         {
+            List<Doctor> doctors = new List<Doctor>();
+
             using (MySqlConnection conn = DbConnection.GetConnection())
             {
                 conn.Open();
-                string query = "select * from nurse where nurseID = @nurseId";
+                string query = "select * from doctor";
 
                 using (MySqlCommand comm = new MySqlCommand(query, conn))
                 {
-                    comm.Parameters.Add("@nurseId", MySqlDbType.Int32);
-                    comm.Parameters["@nurseId"].Value = nurseId;
-                    
                     using (MySqlDataReader reader = comm.ExecuteReader())
                     {
-                        int nurseIdOrdinal = reader.GetOrdinal("nurseID");
+                        int idOrdinal = reader.GetOrdinal("doctorID");
                         int lastNameOrdinal = reader.GetOrdinal("lastName");
                         int firstNameOrdinal = reader.GetOrdinal("firstName");
                         int dobOrdinal = reader.GetOrdinal("dob");
                         int phoneNumberOrdinal = reader.GetOrdinal("phoneNumber");
-                        int accountIdOrdinal = reader.GetOrdinal("accountID");
                         int addressOrdinal = reader.GetOrdinal("address");
                         int zipOrdinal = reader.GetOrdinal("zip");
 
                         while (reader.Read())
                         {
-                            int nurseIdLocal = !reader.IsDBNull(nurseIdOrdinal) ? reader.GetInt32(nurseIdOrdinal) : 0;
+                            int id = !reader.IsDBNull(idOrdinal) ? reader.GetInt32(idOrdinal) : 0;
                             string lastName = !reader.IsDBNull(lastNameOrdinal)
                                 ? reader.GetString(lastNameOrdinal)
                                 : null;
@@ -48,28 +46,30 @@ namespace ClinicDatabaseSystem.DAL
                             string phoneNumber = !reader.IsDBNull(phoneNumberOrdinal)
                                 ? reader.GetString(phoneNumberOrdinal)
                                 : null;
-
-                            string accountId = !reader.IsDBNull(accountIdOrdinal)
-                                ? reader.GetString(accountIdOrdinal)
-                                : null;
                             string address1 = !reader.IsDBNull(addressOrdinal)
                                 ? reader.GetString(addressOrdinal)
                                 : null;
                             string zip = !reader.IsDBNull(zipOrdinal) ? reader.GetString(zipOrdinal) : null;
+                            Address address = GetAddressAndZipNewConnection(id, address1, zip);
+                            IList<DoctorSpecialty> specialties = GetSpecialtiesNewConnection(id);
 
-                            Address address = GetAddressAndZipNewConnection(nurseId, address1, zip);
-                            return new Nurse(nurseIdLocal, lastName, firstName, dob, phoneNumber, accountId, address);
+                            doctors.Add(new Doctor(id, lastName, firstName, dob, phoneNumber, address, specialties));
                         }
                     }
                 }
             }
 
-            return null;
+            return doctors;
         }
 
-        private static Address GetAddressAndZipNewConnection(int nurseId, string address1, string zip)
+        private static Address GetAddressAndZipNewConnection(int doctorId, string address1, string zip)
         {
-            return AddressDAL.GetAddressWithNurseId(nurseId, address1, zip);
+            return AddressDAL.GetAddressWithDoctorId(doctorId, address1, zip);
+        }
+
+        private static IList<DoctorSpecialty> GetSpecialtiesNewConnection(int doctorId)
+        {
+            return DoctorSpecialtyDAL.GetSpecialtyWithDoctorId(doctorId);
         }
     }
 }

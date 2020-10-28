@@ -8,7 +8,7 @@ using MySql.Data.MySqlClient;
 
 namespace ClinicDatabaseSystem.DAL
 {
-    public class PatientDAL
+    public static class PatientDAL
     {
         public static bool InsertPatient(string lastName, string firstName, DateTime dob, string phoneNumber,
             Address address, string zip)
