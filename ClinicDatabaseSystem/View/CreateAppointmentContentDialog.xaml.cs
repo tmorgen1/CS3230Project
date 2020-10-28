@@ -35,6 +35,17 @@ namespace ClinicDatabaseSystem.View
             return this.validatePatient() && this.validateDoctor() && this.validateReason() && this.validateDate() && !this.IsDoubleBooked();
         }
 
+        private void checkButtonStatus()
+        {
+            if (this.validateInput())
+            {
+                this.createButton.IsEnabled = true;
+            } else
+            {
+                this.createButton.IsEnabled = false;
+            }
+        }
+
         private bool IsDoubleBooked()
         {
             return false;
@@ -43,68 +54,34 @@ namespace ClinicDatabaseSystem.View
         private bool validateDate()
         {
             int datetimeCompare = DateTime.Compare(this.datePicker.Date.Date, DateTime.Today);
-            if (datetimeCompare >= 0 && this.datePicker.SelectedDate != null)
-            {
-                this.dateErrorTextBlock.Visibility = Visibility.Collapsed;
-                return true;
-            }
-            else
-            {
-                this.dateErrorTextBlock.Text = "Invalid Date";
-                this.dateErrorTextBlock.Visibility = Visibility.Visible;
-                return false;
-            }
+            return datetimeCompare >= 0 && this.datePicker.SelectedDate != null;
         }
 
         private bool validateReason()
         {
             this.reasonRichEditBox.Document.GetText(0, out var reasons);
-            if (reasons.Equals(string.Empty))
-            {
-                this.reasonErrorTextBlock.Text = "Must have reason.";
-                this.reasonErrorTextBlock.Visibility = Visibility.Visible;
-                return false;
-            }
-            else
-            {
-                this.reasonErrorTextBlock.Visibility = Visibility.Collapsed;
-                return true;
-            }
+            reasons = reasons.Trim();
+            return reasons != string.Empty;
         }
 
         private bool validateDoctor()
         {
-            if (this.doctorsListView.SelectedIndex == -1)
-            {
-                this.doctorErrorTextBlock.Text = "Must select doctor";
-                this.doctorErrorTextBlock.Visibility = Visibility.Visible;
-                return false;
-            }
-            else
-            {
-                this.doctorErrorTextBlock.Visibility = Visibility.Collapsed;
-                return true;
-            }
+            return this.doctorsListView.SelectedIndex != -1;
         }
 
         private bool validatePatient()
         {
-            if (this.patientsListView.SelectedIndex == -1)
-            {
-                this.patientErrorTextBlock.Text = "Must select doctor";
-                this.patientErrorTextBlock.Visibility = Visibility.Visible;
-                return false;
-            }
-            else
-            {
-                this.patientErrorTextBlock.Visibility = Visibility.Collapsed;
-                return true;
-            }
+            return this.patientsListView.SelectedIndex != -1;
         }
 
         private void loadDoctorsComboBox()
         {
-            
+            var doctors = (List<Doctor>) DoctorDAL.GetAllDoctors();
+            foreach (var doctor in doctors)
+            {
+                var fullName = doctor.DoctorId + ": " + doctor.FirstName + " " + doctor.LastName;
+                this.doctorsListView.Items?.Add(fullName);
+            }
         }
 
         private void loadPatientsComboBox()
@@ -130,22 +107,68 @@ namespace ClinicDatabaseSystem.View
 
         private void datePicker_DateChanged(object sender, DatePickerValueChangedEventArgs e)
         {
-            this.validateDate();
+            this.checkButtonStatus();
+            if (!this.validateDate())
+            {
+                this.dateErrorTextBlock.Text = "Invalid Date";
+                this.dateErrorTextBlock.Visibility = Visibility.Visible;
+            }
+            else if (this.IsDoubleBooked())
+            {
+                this.dateErrorTextBlock.Text = "Date already booked";
+                this.dateErrorTextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.dateErrorTextBlock.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void reasonRichEditBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            this.validateReason();
+            this.checkButtonStatus();
+            if (!this.validateReason())
+            {
+                this.reasonErrorTextBlock.Text = "Must have reason.";
+                this.reasonErrorTextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.reasonErrorTextBlock.Visibility = Visibility.Collapsed;
+            }
         }
 
-        private void patientsListView_LostFocus(object sender, RoutedEventArgs e)
+        private void DoctorsListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.validatePatient();
+            this.checkButtonStatus();
+            if (!this.validateDoctor())
+            {
+                this.doctorErrorTextBlock.Text = "Must select doctor";
+                this.doctorErrorTextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.doctorErrorTextBlock.Visibility = Visibility.Collapsed;
+            }
         }
 
-        private void doctorsListView_LostFocus(object sender, RoutedEventArgs e)
+        private void PatientsListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.validateDoctor();
+            this.checkButtonStatus();
+            if (!this.validatePatient())
+            {
+                this.patientErrorTextBlock.Text = "Must select doctor";
+                this.patientErrorTextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.patientErrorTextBlock.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void ReasonRichEditBox_OnTextChanging(RichEditBox sender, RichEditBoxTextChangingEventArgs args)
+        {
+            this.checkButtonStatus();
         }
     }
 }

@@ -11,8 +11,8 @@
     Foreground="White">
 
     <Grid>
-        <ListView x:Name="doctorsListView" Background="#e1e5f2" Margin="254,31,10,252" Width="217" BorderBrush="Black" LostFocus="doctorsListView_LostFocus"/>
-        <ListView x:Name="patientsListView" Background="#E1E5F2" Margin="2,31,262,252" Width="217" BorderBrush="Black" LostFocus="patientsListView_LostFocus"/>
+        <ListView x:Name="doctorsListView" Background="#e1e5f2" Margin="254,31,10,252" Width="217" BorderBrush="Black" SelectionChanged="DoctorsListView_OnSelectionChanged"/>
+        <ListView x:Name="patientsListView" Background="#E1E5F2" Margin="2,31,262,252" Width="217" BorderBrush="Black" SelectionChanged="PatientsListView_OnSelectionChanged"/>
         <TextBlock HorizontalAlignment="Left" Text="Patient: " TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,7,0,0"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,536,0,0" Text="Date:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="254,6,0,0" Text="Doctor:" TextWrapping="Wrap" VerticalAlignment="Top"/>
@@ -22,7 +22,7 @@
         <TextBlock x:Name="dateErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="76,566,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Button x:Name="createButton" Content="Create" IsEnabled="False" Foreground="White" Background="#3c6e71" Margin="129,589,0,0" VerticalAlignment="Top" Width="90" Click="createButton_Click" TabIndex="3"/>
         <Button x:Name="closeButton" Content="Close" Foreground="White" Background="#3c6e71" Margin="254,589,0,0" VerticalAlignment="Top" Width="90" Click="closeButton_Click" TabIndex="4"/>
-        <RichEditBox x:Name="reasonRichEditBox" Margin="74,402,14,121" MaxHeight="98" MaxWidth="393" LostFocus="reasonRichEditBox_LostFocus"/>
+        <RichEditBox x:Name="reasonRichEditBox" Margin="74,402,14,121" MaxHeight="98" MaxWidth="393" LostFocus="reasonRichEditBox_LostFocus" TextChanging="ReasonRichEditBox_OnTextChanging"/>
         <TextBlock x:Name="patientErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="2,374,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="doctorErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="254,374,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
