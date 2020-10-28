@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace ClinicDatabaseSystem.DAL
 {
-    public class AuthDAL
+    public static class AuthDAL
     {
         public static int AuthenticateNurse(string username, string password)
         {

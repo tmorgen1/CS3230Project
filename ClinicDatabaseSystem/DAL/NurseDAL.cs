@@ -8,7 +8,7 @@ using MySql.Data.MySqlClient;
 
 namespace ClinicDatabaseSystem.DAL
 {
-    public class NurseDAL
+    public static class NurseDAL
     {
         public static Nurse GetNurse(int nurseId)
         {
