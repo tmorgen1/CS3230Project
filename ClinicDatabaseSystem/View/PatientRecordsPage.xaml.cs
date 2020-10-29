@@ -168,7 +168,7 @@ namespace ClinicDatabaseSystem.View
 
         private async void createAppointmentButton_Click(object sender, RoutedEventArgs e)
         {
-            CreateAppointmentContentDialog createAppointmentContentDialog = new CreateAppointmentContentDialog(null);
+            CreateAppointmentContentDialog createAppointmentContentDialog = new CreateAppointmentContentDialog();
             await createAppointmentContentDialog.ShowAsync();
         }
     }

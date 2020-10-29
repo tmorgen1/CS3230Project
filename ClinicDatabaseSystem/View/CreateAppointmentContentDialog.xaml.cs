@@ -21,9 +21,7 @@ namespace ClinicDatabaseSystem.View
 {
     public sealed partial class CreateAppointmentContentDialog : ContentDialog
     {
-
-
-        public CreateAppointmentContentDialog(Patient patient)
+        public CreateAppointmentContentDialog()
         {
             this.InitializeComponent();
             this.loadPatientsComboBox();
@@ -48,6 +46,19 @@ namespace ClinicDatabaseSystem.View
 
         private bool IsDoubleBooked()
         {
+            var appointments = (List<Appointment>) AppointmentDAL.GetAllAppointments();
+            foreach (var appointment in appointments)
+            {
+                var doctor = this.doctorsListView.SelectedItem;
+                var patient = this.patientsListView.SelectedItem;
+                if (doctor != null && patient != null && (this.datePicker.Date.Date == appointment.ScheduledDate &&
+                                       doctor.ToString().Contains(appointment.DoctorId.ToString()) ||
+                                       this.datePicker.Date.Date == appointment.ScheduledDate &&
+                                       patient.ToString().Contains(appointment.PatientId.ToString())))
+                {
+                    return true;
+                }
+            }
             return false;
         }
 
@@ -96,8 +107,19 @@ namespace ClinicDatabaseSystem.View
 
         private void createButton_Click(object sender, RoutedEventArgs e)
         {
-            (Window.Current.Content as Frame)?.Navigate(typeof(PatientRecordsPage), null);
-            this.Hide();
+            if (this.validateInput())
+            {
+                var patientID = this.patientsListView.SelectedItem?.ToString().Split(':')[0];
+                var doctorID = this.doctorsListView.SelectedItem?.ToString().Split(':')[0];
+                this.reasonRichEditBox.Document.GetText(0, out var reasons);
+                reasons = reasons.Trim();
+                if (AppointmentDAL.InsertAppointment(new Appointment(int.Parse(patientID ?? string.Empty),
+                    this.datePicker.Date.Date, int.Parse(doctorID ?? string.Empty), reasons)))
+                {
+                    (Window.Current.Content as Frame)?.Navigate(typeof(PatientRecordsPage), null);
+                    this.Hide();
+                }
+            }
         }
 
         private void closeButton_Click(object sender, RoutedEventArgs e)
