@@ -75,7 +75,35 @@ namespace ClinicDatabaseSystem.DAL
 
         public static bool InsertVisitInfo(VisitInformation visitInfo)
         {
-            return false;
+            using (MySqlConnection conn = DbConnection.GetConnection())
+            {
+                conn.Open();
+                string insertStatement = "insert into visit_info values (@pId, @dateTime, @systolic, @diastolic, @bodyTemp, @pulse, @symptoms, @initialDiagnosis, @finalDiagnosis)";
+
+                using (MySqlCommand comm = new MySqlCommand(insertStatement, conn))
+                {
+                    comm.Parameters.Add("@pId", MySqlDbType.Int32);
+                    comm.Parameters["@pId"].Value = visitInfo.PatientId;
+                    comm.Parameters.Add("@dateTime", MySqlDbType.DateTime);
+                    comm.Parameters["@dateTime"].Value = visitInfo.VisitDateTime;
+                    comm.Parameters.Add("@systolic", MySqlDbType.String);
+                    comm.Parameters["@systolic"].Value = visitInfo.SystolicBp;
+                    comm.Parameters.Add("@diastolic", MySqlDbType.String);
+                    comm.Parameters["@diastolic"].Value = visitInfo.DiastolicBp;
+                    comm.Parameters.Add("@bodyTemp", MySqlDbType.String);
+                    comm.Parameters["@bodyTemp"].Value = visitInfo.BodyTemp;
+                    comm.Parameters.Add("@pulse", MySqlDbType.String);
+                    comm.Parameters["@pulse"].Value = visitInfo.Pulse;
+                    comm.Parameters.Add("@symptoms", MySqlDbType.String);
+                    comm.Parameters["@symptoms"].Value = visitInfo.Symptoms;
+                    comm.Parameters.Add("@initialDiagnosis", MySqlDbType.String);
+                    comm.Parameters["@initialDiagnosis"].Value = visitInfo.InitialDiagnosis;
+                    comm.Parameters.Add("@initialDiagnosis", MySqlDbType.String);
+                    comm.Parameters["@initialDiagnosis"].Value = visitInfo.InitialDiagnosis;
+
+                    return comm.ExecuteNonQuery() > 0;
+                }
+            }
         }
     }
 }
