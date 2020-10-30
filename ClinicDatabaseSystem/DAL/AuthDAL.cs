@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ClinicDatabaseSystem.Hashing;
 using MySql.Data.MySqlClient;
 
 namespace ClinicDatabaseSystem.DAL
 {
     public static class AuthDAL
     {
+        public const string HexKey = "t3stk3y";
+
         public static int AuthenticateNurse(string username, string password)
         {
+            BlowFish bf = new BlowFish(HexKey);
+            string newPass = bf.Encrypt_CTR(password);
+
             using (MySqlConnection conn = DbConnection.GetConnection())
             {
                 conn.Open();
@@ -22,7 +28,7 @@ namespace ClinicDatabaseSystem.DAL
                     comm.Parameters.Add("@username", MySqlDbType.VarChar);
                     comm.Parameters["@username"].Value = username;
                     comm.Parameters.Add("@password", MySqlDbType.VarChar);
-                    comm.Parameters["@password"].Value = password;
+                    comm.Parameters["@password"].Value = newPass;
 
                     using (MySqlDataReader reader = comm.ExecuteReader())
                     {
