@@ -129,6 +129,7 @@
     <Compile Include="DAL\DoctorSpecialtyDAL.cs" />
     <Compile Include="DAL\NurseDAL.cs" />
     <Compile Include="DAL\PatientDAL.cs" />
+    <Compile Include="DAL\VisitInformationDAL.cs" />
     <Compile Include="Enums\States.cs" />
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\Administrator.cs" />

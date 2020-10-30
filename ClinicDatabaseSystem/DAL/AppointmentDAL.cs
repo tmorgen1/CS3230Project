@@ -109,5 +109,32 @@ namespace ClinicDatabaseSystem.DAL
                 }
             }
         }
+
+        public static bool EditAppointment(Appointment prevAppointment, Appointment newAppointment)
+        {
+            using (MySqlConnection conn = DbConnection.GetConnection())
+            {
+                conn.Open();
+                string editStatement = "update appointment set patientID = @pId, dateTime = @dateTime, doctorID = @dId, reason = @reason where patientID = @opId, dateTime = @odateTime";
+
+                using (MySqlCommand comm = new MySqlCommand(editStatement, conn))
+                {
+                    comm.Parameters.Add("@pId", MySqlDbType.Int32);
+                    comm.Parameters["@pId"].Value = newAppointment.PatientId;
+                    comm.Parameters.Add("@dateTime", MySqlDbType.DateTime);
+                    comm.Parameters["@dateTime"].Value = newAppointment.ScheduledDate;
+                    comm.Parameters.Add("@dId", MySqlDbType.Int32);
+                    comm.Parameters["@dId"].Value = newAppointment.DoctorId;
+                    comm.Parameters.Add("@reason", MySqlDbType.String);
+                    comm.Parameters["@reason"].Value = newAppointment.Reason;
+                    comm.Parameters.Add("@opId", MySqlDbType.Int32);
+                    comm.Parameters["@opId"].Value = prevAppointment.PatientId;
+                    comm.Parameters.Add("@odateTime", MySqlDbType.DateTime);
+                    comm.Parameters["@odateTime"].Value = prevAppointment.ScheduledDate;
+
+                    return comm.ExecuteNonQuery() > 0;
+                }
+            }
+        }
     }
 }
