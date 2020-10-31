@@ -157,9 +157,8 @@ namespace ClinicDatabaseSystem.View
                     new Address(this.addressTextBox.Text, this.address2TextBox.Text, this.zipTextBox.Text,
                         this.cityTextBox.Text, this.stateComboBox.SelectionBoxItem.ToString()), this.zipTextBox.Text))
                 {
-                    (Window.Current.Content as Frame)?.Navigate(typeof(PatientRecordsPage), null);
-                    this.Hide();
                     this.RegisterSuccessful = true;
+                    this.Hide();
                 }
 
                 this.RegisterSuccessful = false;

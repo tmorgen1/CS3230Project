@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ClinicDatabaseSystem.Controller;
+using ClinicDatabaseSystem.Model;
 using ClinicDatabaseSystem.ViewModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -26,6 +27,8 @@ namespace ClinicDatabaseSystem.View
     {
 
         private readonly PatientAppointmentsViewModel viewModel;
+        private bool editAppointmentHovered;
+        private Appointment selectedAppointment;
 
         public PatientAppointmentsPage()
         {
@@ -61,6 +64,63 @@ namespace ClinicDatabaseSystem.View
         private void viewPatientsButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(PatientRecordsPage));
+        }
+
+        private void EditAppointmentButton_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            this.editAppointmentHovered = true;
+        }
+
+        private void EditAppointmentButton_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            this.editAppointmentHovered = false;
+        }
+
+        private void appointmentsDataGrid_LostFocus(object sender, RoutedEventArgs e)
+        {
+            this.appointmentsDataGrid.SelectedIndex = -1;
+            if (!this.editAppointmentHovered)
+            {
+                this.editAppointmentButton.IsEnabled = false;
+            }
+        }
+
+        private void AppointmentsDataGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var appointment = this.getClickedAppointment();
+            if (appointment != null)
+            {
+                this.selectedAppointment = appointment;
+                this.editAppointmentButton.IsEnabled = true;
+            }
+        }
+
+        private Appointment getClickedAppointment()
+        {
+            var index = this.appointmentsDataGrid.SelectedIndex;
+            if (index != -1)
+            {
+                var appointment = this.viewModel.Appointments[index];
+                return appointment;
+            }
+
+            return null;
+        }
+
+        private void editAppointmentButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.displayEditAppointmentContentDialog(this.selectedAppointment);
+        }
+
+        private async void displayEditAppointmentContentDialog(Appointment appointment)
+        {
+            this.editAppointmentButton.IsEnabled = false;
+            EditAppointmentContentDialog editAppointmentContentDialog = new EditAppointmentContentDialog(appointment);
+            await editAppointmentContentDialog.ShowAsync();
+            if (editAppointmentContentDialog.EditAppointmentSuccessful)
+            {
+                this.viewModel.LoadAppointments(PatientController.CurrentPatient);
+            }
         }
     }
 }

@@ -19,16 +19,58 @@ using ClinicDatabaseSystem.Model;
 
 namespace ClinicDatabaseSystem.View
 {
-    public sealed partial class CreateAppointmentContentDialog : ContentDialog
+    public sealed partial class EditAppointmentContentDialog : ContentDialog
     {
+        public bool EditAppointmentSuccessful;
+        private readonly Appointment previousAppointment;
 
-        public bool CreateAppointmentSuccessful;
-
-        public CreateAppointmentContentDialog()
+        public EditAppointmentContentDialog(Appointment appointment)
         {
             this.InitializeComponent();
             this.loadPatientsComboBox();
             this.loadDoctorsComboBox();
+            this.previousAppointment = appointment;
+            this.loadAppointmentInfo();
+        }
+
+        private void loadAppointmentInfo()
+        {
+            this.reasonRichEditBox.Document.SetText(0, this.previousAppointment.Reason);
+            this.datePicker.SelectedDate = this.previousAppointment.ScheduledDate;
+            this.timePicker.SelectedTime = this.previousAppointment.ScheduledDate.TimeOfDay;
+            this.setSelectedPatient();
+            this.setSelectedDoctor();
+            this.checkButtonStatus();
+        }
+
+        private void setSelectedPatient()
+        {
+            var patients = this.patientsListView.Items;
+            if (patients != null)
+            {
+                foreach (var patient in patients)
+                {
+                    if (patient.ToString().Split(':')[0].Equals(this.previousAppointment.PatientId.ToString()))
+                    {
+                        this.patientsListView.SelectedItem = patient;
+                    }
+                }
+            }
+        }
+
+        private void setSelectedDoctor()
+        {
+            var doctors = this.doctorsListView.Items;
+            if (doctors != null)
+            {
+                foreach (var doctor in doctors)
+                {
+                    if (doctor.ToString().Split(':')[0].Equals(this.previousAppointment.DoctorId.ToString()))
+                    {
+                        this.doctorsListView.SelectedItem = doctor;
+                    }
+                }
+            }
         }
 
         private bool validateInput()
@@ -40,16 +82,17 @@ namespace ClinicDatabaseSystem.View
         {
             if (this.validateInput())
             {
-                this.createButton.IsEnabled = true;
-            } else
+                this.confirmButton.IsEnabled = true;
+            }
+            else
             {
-                this.createButton.IsEnabled = false;
+                this.confirmButton.IsEnabled = false;
             }
         }
 
         private bool IsDoubleBooked()
         {
-            var appointments = (List<Appointment>) AppointmentDAL.GetAllAppointments();
+            var appointments = (List<Appointment>)AppointmentDAL.GetAllAppointments();
             foreach (var appointment in appointments)
             {
                 var doctor = this.doctorsListView.SelectedItem;
@@ -60,12 +103,12 @@ namespace ClinicDatabaseSystem.View
                                        date == appointment.ScheduledDate &&
                                        patient.ToString().Contains(appointment.PatientId.ToString())))
                 {
-                    this.CreateAppointmentSuccessful = true;
+                    this.EditAppointmentSuccessful = true;
                     return true;
                 }
             }
 
-            this.CreateAppointmentSuccessful = false;
+            this.EditAppointmentSuccessful = false;
             return false;
         }
 
@@ -102,7 +145,7 @@ namespace ClinicDatabaseSystem.View
 
         private void loadDoctorsComboBox()
         {
-            var doctors = (List<Doctor>) DoctorDAL.GetAllDoctors();
+            var doctors = (List<Doctor>)DoctorDAL.GetAllDoctors();
             foreach (var doctor in doctors)
             {
                 var fullName = doctor.DoctorId + ": " + doctor.FirstName + " " + doctor.LastName;
@@ -120,7 +163,7 @@ namespace ClinicDatabaseSystem.View
             }
         }
 
-        private void createButton_Click(object sender, RoutedEventArgs e)
+        private void confirmButton_Click(object sender, RoutedEventArgs e)
         {
             if (this.validateInput())
             {
@@ -129,7 +172,7 @@ namespace ClinicDatabaseSystem.View
                 this.reasonRichEditBox.Document.GetText(0, out var reasons);
                 var date = this.getSelectedDateAndTime();
                 reasons = reasons.Trim();
-                if (AppointmentDAL.InsertAppointment(new Appointment(int.Parse(patientID ?? string.Empty),
+                if (AppointmentDAL.EditAppointment(this.previousAppointment, new Appointment(int.Parse(patientID ?? string.Empty),
                     date, int.Parse(doctorID ?? string.Empty), reasons)))
                 {
                     this.Hide();
@@ -137,7 +180,7 @@ namespace ClinicDatabaseSystem.View
             }
         }
 
-        private void closeButton_Click(object sender, RoutedEventArgs e)
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
         }
@@ -149,7 +192,8 @@ namespace ClinicDatabaseSystem.View
             {
                 this.timeErrorTextBlock.Text = "Invalid Time";
                 this.timeErrorTextBlock.Visibility = Visibility.Visible;
-            } else if (this.IsDoubleBooked())
+            }
+            else if (this.IsDoubleBooked())
             {
                 this.timeErrorTextBlock.Text = "Time already booked";
                 this.timeErrorTextBlock.Visibility = Visibility.Visible;
@@ -233,10 +277,12 @@ namespace ClinicDatabaseSystem.View
                 var date = new DateTime(this.datePicker.Date.Year, this.datePicker.Date.Month, this.datePicker.Date.Day,
                     this.timePicker.Time.Hours, this.timePicker.Time.Minutes, this.timePicker.Time.Seconds);
                 return date;
-            } else if (this.datePicker.SelectedDate.HasValue && !this.timePicker.SelectedTime.HasValue)
+            }
+            else if (this.datePicker.SelectedDate.HasValue && !this.timePicker.SelectedTime.HasValue)
             {
                 return this.datePicker.Date.Date;
-            } else if (!this.datePicker.SelectedDate.HasValue && this.timePicker.SelectedTime.HasValue)
+            }
+            else if (!this.datePicker.SelectedDate.HasValue && this.timePicker.SelectedTime.HasValue)
             {
                 return new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, this.timePicker.Time.Hours,
                     this.timePicker.Time.Minutes, this.timePicker.Time.Seconds);
