@@ -55,7 +55,7 @@ namespace ClinicDatabaseSystem.DAL
             {
                 conn.Open();
                 string query =
-                    "select A.dateTime, A.doctorID, A.reason from appointment A, patient P where A.patientID = @id";
+                    "select dateTime, doctorID, reason from appointment where patientID = @id";
 
                 using (MySqlCommand comm = new MySqlCommand(query, conn))
                 {
@@ -64,21 +64,19 @@ namespace ClinicDatabaseSystem.DAL
 
                     using (MySqlDataReader reader = comm.ExecuteReader())
                     {
-                        int pIdOrdinal = reader.GetOrdinal("A.patientID");
-                        int appDateTimeOrdinal = reader.GetOrdinal("A.dateTime");
-                        int dIdOrdinal = reader.GetOrdinal("A.doctorID");
+                        int dIdOrdinal = reader.GetOrdinal("doctorID");
+                        int appDateTimeOrdinal = reader.GetOrdinal("dateTime");
                         int reasonOrdinal = reader.GetOrdinal("reason");
 
                         while (reader.Read())
                         {
-                            int pId = !reader.IsDBNull(pIdOrdinal) ? reader.GetInt32(pIdOrdinal) : 0;
                             DateTime appDateTime = !reader.IsDBNull(appDateTimeOrdinal)
                                 ? reader.GetDateTime(appDateTimeOrdinal)
                                 : default(DateTime);
                             int dId = !reader.IsDBNull(dIdOrdinal) ? reader.GetInt32(dIdOrdinal) : 0;
                             string reason = !reader.IsDBNull(reasonOrdinal) ? reader.GetString(reasonOrdinal) : null;
 
-                            appointments.Add(new Appointment(pId, appDateTime, dId, reason));
+                            appointments.Add(new Appointment(patientId, appDateTime, dId, reason));
                         }
                     }
                 }

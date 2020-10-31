@@ -29,6 +29,9 @@ namespace ClinicDatabaseSystem.View
     public sealed partial class PatientRecordsPage : Page
     {
         private readonly PatientRecordsViewModel viewModel;
+        private Patient selectedPatient;
+        private bool editPatientHovered;
+        private bool viewAppointmentHovered;
 
         public PatientRecordsPage()
         {
@@ -67,13 +70,13 @@ namespace ClinicDatabaseSystem.View
 
         private void editPatientButton_Click(object sender, RoutedEventArgs e)
         {
-            var index = this.recordsDataGrid.SelectedIndex;
-            var patient = this.viewModel.Patients[index];
-            this.displayEditPatientContentDialog(patient);
+            this.displayEditPatientContentDialog(this.selectedPatient);
         }
 
         private async void displayEditPatientContentDialog(Patient patient)
         {
+            this.editPatientButton.IsEnabled = false;
+            this.viewAppointmentsButton.IsEnabled = false;
             EditPatientContentDialog editPatientContentDialog = new EditPatientContentDialog(patient);
             await editPatientContentDialog.ShowAsync();
             if (editPatientContentDialog.UpdateSuccessful)
@@ -84,13 +87,39 @@ namespace ClinicDatabaseSystem.View
 
         private void recordsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.editPatientButton.IsEnabled = true;
-            this.createAppointmentButton.IsEnabled = true;
+            var patient = this.getClickedPatient();
+            if (patient != null)
+            {
+                this.selectedPatient = patient;
+                this.editPatientButton.IsEnabled = true;
+                this.viewAppointmentsButton.IsEnabled = true;
+            }
+        }
+
+        private Patient getClickedPatient()
+        {
+            var index = this.recordsDataGrid.SelectedIndex;
+            if (index != -1)
+            {
+                var patient = this.viewModel.Patients[index];
+                return patient;
+            }
+
+            return null;
         }
 
         private void RecordsDataGrid_OnLostFocus(object sender, RoutedEventArgs e)
         {
-            //TODO: fix edit button enabled
+            this.recordsDataGrid.SelectedIndex = -1;
+            if (!this.editPatientHovered)
+            {
+                this.editPatientButton.IsEnabled = false;
+            }
+
+            if (!this.viewAppointmentHovered)
+            {
+                this.viewAppointmentsButton.IsEnabled = false;
+            }
         }
 
         private void searchFullName_LostFocus(object sender, RoutedEventArgs e)
@@ -170,6 +199,32 @@ namespace ClinicDatabaseSystem.View
         {
             CreateAppointmentContentDialog createAppointmentContentDialog = new CreateAppointmentContentDialog();
             await createAppointmentContentDialog.ShowAsync();
+        }
+
+        private void EditPatientButton_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            this.editPatientHovered = true;
+        }
+
+        private void EditPatientButton_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            this.editPatientHovered = false;
+        }
+
+        private void viewAppointmentsButton_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            this.viewAppointmentHovered = true;
+        }
+
+        private void ViewAppointmentsButton_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            this.viewAppointmentHovered = false;
+        }
+
+        private void viewAppointmentsButton_Click(object sender, RoutedEventArgs e)
+        {
+            PatientController.CurrentPatient = this.selectedPatient.PatientId;
+            Frame.Navigate(typeof(PatientAppointmentsPage));
         }
     }
 }

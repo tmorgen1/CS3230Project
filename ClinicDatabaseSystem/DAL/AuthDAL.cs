@@ -10,12 +10,12 @@ namespace ClinicDatabaseSystem.DAL
 {
     public static class AuthDAL
     {
-        public const string HexKey = "t3stk3y";
+        private const string HexKey = "t3stk3y";
 
         public static int AuthenticateNurse(string username, string password)
         {
             BlowFish bf = new BlowFish(HexKey);
-            string newPass = bf.Encrypt_CTR(password);
+            string newPass = bf.Encrypt_ECB(password);
 
             using (MySqlConnection conn = DbConnection.GetConnection())
             {

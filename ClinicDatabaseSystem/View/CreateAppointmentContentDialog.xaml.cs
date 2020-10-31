@@ -21,6 +21,9 @@ namespace ClinicDatabaseSystem.View
 {
     public sealed partial class CreateAppointmentContentDialog : ContentDialog
     {
+
+        public bool CreateAppointmentSuccessful;
+
         public CreateAppointmentContentDialog()
         {
             this.InitializeComponent();
@@ -56,9 +59,12 @@ namespace ClinicDatabaseSystem.View
                                        this.datePicker.Date.Date == appointment.ScheduledDate &&
                                        patient.ToString().Contains(appointment.PatientId.ToString())))
                 {
+                    this.CreateAppointmentSuccessful = true;
                     return true;
                 }
             }
+
+            this.CreateAppointmentSuccessful = false;
             return false;
         }
 

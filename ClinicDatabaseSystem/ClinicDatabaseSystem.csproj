@@ -120,6 +120,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controller\LoginController.cs" />
+    <Compile Include="Controller\PatientController.cs" />
     <Compile Include="Converters\DateTimeConverter.cs" />
     <Compile Include="DAL\AddressDAL.cs" />
     <Compile Include="DAL\AppointmentDAL.cs" />
@@ -144,12 +145,16 @@
     <Compile Include="Model\VisitInformation.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Utils\StateConverter.cs" />
+    <Compile Include="ViewModel\PatientAppointmentsViewModel.cs" />
     <Compile Include="ViewModel\PatientRecordsViewModel.cs" />
     <Compile Include="View\CreateAppointmentContentDialog.xaml.cs">
       <DependentUpon>CreateAppointmentContentDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EditPatientContentDialog.xaml.cs">
       <DependentUpon>EditPatientContentDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PatientAppointmentsPage.xaml.cs">
+      <DependentUpon>PatientAppointmentsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PatientRecordsPage.xaml.cs">
       <DependentUpon>PatientRecordsPage.xaml</DependentUpon>
@@ -190,6 +195,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EditPatientContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PatientAppointmentsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
