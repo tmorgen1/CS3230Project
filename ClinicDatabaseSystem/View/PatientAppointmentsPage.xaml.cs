@@ -88,10 +88,19 @@ namespace ClinicDatabaseSystem.View
         private void AppointmentsDataGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var appointment = this.getClickedAppointment();
-            if (appointment != null)
+            if (appointment != null )
             {
-                this.selectedAppointment = appointment;
-                this.editAppointmentButton.IsEnabled = true;
+                var date = appointment.ScheduledDate;
+                var datetimeCompare = DateTime.Compare(date, DateTime.Today);
+                if (datetimeCompare > 0)
+                {
+                    this.selectedAppointment = appointment;
+                    this.editAppointmentButton.IsEnabled = true;
+                }
+                else
+                {
+                    this.editAppointmentButton.IsEnabled = false;
+                }
             }
         }
 
