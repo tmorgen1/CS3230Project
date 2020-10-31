@@ -28,6 +28,7 @@ namespace ClinicDatabaseSystem.View
 
         private readonly PatientAppointmentsViewModel viewModel;
         private bool editAppointmentHovered;
+        private bool createVisitInfoHovered;
         private Appointment selectedAppointment;
 
         public PatientAppointmentsPage()
@@ -83,6 +84,11 @@ namespace ClinicDatabaseSystem.View
             {
                 this.editAppointmentButton.IsEnabled = false;
             }
+
+            if (!this.createVisitInfoHovered)
+            {
+                this.createVisitInfoButton.IsEnabled = false;
+            }
         }
 
         private void AppointmentsDataGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -92,15 +98,17 @@ namespace ClinicDatabaseSystem.View
             {
                 var date = appointment.ScheduledDate;
                 var datetimeCompare = DateTime.Compare(date, DateTime.Today);
+                this.selectedAppointment = appointment;
                 if (datetimeCompare > 0)
                 {
-                    this.selectedAppointment = appointment;
                     this.editAppointmentButton.IsEnabled = true;
                 }
                 else
                 {
                     this.editAppointmentButton.IsEnabled = false;
                 }
+
+                this.createVisitInfoButton.IsEnabled = true;
             }
         }
 
@@ -124,12 +132,36 @@ namespace ClinicDatabaseSystem.View
         private async void displayEditAppointmentContentDialog(Appointment appointment)
         {
             this.editAppointmentButton.IsEnabled = false;
+            this.createVisitInfoButton.IsEnabled = false;
             EditAppointmentContentDialog editAppointmentContentDialog = new EditAppointmentContentDialog(appointment);
             await editAppointmentContentDialog.ShowAsync();
             if (editAppointmentContentDialog.EditAppointmentSuccessful)
             {
                 this.viewModel.LoadAppointments(PatientController.CurrentPatient);
             }
+        }
+
+        private void createVisitInfoButton_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            this.createVisitInfoHovered = true;
+        }
+
+        private void CreateVisitInfoButton_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            this.createVisitInfoHovered = false;
+        }
+
+        private void createVisitInfoButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.displayCreateVisitInfoContentDialog(this.selectedAppointment);
+        }
+
+        private async void displayCreateVisitInfoContentDialog(Appointment appointment)
+        {
+            this.editAppointmentButton.IsEnabled = false;
+            this.createVisitInfoButton.IsEnabled = false;
+            CreateVisitInfoContentDialog createVisitInfoContentDialog = new CreateVisitInfoContentDialog(appointment);
+            await createVisitInfoContentDialog.ShowAsync();
         }
     }
 }

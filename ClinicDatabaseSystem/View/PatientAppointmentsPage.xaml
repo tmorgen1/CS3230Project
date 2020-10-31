@@ -10,7 +10,7 @@
     Background="#353535">
 
     <Grid>
-        <Button x:Name="logoutButton" Foreground="White" Background="#3c6e71" Content="Logout" Margin="18,363,0,0" VerticalAlignment="Top" Width="146" Click="logoutButton_Click"/>
+        <Button x:Name="logoutButton" Foreground="White" Background="#3c6e71" Content="Logout" Margin="18,382,0,0" VerticalAlignment="Top" Width="146" Click="logoutButton_Click"/>
         <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Margin="10,10,0,0" Text="Current User" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,42,0,0" Text="FullName:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="fullNameTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="79,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
@@ -27,8 +27,9 @@
                 <controls:DataGridTextColumn Header="Reason" Width="700" Binding="{Binding Reason}" FontSize="17"/>
             </controls:DataGrid.Columns>
         </controls:DataGrid>
-        <Button x:Name="createAppointmentButton" Foreground="White" Background="#3c6e71" Content="New Appointment" Margin="18,273,0,0" VerticalAlignment="Top" Width="146" Click="createAppointmentButton_Click"/>
+        <Button x:Name="createAppointmentButton" Foreground="White" Background="#3c6e71" Content="New Appointment" Margin="18,232,0,0" VerticalAlignment="Top" Width="146" Click="createAppointmentButton_Click"/>
         <Button x:Name="viewPatientsButton" Content="View Patients" Foreground="White" Background="#3c6e71" Margin="18,160,0,0" VerticalAlignment="Top" Width="146" Click="viewPatientsButton_Click"/>
-        <Button x:Name="editAppointmentButton" IsEnabled="False" Content="Edit Appointment" Foreground="White" Background="#3c6e71" Margin="18,319,0,0" VerticalAlignment="Top" Width="146" PointerEntered="EditAppointmentButton_OnPointerEntered" PointerExited="EditAppointmentButton_OnPointerExited" Click="editAppointmentButton_Click"/>
+        <Button x:Name="editAppointmentButton" IsEnabled="False" Content="Edit Appointment" Foreground="White" Background="#3c6e71" Margin="18,326,0,0" VerticalAlignment="Top" Width="146" PointerEntered="EditAppointmentButton_OnPointerEntered" PointerExited="EditAppointmentButton_OnPointerExited" Click="editAppointmentButton_Click"/>
+        <Button x:Name="createVisitInfoButton" IsEnabled="False" Foreground="White" Background="#3c6e71" Content="New Visit Info" Margin="18,279,0,0" VerticalAlignment="Top" Width="146" PointerEntered="createVisitInfoButton_PointerEntered" PointerExited="CreateVisitInfoButton_OnPointerExited" Click="createVisitInfoButton_Click"/>
     </Grid>
 </Page>

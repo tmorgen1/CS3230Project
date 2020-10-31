@@ -38,13 +38,7 @@ namespace ClinicDatabaseSystem.View
 
         private void checkButtonStatus()
         {
-            if (this.validateInput())
-            {
-                this.createButton.IsEnabled = true;
-            } else
-            {
-                this.createButton.IsEnabled = false;
-            }
+            this.createButton.IsEnabled = this.validateInput();
         }
 
         private bool IsDoubleBooked()

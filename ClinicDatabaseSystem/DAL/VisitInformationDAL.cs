@@ -98,8 +98,8 @@ namespace ClinicDatabaseSystem.DAL
                     comm.Parameters["@symptoms"].Value = visitInfo.Symptoms;
                     comm.Parameters.Add("@initialDiagnosis", MySqlDbType.String);
                     comm.Parameters["@initialDiagnosis"].Value = visitInfo.InitialDiagnosis;
-                    comm.Parameters.Add("@initialDiagnosis", MySqlDbType.String);
-                    comm.Parameters["@initialDiagnosis"].Value = visitInfo.InitialDiagnosis;
+                    comm.Parameters.Add("@finalDiagnosis", MySqlDbType.String);
+                    comm.Parameters["@finalDiagnosis"].Value = visitInfo.FinalDiagnosis;
 
                     return comm.ExecuteNonQuery() > 0;
                 }
