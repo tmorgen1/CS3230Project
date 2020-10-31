@@ -33,7 +33,7 @@ namespace ClinicDatabaseSystem.View
 
         private bool validateInput()
         {
-            return this.validatePatient() && this.validateDoctor() && this.validateReason() && this.validateDate() && !this.IsDoubleBooked();
+            return this.validatePatient() && this.validateDoctor() && this.validateReason() && this.validateDate() && this.validateTime() && !this.IsDoubleBooked();
         }
 
         private void checkButtonStatus()
@@ -54,9 +54,10 @@ namespace ClinicDatabaseSystem.View
             {
                 var doctor = this.doctorsListView.SelectedItem;
                 var patient = this.patientsListView.SelectedItem;
-                if (doctor != null && patient != null && (this.datePicker.Date.Date == appointment.ScheduledDate &&
+                var date = this.getSelectedDateAndTime();
+                if (doctor != null && patient != null && (date == appointment.ScheduledDate &&
                                        doctor.ToString().Contains(appointment.DoctorId.ToString()) ||
-                                       this.datePicker.Date.Date == appointment.ScheduledDate &&
+                                       date == appointment.ScheduledDate &&
                                        patient.ToString().Contains(appointment.PatientId.ToString())))
                 {
                     this.CreateAppointmentSuccessful = true;
@@ -70,8 +71,16 @@ namespace ClinicDatabaseSystem.View
 
         private bool validateDate()
         {
-            int datetimeCompare = DateTime.Compare(this.datePicker.Date.Date, DateTime.Today);
+            var date = this.getSelectedDateAndTime();
+            int datetimeCompare = DateTime.Compare(date, DateTime.Today);
             return datetimeCompare >= 0 && this.datePicker.SelectedDate != null;
+        }
+
+        private bool validateTime()
+        {
+            var date = this.getSelectedDateAndTime();
+            int datetimeCompare = DateTime.Compare(date, DateTime.Now);
+            return datetimeCompare >= 0 && this.timePicker.SelectedTime != null;
         }
 
         private bool validateReason()
@@ -118,9 +127,10 @@ namespace ClinicDatabaseSystem.View
                 var patientID = this.patientsListView.SelectedItem?.ToString().Split(':')[0];
                 var doctorID = this.doctorsListView.SelectedItem?.ToString().Split(':')[0];
                 this.reasonRichEditBox.Document.GetText(0, out var reasons);
+                var date = this.getSelectedDateAndTime();
                 reasons = reasons.Trim();
                 if (AppointmentDAL.InsertAppointment(new Appointment(int.Parse(patientID ?? string.Empty),
-                    this.datePicker.Date.Date, int.Parse(doctorID ?? string.Empty), reasons)))
+                    date, int.Parse(doctorID ?? string.Empty), reasons)))
                 {
                     (Window.Current.Content as Frame)?.Navigate(typeof(PatientRecordsPage), null);
                     this.Hide();
@@ -131,6 +141,24 @@ namespace ClinicDatabaseSystem.View
         private void closeButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
+        }
+
+        private void timePicker_SelectedTimeChanged(TimePicker sender, TimePickerSelectedValueChangedEventArgs args)
+        {
+            this.checkButtonStatus();
+            if (!this.validateTime())
+            {
+                this.timeErrorTextBlock.Text = "Invalid Time";
+                this.timeErrorTextBlock.Visibility = Visibility.Visible;
+            } else if (this.IsDoubleBooked())
+            {
+                this.timeErrorTextBlock.Text = "Time already booked";
+                this.timeErrorTextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.timeErrorTextBlock.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void datePicker_DateChanged(object sender, DatePickerValueChangedEventArgs e)
@@ -197,6 +225,25 @@ namespace ClinicDatabaseSystem.View
         private void ReasonRichEditBox_OnTextChanging(RichEditBox sender, RichEditBoxTextChangingEventArgs args)
         {
             this.checkButtonStatus();
+        }
+
+        private DateTime getSelectedDateAndTime()
+        {
+            if (this.datePicker.SelectedDate.HasValue && this.timePicker.SelectedTime.HasValue)
+            {
+                var date = new DateTime(this.datePicker.Date.Year, this.datePicker.Date.Month, this.datePicker.Date.Day,
+                    this.timePicker.Time.Hours, this.timePicker.Time.Minutes, this.timePicker.Time.Seconds);
+                return date;
+            } else if (this.datePicker.SelectedDate.HasValue && !this.timePicker.SelectedTime.HasValue)
+            {
+                return this.datePicker.Date.Date;
+            } else if (!this.datePicker.SelectedDate.HasValue && this.timePicker.SelectedTime.HasValue)
+            {
+                return new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, this.timePicker.Time.Hours,
+                    this.timePicker.Time.Minutes, this.timePicker.Time.Seconds);
+            }
+
+            return DateTime.Now;
         }
     }
 }

@@ -35,7 +35,9 @@ namespace ClinicDatabaseSystem.ViewModel
 
         public void LoadAppointments(int patientId)
         {
-            this.Appointments = (List<Appointment>)AppointmentDAL.GetAllAppointmentsFromPatientId(patientId);
+            var patientAppointments = (List<Appointment>)AppointmentDAL.GetAllAppointmentsFromPatientId(patientId);
+            patientAppointments.Sort((x,y) => y.ScheduledDate.CompareTo(x.ScheduledDate));
+            this.Appointments = patientAppointments;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

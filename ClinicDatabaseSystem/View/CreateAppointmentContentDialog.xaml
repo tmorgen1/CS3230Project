@@ -11,20 +11,23 @@
     Foreground="White">
 
     <Grid>
-        <ListView x:Name="doctorsListView" Background="#e1e5f2" Margin="254,31,10,252" Width="217" BorderBrush="Black" SelectionChanged="DoctorsListView_OnSelectionChanged"/>
-        <ListView x:Name="patientsListView" Background="#E1E5F2" Margin="2,31,262,252" Width="217" BorderBrush="Black" SelectionChanged="PatientsListView_OnSelectionChanged"/>
+        <ListView x:Name="doctorsListView" Background="#e1e5f2" Margin="254,30,10,333" Width="217" BorderBrush="Black" SelectionChanged="DoctorsListView_OnSelectionChanged" IsTabStop="True" TabIndex="2"/>
+        <ListView x:Name="patientsListView" Background="#E1E5F2" Margin="2,30,262,333" Width="217" BorderBrush="Black" SelectionChanged="PatientsListView_OnSelectionChanged" IsTabStop="True" TabIndex="1"/>
         <TextBlock HorizontalAlignment="Left" Text="Patient: " TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,7,0,0"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,536,0,0" Text="Date:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="2,496,0,0" Text="Date:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="254,6,0,0" Text="Doctor:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,402,0,0" Text="Reason:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <DatePicker x:Name="datePicker" Margin="74,529,0,0" VerticalAlignment="Top" TabIndex="2" Width="391" DateChanged="datePicker_DateChanged"/>
-        <TextBlock x:Name="reasonErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="76,505,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock x:Name="dateErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="76,566,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button x:Name="createButton" Content="Create" IsEnabled="False" Foreground="White" Background="#3c6e71" Margin="129,589,0,0" VerticalAlignment="Top" Width="90" Click="createButton_Click" TabIndex="3"/>
-        <Button x:Name="closeButton" Content="Close" Foreground="White" Background="#3c6e71" Margin="254,589,0,0" VerticalAlignment="Top" Width="90" Click="closeButton_Click" TabIndex="4"/>
-        <RichEditBox x:Name="reasonRichEditBox" Margin="74,402,14,121" MaxHeight="98" MaxWidth="393" LostFocus="reasonRichEditBox_LostFocus" TextChanging="ReasonRichEditBox_OnTextChanging"/>
-        <TextBlock x:Name="patientErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="2,374,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock x:Name="doctorErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="254,374,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,362,0,0" Text="Reason:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <DatePicker x:Name="datePicker" Margin="74,489,0,0" VerticalAlignment="Top" TabIndex="4" Width="391" DateChanged="datePicker_DateChanged"/>
+        <TextBlock x:Name="reasonErrorTextBlock" Visibility="Collapsed" Text="Reason" Foreground="Red" HorizontalAlignment="Left" Margin="76,465,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock x:Name="dateErrorTextBlock" Visibility="Collapsed" Text="date" Foreground="Red" HorizontalAlignment="Left" Margin="76,526,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Button x:Name="createButton" Content="Create" IsEnabled="False" Foreground="White" Background="#3c6e71" Margin="129,624,0,0" VerticalAlignment="Top" Width="90" Click="createButton_Click" TabIndex="6"/>
+        <Button x:Name="closeButton" Content="Close" Foreground="White" Background="#3c6e71" Margin="254,624,0,0" VerticalAlignment="Top" Width="90" Click="closeButton_Click" TabIndex="7"/>
+        <RichEditBox x:Name="reasonRichEditBox" Margin="74,339,14,184" MaxHeight="98" MaxWidth="393" LostFocus="reasonRichEditBox_LostFocus" TextChanging="ReasonRichEditBox_OnTextChanging" TabIndex="3"/>
+        <TextBlock x:Name="patientErrorTextBlock" Visibility="Collapsed" Text="patient" Foreground="Red" HorizontalAlignment="Left" Margin="2,338,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock x:Name="doctorErrorTextBlock" Visibility="Collapsed" Text="doctor" Foreground="Red" HorizontalAlignment="Left" Margin="254,338,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="2,557,0,0" Text="Time:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TimePicker x:Name="timePicker" Margin="76,550,0,0" VerticalAlignment="Top" Width="389" TabIndex="5" MinuteIncrement="30" IsTabStop="True" SelectedTimeChanged="timePicker_SelectedTimeChanged"/>
+        <TextBlock x:Name="timeErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="76,587,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
     </Grid>
 </ContentDialog>
