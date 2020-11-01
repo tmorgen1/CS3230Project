@@ -175,6 +175,9 @@
     <Compile Include="View\RegisterPatientContentDialog.xaml.cs">
       <DependentUpon>RegisterPatientContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewVisitInfoContentDialog.xaml.cs">
+      <DependentUpon>ViewVisitInfoContentDialog.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -229,6 +232,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\RegisterPatientContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewVisitInfoContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
