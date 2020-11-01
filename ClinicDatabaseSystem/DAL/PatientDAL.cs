@@ -159,6 +159,58 @@ namespace ClinicDatabaseSystem.DAL
             return patients;
         }
 
+        public static Patient GetPatientById(int pId)
+        {
+            using (MySqlConnection conn = DbConnection.GetConnection())
+            {
+                conn.Open();
+                string query = "select * from patient where patientID = @pId";
+
+                using (MySqlCommand comm = new MySqlCommand(query, conn))
+                {
+                    comm.Parameters.Add("@pId", MySqlDbType.Int32);
+                    comm.Parameters["@pId"].Value = pId;
+
+                    using (MySqlDataReader reader = comm.ExecuteReader())
+                    {
+                        int idOrdinal = reader.GetOrdinal("patientID");
+                        int lastNameOrdinal = reader.GetOrdinal("lastName");
+                        int firstNameOrdinal = reader.GetOrdinal("firstName");
+                        int dobOrdinal = reader.GetOrdinal("dob");
+                        int phoneNumberOrdinal = reader.GetOrdinal("phoneNumber");
+                        int addressOrdinal = reader.GetOrdinal("address");
+                        int zipOrdinal = reader.GetOrdinal("zip");
+
+                        while (reader.Read())
+                        {
+                            int id = !reader.IsDBNull(idOrdinal) ? reader.GetInt32(idOrdinal) : 0;
+                            string lastName = !reader.IsDBNull(lastNameOrdinal)
+                                ? reader.GetString(lastNameOrdinal)
+                                : null;
+                            string firstName = !reader.IsDBNull(firstNameOrdinal)
+                                ? reader.GetString(firstNameOrdinal)
+                                : null;
+                            DateTime dob = !reader.IsDBNull(dobOrdinal)
+                                ? reader.GetDateTime(dobOrdinal)
+                                : default(DateTime);
+                            string phoneNumber = !reader.IsDBNull(phoneNumberOrdinal)
+                                ? reader.GetString(phoneNumberOrdinal)
+                                : null;
+                            string address1 = !reader.IsDBNull(addressOrdinal)
+                                ? reader.GetString(addressOrdinal)
+                                : null;
+                            string zip = !reader.IsDBNull(zipOrdinal) ? reader.GetString(zipOrdinal) : null;
+                            Address address = GetAddressAndZipNewConnection(id, address1, zip);
+
+                            return new Patient(id, lastName, firstName, dob, phoneNumber, address);
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
         public static IList<Patient> SearchForPatients(DateTime dob)
         {
             List<Patient> patients = new List<Patient>();
