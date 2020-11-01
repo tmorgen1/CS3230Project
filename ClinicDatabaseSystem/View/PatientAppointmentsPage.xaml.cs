@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ClinicDatabaseSystem.Controller;
+using ClinicDatabaseSystem.DAL;
 using ClinicDatabaseSystem.Model;
 using ClinicDatabaseSystem.ViewModel;
 
@@ -108,7 +109,14 @@ namespace ClinicDatabaseSystem.View
                     this.editAppointmentButton.IsEnabled = false;
                 }
 
-                this.createVisitInfoButton.IsEnabled = true;
+                if (VisitInformationDAL.GetVisitInfoFromAppointment(appointment).Count == 0)
+                {
+                    this.createVisitInfoButton.IsEnabled = true;
+                }
+                else
+                {
+                    this.createVisitInfoButton.IsEnabled = false;
+                }
             }
         }
 

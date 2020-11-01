@@ -113,7 +113,7 @@ namespace ClinicDatabaseSystem.DAL
             using (MySqlConnection conn = DbConnection.GetConnection())
             {
                 conn.Open();
-                string editStatement = "update appointment set patientID = @pId, dateTime = @dateTime, doctorID = @dId, reason = @reason where patientID = @opId, dateTime = @odateTime";
+                string editStatement = "update appointment set patientID = @pId, dateTime = @dateTime, doctorID = @dId, reason = @reason where patientID = @opId and dateTime = @odateTime";
 
                 using (MySqlCommand comm = new MySqlCommand(editStatement, conn))
                 {

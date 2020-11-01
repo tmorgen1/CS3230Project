@@ -103,12 +103,10 @@ namespace ClinicDatabaseSystem.View
                                        date == appointment.ScheduledDate &&
                                        patient.ToString().Contains(appointment.PatientId.ToString())))
                 {
-                    this.EditAppointmentSuccessful = true;
                     return true;
                 }
             }
 
-            this.EditAppointmentSuccessful = false;
             return false;
         }
 
@@ -175,6 +173,7 @@ namespace ClinicDatabaseSystem.View
                 if (AppointmentDAL.EditAppointment(this.previousAppointment, new Appointment(int.Parse(patientID ?? string.Empty),
                     date, int.Parse(doctorID ?? string.Empty), reasons)))
                 {
+                    this.EditAppointmentSuccessful = true;
                     this.Hide();
                 }
             }

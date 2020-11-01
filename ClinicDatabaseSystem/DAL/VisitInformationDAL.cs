@@ -17,7 +17,7 @@ namespace ClinicDatabaseSystem.DAL
             using (MySqlConnection conn = DbConnection.GetConnection())
             {
                 conn.Open();
-                string query = "select * from visit_info where patientID = @pId, dateTime = @dateTime";
+                string query = "select * from visit_info where patientID = @pId and dateTime = @dateTime";
 
                 using (MySqlCommand comm = new MySqlCommand(query, conn))
                 {
