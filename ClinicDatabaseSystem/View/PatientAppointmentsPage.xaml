@@ -19,12 +19,14 @@
         <TextBlock x:Name="usernameTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="80,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="idTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="32,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
-        <controls:DataGrid x:Name="appointmentsDataGrid" HorizontalAlignment="Left" VerticalAlignment="Center" Height="679" Width="1697" AutoGenerateColumns="False" ItemsSource="{x:Bind viewModel.Appointments, Mode=TwoWay}" Foreground="White" IsReadOnly="True" Margin="195,0,0,0" LostFocus="appointmentsDataGrid_LostFocus" SelectionChanged="AppointmentsDataGrid_OnSelectionChanged">
+        <controls:DataGrid x:Name="appointmentsDataGrid" HorizontalAlignment="Left" VerticalAlignment="Center" Height="679" Width="1694" AutoGenerateColumns="False" ItemsSource="{x:Bind viewModel.Appointments, Mode=TwoWay}" Foreground="White" IsReadOnly="True" Margin="195,0,0,0" LostFocus="appointmentsDataGrid_LostFocus" SelectionChanged="AppointmentsDataGrid_OnSelectionChanged">
             <controls:DataGrid.Columns>
-                <controls:DataGridTextColumn Header="Patient ID" Width="SizeToHeader" Binding="{Binding PatientId}" FontSize="17"/>
-                <controls:DataGridTextColumn Header="Doctor ID" Width="SizeToHeader" Binding="{Binding DoctorId}" FontSize="17"/>
-                <controls:DataGridTextColumn Header="Scheduled Date" Width="250" Binding="{Binding ScheduledDate}" FontSize="17"/>
-                <controls:DataGridTextColumn Header="Reason" Width="700" Binding="{Binding Reason}" FontSize="17"/>
+                <controls:DataGridTextColumn Header="Patient ID" Width="SizeToHeader" Binding="{Binding Appointment.PatientId}" FontSize="17"/>
+                <controls:DataGridTextColumn Header="Patient Name" Width="300" Binding="{Binding PatientName}" FontSize="17"/>
+                <controls:DataGridTextColumn Header="Doctor ID" Width="SizeToHeader" Binding="{Binding Appointment.DoctorId}" FontSize="17"/>
+                <controls:DataGridTextColumn Header="Doctor Name" Width="300" Binding="{Binding DoctorName}" FontSize="17"/>
+                <controls:DataGridTextColumn Header="Scheduled Date" Width="250" Binding="{Binding Appointment.ScheduledDate}" FontSize="17"/>
+                <controls:DataGridTextColumn Header="Reason" Width="650" Binding="{Binding Appointment.Reason}" FontSize="17"/>
             </controls:DataGrid.Columns>
         </controls:DataGrid>
         <Button x:Name="createAppointmentButton" Foreground="White" Background="#3c6e71" Content="New Appointment" Margin="18,232,0,0" VerticalAlignment="Top" Width="146" Click="createAppointmentButton_Click"/>

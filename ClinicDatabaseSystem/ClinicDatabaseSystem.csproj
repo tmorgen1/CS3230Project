@@ -151,6 +151,9 @@
     <Compile Include="View\CreateAppointmentContentDialog.xaml.cs">
       <DependentUpon>CreateAppointmentContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CreateAppointmentPatientSelectedContentDialog.xaml.cs">
+      <DependentUpon>CreateAppointmentPatientSelectedContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CreateVisitInfoContentDialog.xaml.cs">
       <DependentUpon>CreateVisitInfoContentDialog.xaml</DependentUpon>
     </Compile>
@@ -201,6 +204,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="View\CreateAppointmentContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CreateAppointmentPatientSelectedContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

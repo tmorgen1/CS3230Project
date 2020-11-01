@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ClinicDatabaseSystem.Controller;
 using ClinicDatabaseSystem.DAL;
 using ClinicDatabaseSystem.Model;
 
@@ -19,12 +20,11 @@ using ClinicDatabaseSystem.Model;
 
 namespace ClinicDatabaseSystem.View
 {
-    public sealed partial class CreateAppointmentContentDialog : ContentDialog
+    public sealed partial class CreateAppointmentPatientSelectedContentDialog : ContentDialog
     {
-
         public bool CreateAppointmentSuccessful;
 
-        public CreateAppointmentContentDialog()
+        public CreateAppointmentPatientSelectedContentDialog()
         {
             this.InitializeComponent();
             this.loadPatientsComboBox();
@@ -43,7 +43,7 @@ namespace ClinicDatabaseSystem.View
 
         private bool IsDoubleBooked()
         {
-            var appointments = (List<Appointment>) AppointmentDAL.GetAllAppointments();
+            var appointments = (List<Appointment>)AppointmentDAL.GetAllAppointments();
             foreach (var appointment in appointments)
             {
                 var doctor = this.doctorsListView.SelectedItem;
@@ -96,7 +96,7 @@ namespace ClinicDatabaseSystem.View
 
         private void loadDoctorsComboBox()
         {
-            var doctors = (List<Doctor>) DoctorDAL.GetAllDoctors();
+            var doctors = (List<Doctor>)DoctorDAL.GetAllDoctors();
             foreach (var doctor in doctors)
             {
                 var fullName = doctor.DoctorId + ": " + doctor.FirstName + " " + doctor.LastName;
@@ -111,6 +111,10 @@ namespace ClinicDatabaseSystem.View
             {
                 var fullName = patient.PatientId + ": " + patient.FirstName + " " + patient.LastName;
                 this.patientsListView.Items?.Add(fullName);
+                if (patient.PatientId == PatientController.CurrentPatient)
+                {
+                    this.patientsListView.SelectedItem = fullName;
+                }
             }
         }
 
@@ -143,7 +147,8 @@ namespace ClinicDatabaseSystem.View
             {
                 this.timeErrorTextBlock.Text = "Invalid Time";
                 this.timeErrorTextBlock.Visibility = Visibility.Visible;
-            } else if (this.IsDoubleBooked())
+            }
+            else if (this.IsDoubleBooked())
             {
                 this.timeErrorTextBlock.Text = "Time already booked";
                 this.timeErrorTextBlock.Visibility = Visibility.Visible;
@@ -232,10 +237,12 @@ namespace ClinicDatabaseSystem.View
                 var date = new DateTime(this.datePicker.Date.Year, this.datePicker.Date.Month, this.datePicker.Date.Day,
                     this.timePicker.Time.Hours, this.timePicker.Time.Minutes, this.timePicker.Time.Seconds);
                 return date;
-            } else if (this.datePicker.SelectedDate.HasValue && !this.timePicker.SelectedTime.HasValue)
+            }
+            else if (this.datePicker.SelectedDate.HasValue && !this.timePicker.SelectedTime.HasValue)
             {
                 return this.datePicker.Date.Date;
-            } else if (!this.datePicker.SelectedDate.HasValue && this.timePicker.SelectedTime.HasValue)
+            }
+            else if (!this.datePicker.SelectedDate.HasValue && this.timePicker.SelectedTime.HasValue)
             {
                 return new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, this.timePicker.Time.Hours,
                     this.timePicker.Time.Minutes, this.timePicker.Time.Seconds);

@@ -13,9 +13,9 @@ namespace ClinicDatabaseSystem.ViewModel
 {
     public class PatientAppointmentsViewModel : INotifyPropertyChanged
     {
-        private List<Appointment> appointments;
+        private List<AppointmentNameInfo> appointments;
 
-        public List<Appointment> Appointments
+        public List<AppointmentNameInfo> Appointments
         {
             get => this.appointments;
             set
@@ -30,14 +30,38 @@ namespace ClinicDatabaseSystem.ViewModel
 
         public PatientAppointmentsViewModel()
         {
-            this.appointments = new List<Appointment>();
+            this.appointments = new List<AppointmentNameInfo>();
         }
 
         public void LoadAppointments(int patientId)
         {
             var patientAppointments = (List<Appointment>)AppointmentDAL.GetAllAppointmentsFromPatientId(patientId);
             patientAppointments.Sort((x,y) => x.ScheduledDate.CompareTo(y.ScheduledDate));
-            this.Appointments = patientAppointments;
+            var patients = PatientDAL.GetAllPatients();
+            var doctors = DoctorDAL.GetAllDoctors();
+            foreach (var patientAppointment in patientAppointments)
+            {
+                var patientName = "";
+                var doctorName = "";
+                foreach (var patient in patients)
+                {
+                    if (patient.PatientId == patientAppointment.PatientId)
+                    {
+                        patientName = patient.FirstName + " " + patient.LastName;
+                    }
+                }
+
+                foreach (var doctor in doctors)
+                {
+                    if (doctor.DoctorId == patientAppointment.DoctorId)
+                    {
+                        doctorName = doctor.FirstName + " " + doctor.LastName;
+                    }
+                }
+
+                var appointmentNameInfo = new AppointmentNameInfo(patientName, doctorName, patientAppointment);
+                this.appointments.Add(appointmentNameInfo);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

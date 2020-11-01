@@ -31,7 +31,7 @@ namespace ClinicDatabaseSystem.View
         private bool editAppointmentHovered;
         private bool createVisitInfoHovered;
         private bool viewVisitInfoHovered;
-        private Appointment selectedAppointment;
+        private AppointmentNameInfo selectedAppointment;
 
         public PatientAppointmentsPage()
         {
@@ -51,7 +51,7 @@ namespace ClinicDatabaseSystem.View
 
         private async void createAppointmentButton_Click(object sender, RoutedEventArgs e)
         {
-            CreateAppointmentContentDialog createAppointmentContentDialog = new CreateAppointmentContentDialog();
+            CreateAppointmentPatientSelectedContentDialog createAppointmentContentDialog = new CreateAppointmentPatientSelectedContentDialog();
             await createAppointmentContentDialog.ShowAsync();
             if (createAppointmentContentDialog.CreateAppointmentSuccessful)
             {
@@ -103,7 +103,7 @@ namespace ClinicDatabaseSystem.View
             var appointment = this.getClickedAppointment();
             if (appointment != null )
             {
-                var date = appointment.ScheduledDate;
+                var date = appointment.Appointment.ScheduledDate;
                 var datetimeCompare = DateTime.Compare(date, DateTime.Today);
                 this.selectedAppointment = appointment;
                 if (datetimeCompare > 0)
@@ -115,7 +115,7 @@ namespace ClinicDatabaseSystem.View
                     this.editAppointmentButton.IsEnabled = false;
                 }
 
-                if (VisitInformationDAL.GetVisitInfoFromAppointment(appointment).Count == 0)
+                if (VisitInformationDAL.GetVisitInfoFromAppointment(appointment.Appointment).Count == 0)
                 {
                     this.createVisitInfoButton.IsEnabled = true;
                     this.viewVisitInfoButton.IsEnabled = false;
@@ -128,7 +128,7 @@ namespace ClinicDatabaseSystem.View
             }
         }
 
-        private Appointment getClickedAppointment()
+        private AppointmentNameInfo getClickedAppointment()
         {
             var index = this.appointmentsDataGrid.SelectedIndex;
             if (index != -1)
@@ -142,7 +142,7 @@ namespace ClinicDatabaseSystem.View
 
         private void editAppointmentButton_Click(object sender, RoutedEventArgs e)
         {
-            this.displayEditAppointmentContentDialog(this.selectedAppointment);
+            this.displayEditAppointmentContentDialog(this.selectedAppointment.Appointment);
         }
 
         private async void displayEditAppointmentContentDialog(Appointment appointment)
@@ -170,7 +170,7 @@ namespace ClinicDatabaseSystem.View
 
         private void createVisitInfoButton_Click(object sender, RoutedEventArgs e)
         {
-            this.displayCreateVisitInfoContentDialog(this.selectedAppointment);
+            this.displayCreateVisitInfoContentDialog(this.selectedAppointment.Appointment);
         }
 
         private async void displayCreateVisitInfoContentDialog(Appointment appointment)
@@ -184,7 +184,7 @@ namespace ClinicDatabaseSystem.View
 
         private void viewVisitInfoButton_Click(object sender, RoutedEventArgs e)
         {
-            this.displayViewVisitInfoContentDialog(this.selectedAppointment);
+            this.displayViewVisitInfoContentDialog(this.selectedAppointment.Appointment);
         }
 
         private async void displayViewVisitInfoContentDialog(Appointment appointment)
