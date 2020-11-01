@@ -55,7 +55,7 @@ namespace ClinicDatabaseSystem.View
             await createAppointmentContentDialog.ShowAsync();
             if (createAppointmentContentDialog.CreateAppointmentSuccessful)
             {
-                this.viewModel.LoadAppointments(1);
+                this.viewModel.LoadAppointments(PatientController.CurrentPatient);
             }
         }
 
