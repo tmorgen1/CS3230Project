@@ -130,6 +130,8 @@
     <Compile Include="DAL\DoctorSpecialtyDAL.cs" />
     <Compile Include="DAL\NurseDAL.cs" />
     <Compile Include="DAL\PatientDAL.cs" />
+    <Compile Include="DAL\TestDAL.cs" />
+    <Compile Include="DAL\TestResultDAL.cs" />
     <Compile Include="DAL\VisitInformationDAL.cs" />
     <Compile Include="Enums\States.cs" />
     <Compile Include="Hashing\BlowFish.cs" />
