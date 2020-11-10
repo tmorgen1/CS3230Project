@@ -108,6 +108,25 @@ namespace ClinicDatabaseSystem.DAL
             }
         }
 
+        public static bool DeleteAppointment(Appointment appointment)
+        {
+            using (MySqlConnection conn = DbConnection.GetConnection())
+            {
+                conn.Open();
+                string deleteStatement = "delete from appointment where patientID = @pId and dateTime = @dateTime";
+
+                using (MySqlCommand comm = new MySqlCommand(deleteStatement, conn))
+                {
+                    comm.Parameters.Add("@pId", MySqlDbType.Int32);
+                    comm.Parameters["@pId"].Value = appointment.PatientId;
+                    comm.Parameters.Add("@dateTime", MySqlDbType.DateTime);
+                    comm.Parameters["@dateTime"].Value = appointment.ScheduledDate;
+
+                    return comm.ExecuteNonQuery() > 0;
+                }
+            }
+        }
+
         public static bool EditAppointment(Appointment prevAppointment, Appointment newAppointment)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())

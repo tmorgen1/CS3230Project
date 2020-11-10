@@ -105,5 +105,24 @@ namespace ClinicDatabaseSystem.DAL
                 }
             }
         }
+
+        public static bool DeleteVisitInfo(VisitInformation visitInfo)
+        {
+            using (MySqlConnection conn = DbConnection.GetConnection())
+            {
+                conn.Open();
+                string deleteStatement = "delete from visit_info where patientID = @pId and dateTime = @dateTime";
+
+                using (MySqlCommand comm = new MySqlCommand(deleteStatement, conn))
+                {
+                    comm.Parameters.Add("@pId", MySqlDbType.Int32);
+                    comm.Parameters["@pId"].Value = visitInfo.PatientId;
+                    comm.Parameters.Add("@dateTime", MySqlDbType.DateTime);
+                    comm.Parameters["@dateTime"].Value = visitInfo.VisitDateTime;
+
+                    return comm.ExecuteNonQuery() > 0;
+                }
+            }
+        }
     }
 }
