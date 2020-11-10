@@ -31,6 +31,7 @@ namespace ClinicDatabaseSystem.View
         private bool editAppointmentHovered;
         private bool createVisitInfoHovered;
         private bool viewVisitInfoHovered;
+        private bool deleteAppointmentHovered;
         private AppointmentNameInfo selectedAppointment;
 
         public PatientAppointmentsPage()
@@ -225,6 +226,15 @@ namespace ClinicDatabaseSystem.View
         private void ViewVisitInfoButton_OnPointerExited(object sender, PointerRoutedEventArgs e)
         {
             this.viewVisitInfoHovered = false;
+        }
+
+        private void deleteAppointmentButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Add a ARE YOU SURE YOU WANT TO DELETE?
+            if (this.selectedAppointment != null)
+            {
+                AppointmentDAL.DeleteAppointment(this.selectedAppointment.Appointment);
+            }
         }
     }
 }

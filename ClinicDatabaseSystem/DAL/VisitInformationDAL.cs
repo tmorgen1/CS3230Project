@@ -34,6 +34,7 @@ namespace ClinicDatabaseSystem.DAL
                         int diastolicBpOrdinal = reader.GetOrdinal("diastolicBP");
                         int bodyTempOrdinal = reader.GetOrdinal("bodyTemp");
                         int pulseOrdinal = reader.GetOrdinal("pulse");
+                        int weightOrdinal = reader.GetOrdinal("weight");
                         int symptomsOrdinal = reader.GetOrdinal("symptoms");
                         int initialDiagnosisOrdinal = reader.GetOrdinal("initialDiagnosis");
                         int finalDiagnosisOrdinal = reader.GetOrdinal("finalDiagnosis");
@@ -54,6 +55,7 @@ namespace ClinicDatabaseSystem.DAL
                                 ? reader.GetString(bodyTempOrdinal)
                                 : null;
                             string pulse = !reader.IsDBNull(pulseOrdinal) ? reader.GetString(pulseOrdinal) : null;
+                            string weight = !reader.IsDBNull(weightOrdinal) ? reader.GetString(weightOrdinal) : null;
                             string symptoms = !reader.IsDBNull(symptomsOrdinal)
                                 ? reader.GetString(symptomsOrdinal)
                                 : null;
@@ -64,7 +66,7 @@ namespace ClinicDatabaseSystem.DAL
                                 ? reader.GetString(finalDiagnosisOrdinal)
                                 : null;
 
-                            visitInfos.Add(new VisitInformation(pId, dateTime, systolicBp, diastolicBp, bodyTemp, pulse, symptoms, initialDiagnosis, finalDiagnosis));
+                            visitInfos.Add(new VisitInformation(pId, dateTime, systolicBp, diastolicBp, bodyTemp, pulse, weight, symptoms, initialDiagnosis, finalDiagnosis));
                         }
                     }
                 }
@@ -78,7 +80,7 @@ namespace ClinicDatabaseSystem.DAL
             using (MySqlConnection conn = DbConnection.GetConnection())
             {
                 conn.Open();
-                string insertStatement = "insert into visit_info values (@pId, @dateTime, @systolic, @diastolic, @bodyTemp, @pulse, @symptoms, @initialDiagnosis, @finalDiagnosis)";
+                string insertStatement = "insert into visit_info values (@pId, @dateTime, @systolic, @diastolic, @bodyTemp, @pulse, @weight, @symptoms, @initialDiagnosis, @finalDiagnosis)";
 
                 using (MySqlCommand comm = new MySqlCommand(insertStatement, conn))
                 {
@@ -94,6 +96,8 @@ namespace ClinicDatabaseSystem.DAL
                     comm.Parameters["@bodyTemp"].Value = visitInfo.BodyTemp;
                     comm.Parameters.Add("@pulse", MySqlDbType.String);
                     comm.Parameters["@pulse"].Value = visitInfo.Pulse;
+                    comm.Parameters.Add("@weight", MySqlDbType.String);
+                    comm.Parameters["@weight"].Value = visitInfo.Weight;
                     comm.Parameters.Add("@symptoms", MySqlDbType.String);
                     comm.Parameters["@symptoms"].Value = visitInfo.Symptoms;
                     comm.Parameters.Add("@initialDiagnosis", MySqlDbType.String);
