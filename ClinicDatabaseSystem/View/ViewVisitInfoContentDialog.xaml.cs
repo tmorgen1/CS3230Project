@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ClinicDatabaseSystem.DAL;
 using ClinicDatabaseSystem.Model;
+using ClinicDatabaseSystem.ViewModel;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -23,21 +24,21 @@ namespace ClinicDatabaseSystem.View
     public sealed partial class ViewVisitInfoContentDialog : ContentDialog
     {
 
-        private Appointment appointment;
+        private AppointmentNameInfo appointmentNameInfo;
 
-        public ViewVisitInfoContentDialog(Appointment appointment)
+        public ViewVisitInfoContentDialog(AppointmentNameInfo appointmentNameInfo)
         {
             this.InitializeComponent();
-            this.appointment = appointment;
+            this.appointmentNameInfo = appointmentNameInfo;
             this.loadVistInfo();
         }
 
         private void loadVistInfo()
         {
-            this.patientIdTextBox.Text = this.appointment.PatientId.ToString();
-            this.dateTextBox.Text = this.appointment.ScheduledDate.ToString();
+            this.patientIdTextBox.Text = this.appointmentNameInfo.Appointment.PatientId.ToString();
+            this.dateTextBox.Text = this.appointmentNameInfo.Appointment.ScheduledDate.ToString();
             
-            var visitInfo = VisitInformationDAL.GetVisitInfoFromAppointment(appointment)[0];
+            var visitInfo = VisitInformationDAL.GetVisitInfoFromAppointment(this.appointmentNameInfo.Appointment)[0];
             this.systolicBpTextBox.Text = visitInfo.SystolicBp;
             this.diastolicBpTextBox.Text = visitInfo.DiastolicBp;
             this.bodyTempTextBox.Text = visitInfo.BodyTemp;
