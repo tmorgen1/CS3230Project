@@ -20,13 +20,15 @@ namespace ClinicDatabaseSystem.Model
 
         public string Pulse { get; set; }
 
+        public string Weight { get; set; }
+
         public string Symptoms { get; set; }
 
         public string InitialDiagnosis { get; set; }
 
         public string FinalDiagnosis { get; set; }
 
-        public VisitInformation(int patientId, DateTime visitDateTime, string systolicBp, string diastolicBp, string bodyTemp, string pulse, string symptoms, string initialDiagnosis, string finalDiagnosis)
+        public VisitInformation(int patientId, DateTime visitDateTime, string systolicBp, string diastolicBp, string bodyTemp, string pulse, string weight, string symptoms, string initialDiagnosis, string finalDiagnosis)
         {
             this.PatientId = patientId;
             this.VisitDateTime = visitDateTime;
@@ -34,6 +36,7 @@ namespace ClinicDatabaseSystem.Model
             this.DiastolicBp = diastolicBp;
             this.BodyTemp = bodyTemp;
             this.Pulse = pulse;
+            this.Weight = weight;
             this.Symptoms = symptoms;
             this.InitialDiagnosis = initialDiagnosis;
             this.FinalDiagnosis = finalDiagnosis;
