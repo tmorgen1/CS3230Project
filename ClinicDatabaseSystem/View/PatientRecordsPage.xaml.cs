@@ -32,7 +32,6 @@ namespace ClinicDatabaseSystem.View
         private Patient selectedPatient;
         private bool editPatientHovered;
         private bool viewAppointmentHovered;
-        private bool newAppointmentHovered;
 
         public PatientRecordsPage()
         {
@@ -76,15 +75,21 @@ namespace ClinicDatabaseSystem.View
 
         private async void displayEditPatientContentDialog(Patient patient)
         {
-            this.editPatientButton.IsEnabled = false;
-            this.viewAppointmentsButton.IsEnabled = false;
             EditPatientContentDialog editPatientContentDialog = new EditPatientContentDialog(patient);
             await editPatientContentDialog.ShowAsync();
             if (editPatientContentDialog.UpdateSuccessful)
             {
                 this.viewModel.LoadPatients();
-                this.selectedPatient = null;
             }
+
+            this.recordsDataGrid.SelectedItem = patient;
+            this.enablePatientSelectedButtons();
+        }
+
+        private void enablePatientSelectedButtons()
+        {
+            this.editPatientButton.IsEnabled = true;
+            this.viewAppointmentsButton.IsEnabled = true;
         }
 
         private void recordsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -93,8 +98,7 @@ namespace ClinicDatabaseSystem.View
             if (patient != null)
             {
                 this.selectedPatient = patient;
-                this.editPatientButton.IsEnabled = true;
-                this.viewAppointmentsButton.IsEnabled = true;
+                this.enablePatientSelectedButtons();
             }
         }
 
@@ -123,7 +127,7 @@ namespace ClinicDatabaseSystem.View
                 this.viewAppointmentsButton.IsEnabled = false;
             }
 
-            if (!this.newAppointmentHovered && !this.editPatientHovered && !this.viewAppointmentHovered)
+            if (!this.editPatientHovered && !this.viewAppointmentHovered)
             {
                 this.selectedPatient = null;
             }
@@ -202,13 +206,6 @@ namespace ClinicDatabaseSystem.View
             this.searchPatients();
         }
 
-        private async void createAppointmentButton_Click(object sender, RoutedEventArgs e)
-        {
-            CreateAppointmentContentDialog createAppointmentContentDialog = new CreateAppointmentContentDialog(this.selectedPatient);
-            await createAppointmentContentDialog.ShowAsync();
-            this.selectedPatient = null;
-        }
-
         private void EditPatientButton_OnPointerEntered(object sender, PointerRoutedEventArgs e)
         {
             this.editPatientHovered = true;
@@ -235,14 +232,5 @@ namespace ClinicDatabaseSystem.View
             Frame.Navigate(typeof(PatientAppointmentsPage));
         }
 
-        private void CreateAppointmentButton_OnPointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            this.newAppointmentHovered = true;
-        }
-
-        private void CreateAppointmentButton_OnPointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            this.newAppointmentHovered = false;
-        }
     }
 }
