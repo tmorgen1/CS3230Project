@@ -23,5 +23,37 @@ namespace ClinicDatabaseSystem.Model
             this.DoctorId = doctorId;
             this.Reason = reason;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (obj.GetType() != typeof(Appointment))
+            {
+                return false;
+            }
+
+            var appointment = (Appointment) obj;
+            if (this.PatientId != appointment.PatientId)
+            {
+                return false;
+            }
+            if (this.DoctorId != appointment.DoctorId)
+            {
+                return false;
+            }
+            if (!this.Reason.Equals(appointment.Reason))
+            {
+                return false;
+            }
+            if (this.ScheduledDate != appointment.ScheduledDate)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

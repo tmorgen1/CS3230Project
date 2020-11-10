@@ -32,6 +32,7 @@ namespace ClinicDatabaseSystem.View
         private Patient selectedPatient;
         private bool editPatientHovered;
         private bool viewAppointmentHovered;
+        private bool newAppointmentHovered;
 
         public PatientRecordsPage()
         {
@@ -82,6 +83,7 @@ namespace ClinicDatabaseSystem.View
             if (editPatientContentDialog.UpdateSuccessful)
             {
                 this.viewModel.LoadPatients();
+                this.selectedPatient = null;
             }
         }
 
@@ -119,6 +121,11 @@ namespace ClinicDatabaseSystem.View
             if (!this.viewAppointmentHovered)
             {
                 this.viewAppointmentsButton.IsEnabled = false;
+            }
+
+            if (!this.newAppointmentHovered && !this.editPatientHovered && !this.viewAppointmentHovered)
+            {
+                this.selectedPatient = null;
             }
         }
 
@@ -197,8 +204,9 @@ namespace ClinicDatabaseSystem.View
 
         private async void createAppointmentButton_Click(object sender, RoutedEventArgs e)
         {
-            CreateAppointmentContentDialog createAppointmentContentDialog = new CreateAppointmentContentDialog();
+            CreateAppointmentContentDialog createAppointmentContentDialog = new CreateAppointmentContentDialog(this.selectedPatient);
             await createAppointmentContentDialog.ShowAsync();
+            this.selectedPatient = null;
         }
 
         private void EditPatientButton_OnPointerEntered(object sender, PointerRoutedEventArgs e)
@@ -225,6 +233,16 @@ namespace ClinicDatabaseSystem.View
         {
             PatientController.CurrentPatient = this.selectedPatient.PatientId;
             Frame.Navigate(typeof(PatientAppointmentsPage));
+        }
+
+        private void CreateAppointmentButton_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            this.newAppointmentHovered = true;
+        }
+
+        private void CreateAppointmentButton_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            this.newAppointmentHovered = false;
         }
     }
 }

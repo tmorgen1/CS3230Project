@@ -39,6 +39,7 @@ namespace ClinicDatabaseSystem.ViewModel
             patientAppointments.Sort((x,y) => x.ScheduledDate.CompareTo(y.ScheduledDate));
             var patients = PatientDAL.GetAllPatients();
             var doctors = DoctorDAL.GetAllDoctors();
+            var appointmentNameInfoList = new List<AppointmentNameInfo>();
             foreach (var patientAppointment in patientAppointments)
             {
                 var patientName = "";
@@ -60,8 +61,10 @@ namespace ClinicDatabaseSystem.ViewModel
                 }
 
                 var appointmentNameInfo = new AppointmentNameInfo(patientName, doctorName, patientAppointment);
-                this.appointments.Add(appointmentNameInfo);
+                appointmentNameInfoList.Add(appointmentNameInfo);
             }
+
+            this.Appointments = appointmentNameInfoList;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

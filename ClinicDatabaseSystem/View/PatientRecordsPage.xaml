@@ -45,7 +45,7 @@
         <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="789,57,0,0" Text="Birthdate:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <DatePicker x:Name="searchDatePicker" Margin="853,50,0,0" VerticalAlignment="Top" Width="325" LostFocus="searchDatePicker_LostFocus" SelectedDateChanged="SearchDatePicker_OnSelectedDateChanged"/>
         <TextBlock x:Name="searchFullNameErrorTextBlock" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Left" Margin="239,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button x:Name="createAppointmentButton" Foreground="White" Background="#3c6e71" Content="New Appointment" Margin="18,315,0,0" VerticalAlignment="Top" Width="146" Click="createAppointmentButton_Click"/>
+        <Button x:Name="createAppointmentButton" Foreground="White" Background="#3c6e71" Content="New Appointment" Margin="18,315,0,0" VerticalAlignment="Top" Width="146" Click="createAppointmentButton_Click" PointerEntered="CreateAppointmentButton_OnPointerEntered" PointerExited="CreateAppointmentButton_OnPointerExited"/>
         <Button x:Name="viewAppointmentsButton" IsEnabled="False" Content="View Appointments" Foreground="White" Background="#3c6e71" Margin="18,267,0,0" VerticalAlignment="Top" Width="146" PointerEntered="viewAppointmentsButton_PointerEntered" PointerExited="ViewAppointmentsButton_OnPointerExited" Click="viewAppointmentsButton_Click"/>
     </Grid>
 </Page>

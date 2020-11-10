@@ -23,10 +23,12 @@ namespace ClinicDatabaseSystem.View
     {
 
         public bool CreateAppointmentSuccessful;
+        private Patient selectedPatient;
 
-        public CreateAppointmentContentDialog()
+        public CreateAppointmentContentDialog(Patient patient)
         {
             this.InitializeComponent();
+            this.selectedPatient = patient;
             this.loadPatientsComboBox();
             this.loadDoctorsComboBox();
         }
@@ -111,6 +113,10 @@ namespace ClinicDatabaseSystem.View
             {
                 var fullName = patient.PatientId + ": " + patient.FirstName + " " + patient.LastName;
                 this.patientsListView.Items?.Add(fullName);
+                if (this.selectedPatient != null && patient.PatientId == this.selectedPatient.PatientId)
+                {
+                    this.patientsListView.SelectedItem = fullName;
+                }
             }
         }
 

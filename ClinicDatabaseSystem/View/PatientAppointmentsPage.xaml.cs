@@ -57,6 +57,9 @@ namespace ClinicDatabaseSystem.View
             {
                 this.viewModel.LoadAppointments(PatientController.CurrentPatient);
             }
+
+            this.appointmentsDataGrid.SelectedItem = this.selectedAppointment;
+            this.checkAppointment(this.selectedAppointment);
         }
 
         private void logoutButton_Click(object sender, RoutedEventArgs e)
@@ -101,7 +104,12 @@ namespace ClinicDatabaseSystem.View
         private void AppointmentsDataGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var appointment = this.getClickedAppointment();
-            if (appointment != null )
+            this.checkAppointment(appointment);
+        }
+
+        private void checkAppointment(AppointmentNameInfo appointment)
+        {
+            if (appointment != null)
             {
                 var date = appointment.Appointment.ScheduledDate;
                 var datetimeCompare = DateTime.Compare(date, DateTime.Today);
@@ -155,7 +163,16 @@ namespace ClinicDatabaseSystem.View
             if (editAppointmentContentDialog.EditAppointmentSuccessful)
             {
                 this.viewModel.LoadAppointments(PatientController.CurrentPatient);
+                foreach (var appointmentNameInfo in this.viewModel.Appointments)
+                {
+                    if (appointmentNameInfo.Appointment.Equals(editAppointmentContentDialog.NewAppointment))
+                    {
+                        this.selectedAppointment = appointmentNameInfo;
+                    }
+                }
             }
+            this.appointmentsDataGrid.SelectedItem = this.selectedAppointment;
+            this.checkAppointment(this.selectedAppointment);
         }
 
         private void createVisitInfoButton_PointerEntered(object sender, PointerRoutedEventArgs e)
@@ -180,6 +197,8 @@ namespace ClinicDatabaseSystem.View
             this.viewVisitInfoButton.IsEnabled = false;
             CreateVisitInfoContentDialog createVisitInfoContentDialog = new CreateVisitInfoContentDialog(appointment);
             await createVisitInfoContentDialog.ShowAsync();
+            this.appointmentsDataGrid.SelectedItem = this.selectedAppointment;
+            this.checkAppointment(this.selectedAppointment);
         }
 
         private void viewVisitInfoButton_Click(object sender, RoutedEventArgs e)
@@ -194,6 +213,8 @@ namespace ClinicDatabaseSystem.View
             this.viewVisitInfoButton.IsEnabled = false;
             ViewVisitInfoContentDialog viewVisitInfoContentDialog = new ViewVisitInfoContentDialog(appointment);
             await viewVisitInfoContentDialog.ShowAsync();
+            this.appointmentsDataGrid.SelectedItem = this.selectedAppointment;
+            this.checkAppointment(this.selectedAppointment);
         }
 
         private void ViewVisitInfoButton_OnPointerEntered(object sender, PointerRoutedEventArgs e)

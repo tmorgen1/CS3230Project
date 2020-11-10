@@ -24,6 +24,8 @@ namespace ClinicDatabaseSystem.View
         public bool EditAppointmentSuccessful;
         private readonly Appointment previousAppointment;
 
+        public Appointment NewAppointment { get; private set; }
+
         public EditAppointmentContentDialog(Appointment appointment)
         {
             this.InitializeComponent();
@@ -170,9 +172,11 @@ namespace ClinicDatabaseSystem.View
                 this.reasonRichEditBox.Document.GetText(0, out var reasons);
                 var date = this.getSelectedDateAndTime();
                 reasons = reasons.Trim();
-                if (AppointmentDAL.EditAppointment(this.previousAppointment, new Appointment(int.Parse(patientID ?? string.Empty),
-                    date, int.Parse(doctorID ?? string.Empty), reasons)))
+                var appointment = new Appointment(int.Parse(patientID ?? string.Empty),
+                    date, int.Parse(doctorID ?? string.Empty), reasons);
+                if (AppointmentDAL.EditAppointment(this.previousAppointment, appointment))
                 {
+                    this.NewAppointment = appointment;
                     this.EditAppointmentSuccessful = true;
                     this.Hide();
                 }
