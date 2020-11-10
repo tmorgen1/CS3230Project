@@ -100,6 +100,11 @@ namespace ClinicDatabaseSystem.View
             {
                 this.viewVisitInfoButton.IsEnabled = false;
             }
+
+            if (!this.deleteAppointmentHovered)
+            {
+                this.deleteAppointmentButton.IsEnabled = false;
+            }
         }
 
         private void AppointmentsDataGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -134,6 +139,8 @@ namespace ClinicDatabaseSystem.View
                     this.createVisitInfoButton.IsEnabled = false;
                     this.viewVisitInfoButton.IsEnabled = true;
                 }
+
+                this.deleteAppointmentButton.IsEnabled = true;
             }
         }
 
@@ -156,9 +163,7 @@ namespace ClinicDatabaseSystem.View
 
         private async void displayEditAppointmentContentDialog(Appointment appointment)
         {
-            this.editAppointmentButton.IsEnabled = false;
-            this.createVisitInfoButton.IsEnabled = false;
-            this.viewVisitInfoButton.IsEnabled = false;
+            this.setButtonsDisabled();
             EditAppointmentContentDialog editAppointmentContentDialog = new EditAppointmentContentDialog(appointment);
             await editAppointmentContentDialog.ShowAsync();
             if (editAppointmentContentDialog.EditAppointmentSuccessful)
@@ -193,13 +198,19 @@ namespace ClinicDatabaseSystem.View
 
         private async void displayCreateVisitInfoContentDialog(Appointment appointment)
         {
-            this.editAppointmentButton.IsEnabled = false;
-            this.createVisitInfoButton.IsEnabled = false;
-            this.viewVisitInfoButton.IsEnabled = false;
+            this.setButtonsDisabled();
             CreateVisitInfoContentDialog createVisitInfoContentDialog = new CreateVisitInfoContentDialog(appointment);
             await createVisitInfoContentDialog.ShowAsync();
             this.appointmentsDataGrid.SelectedItem = this.selectedAppointment;
             this.checkAppointment(this.selectedAppointment);
+        }
+
+        private void setButtonsDisabled()
+        {
+            this.editAppointmentButton.IsEnabled = false;
+            this.createVisitInfoButton.IsEnabled = false;
+            this.viewVisitInfoButton.IsEnabled = false;
+            this.deleteAppointmentButton.IsEnabled = false;
         }
 
         private void viewVisitInfoButton_Click(object sender, RoutedEventArgs e)
@@ -209,9 +220,7 @@ namespace ClinicDatabaseSystem.View
 
         private async void displayViewVisitInfoContentDialog(AppointmentNameInfo appointment)
         {
-            this.editAppointmentButton.IsEnabled = false;
-            this.createVisitInfoButton.IsEnabled = false;
-            this.viewVisitInfoButton.IsEnabled = false;
+            this.setButtonsDisabled();
             ViewVisitInfoContentDialog viewVisitInfoContentDialog = new ViewVisitInfoContentDialog(appointment);
             await viewVisitInfoContentDialog.ShowAsync();
             this.appointmentsDataGrid.SelectedItem = this.selectedAppointment;
@@ -230,11 +239,24 @@ namespace ClinicDatabaseSystem.View
 
         private void deleteAppointmentButton_Click(object sender, RoutedEventArgs e)
         {
-            // Add a ARE YOU SURE YOU WANT TO DELETE?
+            // TODO: Add a ARE YOU SURE YOU WANT TO DELETE?
             if (this.selectedAppointment != null)
             {
+                this.setButtonsDisabled();
                 AppointmentDAL.DeleteAppointment(this.selectedAppointment.Appointment);
+                this.viewModel.LoadAppointments(this.selectedAppointment.Appointment.PatientId);
+                this.appointmentsDataGrid.SelectedItem = null;
             }
+        }
+
+        private void DeleteAppointmentButton_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            this.deleteAppointmentHovered = true;
+        }
+
+        private void DeleteAppointmentButton_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            this.deleteAppointmentHovered = false;
         }
     }
 }
