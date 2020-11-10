@@ -98,7 +98,7 @@ namespace ClinicDatabaseSystem.View
                 this.initialDiagnosisRichEditBox.Document.GetText(0, out var diagnosis);
                 if (VisitInformationDAL.InsertVisitInfo(new VisitInformation(patientId, date,
                     this.systolicBpTextBox.Text, this.diastolicBpTextBox.Text, this.bodyTempTextBox.Text,
-                    this.pulseTextBox.Text, symptoms, diagnosis, null)))
+                    this.pulseTextBox.Text, this.weightTextBox.Text, symptoms, diagnosis, null)))
                 {
                     this.Hide();
                 }

@@ -36,6 +36,7 @@ namespace ClinicDatabaseSystem.View
         private void loadVistInfo()
         {
             this.patientIdTextBox.Text = this.appointmentNameInfo.Appointment.PatientId.ToString();
+            this.patientNameTextBox.Text = this.appointmentNameInfo.PatientName;
             this.dateTextBox.Text = this.appointmentNameInfo.Appointment.ScheduledDate.ToString();
             
             var visitInfo = VisitInformationDAL.GetVisitInfoFromAppointment(this.appointmentNameInfo.Appointment)[0];
@@ -43,7 +44,8 @@ namespace ClinicDatabaseSystem.View
             this.diastolicBpTextBox.Text = visitInfo.DiastolicBp;
             this.bodyTempTextBox.Text = visitInfo.BodyTemp;
             this.pulseTextBox.Text = visitInfo.Pulse;
-            
+            this.weightTextBox.Text = visitInfo.Weight;
+
             this.symptomsRichEditBox.Document.SetText(TextSetOptions.None, visitInfo.Symptoms);
             this.symptomsRichEditBox.IsReadOnly = true;
             
