@@ -80,6 +80,7 @@ namespace ClinicDatabaseSystem.View
             if (editPatientContentDialog.UpdateSuccessful)
             {
                 this.viewModel.LoadPatients();
+                this.selectedPatient = editPatientContentDialog.newPatient;
             }
 
             this.recordsDataGrid.SelectedItem = patient;

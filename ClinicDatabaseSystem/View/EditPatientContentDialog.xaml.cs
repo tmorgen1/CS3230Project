@@ -28,6 +28,8 @@ namespace ClinicDatabaseSystem.View
 
         public bool UpdateSuccessful { get; private set; }
 
+        public Patient newPatient { get; private set; }
+
         public EditPatientContentDialog(Patient patient)
         {
             this.InitializeComponent();
@@ -312,9 +314,9 @@ namespace ClinicDatabaseSystem.View
                 this.updatePatientInfo();
                 if (PatientDAL.EditPatient(this.patient))
                 {
-                    (Window.Current.Content as Frame)?.Navigate(typeof(PatientRecordsPage), null);
-                    this.Hide();
+                    this.newPatient = this.patient;
                     this.UpdateSuccessful = true;
+                    this.Hide();
                 }
 
                 this.UpdateSuccessful = false;
