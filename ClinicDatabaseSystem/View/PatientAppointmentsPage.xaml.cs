@@ -212,10 +212,10 @@ namespace ClinicDatabaseSystem.View
 
         private void viewVisitInfoButton_Click(object sender, RoutedEventArgs e)
         {
-            this.displayViewVisitInfoContentDialog(this.selectedAppointment.Appointment);
+            this.displayViewVisitInfoContentDialog(this.selectedAppointment);
         }
 
-        private async void displayViewVisitInfoContentDialog(Appointment appointment)
+        private async void displayViewVisitInfoContentDialog(AppointmentNameInfo appointment)
         {
             this.editAppointmentButton.IsEnabled = false;
             this.createVisitInfoButton.IsEnabled = false;

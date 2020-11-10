@@ -10,25 +10,29 @@
     Background="#353535" 
     Foreground="White">
 
-    <Grid>
-        <TextBlock HorizontalAlignment="Left" Text="Systolic BP:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,90,0,0"/>
-        <TextBox x:Name="systolicBpTextBox" AllowFocusOnInteraction="False" IsReadOnly="True" HorizontalAlignment="Left" Margin="108,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" TabIndex="3" IsTabStop="False"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,132,0,0" Text="Diastolic BP:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="diastolicBpTextBox" AllowFocusOnInteraction="False" IsReadOnly="True" Margin="108,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="296" TabIndex="4" IsTabStop="False"/>
-        <TextBox x:Name="bodyTempTextBox" AllowFocusOnInteraction="False" IsReadOnly="True" HorizontalAlignment="Left" Margin="108,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" TabIndex="5" IsTabStop="False"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,173,0,0" Text="Body Temp:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="pulseTextBox" AllowFocusOnInteraction="False" IsReadOnly="True" HorizontalAlignment="Left" Margin="108,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" TabIndex="6" IsTabStop="False"/>
-        <TextBlock HorizontalAlignment="Left" Margin="-1,213,0,0" Text="Pulse:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,249,0,0" Text="Symptoms:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <RichEditBox x:Name="symptomsRichEditBox" AllowFocusOnInteraction="False" Height="100" Margin="0,273,0,300" TabIndex="7" IsTabStop="False"/>
-        <Button x:Name="closeButton" Content="Close" Width="90" Foreground="White" Background="#3c6e71" Margin="0,642,0,0" VerticalAlignment="Stretch" TabIndex="1" Click="closeButton_Click" HorizontalAlignment="Center"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,378,0,0" Text="Initial Diagnosis:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <RichEditBox x:Name="initialDiagnosisRichEditBox" AllowFocusOnInteraction="False" Height="100" Margin="0,402,0,171" TabIndex="8" IsTabStop="False"/>
-        <TextBox x:Name="patientIdTextBox" AllowFocusOnInteraction="False" IsReadOnly="True" HorizontalAlignment="Left" Margin="108,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" TabIndex="1" IsTabStop="False"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,48,0,0" Text="Date:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,7,0,0" Text="Patient ID:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="dateTextBox" AllowFocusOnInteraction="False" IsReadOnly="True" HorizontalAlignment="Left" Margin="108,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" TabIndex="2" IsTabStop="False"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,507,0,0" Text="Final Diagnosis:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <RichEditBox x:Name="finalDiagnosisRichEditBox" AllowFocusOnInteraction="False" Height="100" Margin="0,531,0,42" IsTabStop="False"/>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock HorizontalAlignment="Left" Text="Patient Id:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,48,0,0"/>
+        <TextBox x:Name="systolicBpTextBox" AllowFocusOnInteraction="False" IsReadOnly="True" HorizontalAlignment="Left" Margin="335,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163" TabIndex="3" IsTabStop="False"/>
+        <TextBlock HorizontalAlignment="Left" Margin="258,48,0,0" Text="Diastolic BP:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="diastolicBpTextBox" AllowFocusOnInteraction="False" IsReadOnly="True" Margin="335,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="163" TabIndex="4" IsTabStop="False"/>
+        <TextBox x:Name="bodyTempTextBox" AllowFocusOnInteraction="False" IsReadOnly="True" HorizontalAlignment="Left" Margin="335,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163" TabIndex="5" IsTabStop="False"/>
+        <TextBlock HorizontalAlignment="Left" Margin="258,90,0,0" Text="Body Temp:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="pulseTextBox" AllowFocusOnInteraction="False" IsReadOnly="True" HorizontalAlignment="Left" Margin="335,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163" TabIndex="6" IsTabStop="False"/>
+        <TextBlock HorizontalAlignment="Left" Margin="261,136,0,0" Text="Pulse:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,179,0,0" Text="Symptoms:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <RichEditBox x:Name="symptomsRichEditBox" AllowFocusOnInteraction="False" Height="100" Margin="0,203,0,313" TabIndex="7" IsTabStop="False"/>
+        <Button x:Name="closeButton" Content="Close" Width="90" Foreground="White" Background="#3c6e71" Margin="0,584,0,0" VerticalAlignment="Stretch" TabIndex="1" Click="closeButton_Click" HorizontalAlignment="Center"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,308,0,0" Text="Initial Diagnosis:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <RichEditBox x:Name="initialDiagnosisRichEditBox" AllowFocusOnInteraction="False" Height="100" Margin="0,332,0,184" TabIndex="8" IsTabStop="False"/>
+        <TextBox x:Name="patientNameTextBox" AllowFocusOnInteraction="False" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163" TabIndex="1" IsTabStop="False"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,90,0,0" Text="Date:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,7,0,0" Text="Patient Name:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="dateTextBox" AllowFocusOnInteraction="False" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163" TabIndex="2" IsTabStop="False"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,437,0,0" Text="Final Diagnosis:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <RichEditBox x:Name="finalDiagnosisRichEditBox" Height="100" AllowFocusOnInteraction="False" Margin="0,461,0,55" IsTabStop="False"/>
+        <TextBlock HorizontalAlignment="Left" Margin="261,7,0,0" Text="Systolic BP:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="weightTextBox" HorizontalAlignment="Left" Margin="91,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163"/>
+        <TextBox x:Name="patientIdTextBox" HorizontalAlignment="Left" Margin="91,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,136,0,0" Text="Weight:" TextWrapping="Wrap" VerticalAlignment="Top"/>
     </Grid>
 </ContentDialog>

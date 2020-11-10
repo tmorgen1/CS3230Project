@@ -23,7 +23,7 @@ namespace ClinicDatabaseSystem.View
 {
     public sealed partial class CreateVisitInfoContentDialog : ContentDialog
     {
-        private Appointment visitInfoAppointment;
+        private readonly Appointment visitInfoAppointment;
 
         public CreateVisitInfoContentDialog(Appointment appointment)
         {
@@ -34,12 +34,17 @@ namespace ClinicDatabaseSystem.View
         private bool validateInput()
         {
             return this.validateInitialDiagnosis() && this.validateSymptoms() && this.validatePulse() &&
-                   this.validateBodyTemp() && this.validateDiastolicBp() && this.validateSystolicBp();
+                   this.validateBodyTemp() && this.validateDiastolicBp() && this.validateSystolicBp() && this.validateWeight();
         }
 
         private void checkButtonStatus()
         {
             this.createButton.IsEnabled = this.validateInput();
+        }
+
+        private bool validateWeight()
+        {
+            return this.weightTextBox.Text != string.Empty;
         }
 
         private bool validateSystolicBp()
@@ -93,7 +98,7 @@ namespace ClinicDatabaseSystem.View
                 this.initialDiagnosisRichEditBox.Document.GetText(0, out var diagnosis);
                 if (VisitInformationDAL.InsertVisitInfo(new VisitInformation(patientId, date,
                     this.systolicBpTextBox.Text, this.diastolicBpTextBox.Text, this.bodyTempTextBox.Text,
-                    this.pulseTextBox.Text, symptoms, diagnosis, null)))
+                    this.pulseTextBox.Text, this.weightTextBox.Text, symptoms, diagnosis, null)))
                 {
                     this.Hide();
                 }
@@ -139,6 +144,27 @@ namespace ClinicDatabaseSystem.View
             else
             {
                 this.pulseErrorTextBlock.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void WeightTextBox_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            this.checkButtonStatus();
+            if (this.weightTextBox.Text != string.Empty)
+            {
+                var temp = this.weightTextBox.Text;
+                temp = $"{Convert.ToDouble(temp):0.00}";
+                this.weightTextBox.Text = temp;
+            }
+
+            if (!this.validateWeight())
+            {
+                this.weightErrorTextBlock.Text = "Invalid Weight. E.g. 170.54";
+                this.weightErrorTextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.weightErrorTextBlock.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -255,19 +281,32 @@ namespace ClinicDatabaseSystem.View
         private void BodyTempTextBox_OnBeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
         {
             this.checkButtonStatus();
-            if (this.bodyTempErrorTextBlock != null)
+            var result = 0.0;
+            if (!Double.TryParse(args.NewText, out result) && args.NewText != string.Empty)
             {
-                var result = 0.0;
-                if (!Double.TryParse(args.NewText, out result) && args.NewText != string.Empty)
-                {
-                    args.Cancel = true;
-                    this.bodyTempErrorTextBlock.Text = "Invalid format. E.g 98.60";
-                    this.bodyTempErrorTextBlock.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    this.bodyTempErrorTextBlock.Visibility = Visibility.Collapsed;
-                }
+                args.Cancel = true;
+                this.bodyTempErrorTextBlock.Text = "Invalid format. E.g 98.60";
+                this.bodyTempErrorTextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.bodyTempErrorTextBlock.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void WeightTextBox_OnBeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
+        {
+            this.checkButtonStatus();
+            var result = 0.0;
+            if (!Double.TryParse(args.NewText, out result) && args.NewText != string.Empty)
+            {
+                args.Cancel = true;
+                this.weightErrorTextBlock.Text = "Invalid format. E.g 170.56";
+                this.weightErrorTextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.weightErrorTextBlock.Visibility = Visibility.Collapsed;
             }
         }
 

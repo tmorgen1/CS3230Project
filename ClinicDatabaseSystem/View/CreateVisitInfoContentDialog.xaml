@@ -23,13 +23,16 @@
         <TextBox x:Name="pulseTextBox" HorizontalAlignment="Left" Margin="108,181,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="162" TabIndex="4" LostFocus="pluseTextBox_LostFocus" BeforeTextChanging="PluseTextBox_OnBeforeTextChanging"/>
         <TextBlock x:Name="pulseErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="108,218,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,188,0,0" Text="Pulse:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,249,0,0" Text="Symptoms:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <RichEditBox x:Name="symptomsRichEditBox" Height="100" Margin="0,273,0,230" Width="270" MaxWidth="270" MaxHeight="100" LostFocus="symptomsRichEditBox_LostFocus" TextChanging="SymptomsRichEditBox_OnTextChanging" TabIndex="5"/>
-        <Button x:Name="closeButton" Content="Close" Width="90" Foreground="White" Background="#3c6e71" Margin="144,571,0,0" VerticalAlignment="Top" Click="closeButton_Click" TabIndex="8"/>
-        <Button x:Name="createButton" Content="Create" IsEnabled="False" Width="90" Foreground="White" Background="#3c6e71" Margin="34,571,0,0" VerticalAlignment="Top" Click="createButton_Click" TabIndex="7"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,402,0,0" Text="Initial Diagnosis:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <RichEditBox x:Name="initialDiagnosisRichEditBox" Height="100" Margin="0,426,0,77" Width="270" MaxWidth="270" MaxHeight="100" LostFocus="initialDiagnosisRichEditBox_LostFocus" TextChanging="InitialDiagnosisRichEditBox_OnTextChanging" TabIndex="6"/>
-        <TextBlock x:Name="symptomsErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="0,378,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock x:Name="initialDiagnosisErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="0,531,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,307,0,0" Text="Symptoms:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <RichEditBox x:Name="symptomsRichEditBox" Height="100" Margin="0,331,0,242" Width="270" MaxWidth="270" MaxHeight="100" LostFocus="symptomsRichEditBox_LostFocus" TextChanging="SymptomsRichEditBox_OnTextChanging" TabIndex="5"/>
+        <Button x:Name="closeButton" Content="Close" Width="90" Foreground="White" Background="#3c6e71" Margin="144,641,0,0" VerticalAlignment="Top" Click="closeButton_Click" TabIndex="8"/>
+        <Button x:Name="createButton" Content="Create" IsEnabled="False" Width="90" Foreground="White" Background="#3c6e71" Margin="34,641,0,0" VerticalAlignment="Top" Click="createButton_Click" TabIndex="7"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,460,0,0" Text="Initial Diagnosis:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <RichEditBox x:Name="initialDiagnosisRichEditBox" Height="100" Margin="0,484,0,89" Width="270" MaxWidth="270" MaxHeight="100" LostFocus="initialDiagnosisRichEditBox_LostFocus" TextChanging="InitialDiagnosisRichEditBox_OnTextChanging" TabIndex="6"/>
+        <TextBlock x:Name="symptomsErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="0,436,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock x:Name="initialDiagnosisErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="0,589,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="weightTextBox" HorizontalAlignment="Left" Margin="108,242,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="162" LostFocus="WeightTextBox_OnLostFocus" BeforeTextChanging="WeightTextBox_OnBeforeTextChanging"/>
+        <TextBlock x:Name="weightErrorTextBlock" Visibility="Collapsed" HorizontalAlignment="Left" Foreground="Red" Margin="108,279,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,249,0,0" Text="Weight:" TextWrapping="Wrap" VerticalAlignment="Top"/>
     </Grid>
 </ContentDialog>
