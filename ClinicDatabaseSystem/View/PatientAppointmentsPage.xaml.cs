@@ -100,6 +100,11 @@ namespace ClinicDatabaseSystem.View
             {
                 this.viewVisitInfoButton.IsEnabled = false;
             }
+
+            if (!this.deleteAppointmentHovered)
+            {
+                this.deleteAppointmentButton.IsEnabled = false;
+            }
         }
 
         private void AppointmentsDataGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -134,6 +139,8 @@ namespace ClinicDatabaseSystem.View
                     this.createVisitInfoButton.IsEnabled = false;
                     this.viewVisitInfoButton.IsEnabled = true;
                 }
+
+                this.deleteAppointmentButton.IsEnabled = true;
             }
         }
 
@@ -159,6 +166,7 @@ namespace ClinicDatabaseSystem.View
             this.editAppointmentButton.IsEnabled = false;
             this.createVisitInfoButton.IsEnabled = false;
             this.viewVisitInfoButton.IsEnabled = false;
+            this.deleteAppointmentButton.IsEnabled = false;
             EditAppointmentContentDialog editAppointmentContentDialog = new EditAppointmentContentDialog(appointment);
             await editAppointmentContentDialog.ShowAsync();
             if (editAppointmentContentDialog.EditAppointmentSuccessful)
@@ -235,6 +243,16 @@ namespace ClinicDatabaseSystem.View
             {
                 AppointmentDAL.DeleteAppointment(this.selectedAppointment.Appointment);
             }
+        }
+
+        private void DeleteAppointmentButton_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            this.deleteAppointmentHovered = true;
+        }
+
+        private void DeleteAppointmentButton_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            this.deleteAppointmentHovered = false;
         }
     }
 }
