@@ -53,11 +53,11 @@ namespace ClinicDatabaseSystem.View
             await createVisitInfoContentDialog.ShowAsync();
             if (createVisitInfoContentDialog.CreatedVisitInfoSuccessfully)
             {
-                VisitInformationController.CreatedVisitInformation = true;
+                
             }
             else
             {
-                VisitInformationController.CreatedVisitInformation = false;
+                
             }
         }
 

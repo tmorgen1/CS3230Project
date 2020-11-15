@@ -12,21 +12,21 @@
 
     <Grid>
         <TextBlock HorizontalAlignment="Left" Text="Patient ID:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,4,0,0"/>
-        <TextBox x:Name="patientIdTextBox" HorizontalAlignment="Left" Margin="91,-3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
-        <TextBox x:Name="patientNameTextBox" HorizontalAlignment="Left" Margin="91,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
+        <TextBox x:Name="patientIdTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,-3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" TabIndex="4"/>
+        <TextBox x:Name="patientNameTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" TabIndex="5"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,65,0,0" Text="Patient Name:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="testIdTextBox" HorizontalAlignment="Left" Margin="91,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
+        <TextBox x:Name="testIdTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" TabIndex="6"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,126,0,0" Text="Test ID:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="testNameTextBox" HorizontalAlignment="Left" Margin="91,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
+        <TextBox x:Name="testNameTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" TabIndex="7"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,187,0,0" Text="Test Name:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,248,0,0" Text="Date:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,309,0,0" Text="Time:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,368,0,0" Text="Results:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <RichEditBox x:Name="resultsRichEditBox" Margin="0,392,0,67" LostFocus="ResultsRichEditBox_OnLostFocus" TextChanging="ResultsRichEditBox_OnTextChanging"/>
-        <Button x:Name="confirmButton" IsEnabled="False" Content="Confirm" Foreground="White" Background="#3c6e71" Width="70" Margin="93,611,0,0" VerticalAlignment="Top" Click="confirmButton_Click"/>
-        <Button x:Name="cancelButton" Content="Cancel" Foreground="White" Background="#3c6e71" Width="70" Margin="225,611,0,0" VerticalAlignment="Top" Click="cancelButton_Click"/>
+        <RichEditBox x:Name="resultsRichEditBox" Margin="0,392,0,67" LostFocus="ResultsRichEditBox_OnLostFocus" TextChanging="ResultsRichEditBox_OnTextChanging" TabIndex="1"/>
+        <Button x:Name="confirmButton" IsEnabled="False" Content="Confirm" Foreground="White" Background="#3c6e71" Width="70" Margin="93,611,0,0" VerticalAlignment="Top" Click="confirmButton_Click" TabIndex="2"/>
+        <Button x:Name="cancelButton" Content="Cancel" Foreground="White" Background="#3c6e71" Width="70" Margin="225,611,0,0" VerticalAlignment="Top" Click="cancelButton_Click" TabIndex="3"/>
         <TextBlock x:Name="resultsErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="0,581,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="dateTextBox" HorizontalAlignment="Left" Margin="91,241,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
-        <TextBox x:Name="timeTextBox" HorizontalAlignment="Left" Margin="91,302,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
+        <TextBox x:Name="dateTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,241,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" TabIndex="8"/>
+        <TextBox x:Name="timeTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,302,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" TabIndex="9"/>
     </Grid>
 </ContentDialog>
