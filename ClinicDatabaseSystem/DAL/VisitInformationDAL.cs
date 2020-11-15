@@ -128,5 +128,55 @@ namespace ClinicDatabaseSystem.DAL
                 }
             }
         }
+
+        public static bool EditVisitInfo(VisitInformation oldVisitInfo, VisitInformation newVisitInfo)
+        {
+            using (MySqlConnection conn = DbConnection.GetConnection())
+            {
+                conn.Open();
+                string editStatement = "update visit_info set patientID = @pId, dateTime = @dateTime, systolicBP = @systolic, diastolicBP = @diastolic, bodyTemp = @bodyTemp, " +
+                                       "pulse = @pulse, weight = @weight, symptoms = @symptoms, initialDiagnosis = @initialDiagnosis, finalDiagnosis = @finalDiagnosis" +
+                                       " where patientID = @oldPId and dateTime = @oldDateTime";
+
+                using (MySqlCommand comm = new MySqlCommand(editStatement, conn))
+                {
+                    comm.Parameters.Add("@pId", MySqlDbType.Int32);
+                    comm.Parameters["@pId"].Value = newVisitInfo.PatientId;
+                    comm.Parameters.Add("@dateTime", MySqlDbType.DateTime);
+                    comm.Parameters["@dateTime"].Value = newVisitInfo.VisitDateTime;
+                    comm.Parameters.Add("@systolic", MySqlDbType.String);
+                    comm.Parameters["@systolic"].Value = newVisitInfo.SystolicBp;
+                    comm.Parameters.Add("@diastolic", MySqlDbType.String);
+                    comm.Parameters["@diastolic"].Value = newVisitInfo.DiastolicBp;
+                    comm.Parameters.Add("@bodyTemp", MySqlDbType.String);
+                    comm.Parameters["@bodyTemp"].Value = newVisitInfo.BodyTemp;
+                    comm.Parameters.Add("@pulse", MySqlDbType.String);
+                    comm.Parameters["@pulse"].Value = newVisitInfo.Pulse;
+                    comm.Parameters.Add("@weight", MySqlDbType.String);
+                    comm.Parameters["@weight"].Value = newVisitInfo.Weight;
+                    comm.Parameters.Add("@symptoms", MySqlDbType.String);
+                    comm.Parameters["@symptoms"].Value = newVisitInfo.Symptoms;
+                    comm.Parameters.Add("@initialDiagnosis", MySqlDbType.String);
+                    comm.Parameters["@initialDiagnosis"].Value = newVisitInfo.InitialDiagnosis;
+                    comm.Parameters.Add("@finalDiagnosis", MySqlDbType.String);
+                    comm.Parameters["@finalDiagnosis"].Value = newVisitInfo.FinalDiagnosis;
+                    comm.Parameters.Add("@oldPId", MySqlDbType.Int32);
+                    comm.Parameters["@oldPId"].Value = oldVisitInfo.PatientId;
+                    comm.Parameters.Add("@oldDateTime", MySqlDbType.DateTime);
+                    comm.Parameters["@oldDateTime"].Value = oldVisitInfo.VisitDateTime;
+
+                    return comm.ExecuteNonQuery() > 0;
+                }
+            }
+        }
+
+        public static bool AddFinalDiagnosis(VisitInformation visitInfo, string finalDiagnosis)
+        {
+            VisitInformation oldVisitInfo = visitInfo;
+            VisitInformation newVisitInfo = new VisitInformation(oldVisitInfo.PatientId, oldVisitInfo.VisitDateTime, oldVisitInfo.SystolicBp, oldVisitInfo.DiastolicBp, 
+                oldVisitInfo.BodyTemp, oldVisitInfo.Pulse, oldVisitInfo.Weight, oldVisitInfo.Symptoms, oldVisitInfo.InitialDiagnosis, finalDiagnosis);
+
+            return EditVisitInfo(oldVisitInfo, newVisitInfo);
+        }
     }
 }
