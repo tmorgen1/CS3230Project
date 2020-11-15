@@ -58,17 +58,23 @@ namespace ClinicDatabaseSystem.View
             this.confirmButton.IsEnabled = this.validateResults();
         }
 
-        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        private async void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
+            OrderedTestsContentDialog orderedTestsContentDialog = new OrderedTestsContentDialog(this.appointmentNameInfo);
+            await orderedTestsContentDialog.ShowAsync();
         }
 
-        private void confirmButton_Click(object sender, RoutedEventArgs e)
+        private async void confirmButton_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: add test result to database
             this.resultsRichEditBox.Document.GetText(0, out var results);
             var newTestResult = new TestResult(this.testResult.TestId, this.testResult.PatientId, this.testResult.ResultDateTime, results);
-            
+            if (TestResultDAL.EditTestResult(newTestResult, this.testResult))
+            {
+                this.Hide();
+                OrderedTestsContentDialog orderedTestsContentDialog = new OrderedTestsContentDialog(this.appointmentNameInfo);
+                await orderedTestsContentDialog.ShowAsync();
+            }
         }
 
         private void ResultsRichEditBox_OnLostFocus(object sender, RoutedEventArgs e)

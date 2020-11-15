@@ -33,6 +33,14 @@ namespace ClinicDatabaseSystem.View
             this.loadVistInfo();
         }
 
+        public ViewVisitInfoContentDialog(AppointmentNameInfo appointmentNameInfo, string finalDiagnosis)
+        {
+            this.InitializeComponent();
+            this.appointmentNameInfo = appointmentNameInfo;
+            this.loadVistInfo();
+            this.finalDiagnosisRichEditBox.Document.SetText(0, finalDiagnosis);
+        }
+
         private void loadVistInfo()
         {
             this.patientIdTextBox.Text = this.appointmentNameInfo.Appointment.PatientId.ToString();
@@ -55,14 +63,19 @@ namespace ClinicDatabaseSystem.View
             if (visitInfo.FinalDiagnosis != null)
             {
                 this.finalDiagnosisRichEditBox.Document.SetText(TextSetOptions.None, visitInfo.FinalDiagnosis);
+                this.finalDiagnosisRichEditBox.IsReadOnly = true;
             }
-            this.finalDiagnosisRichEditBox.IsReadOnly = true;
         }
 
-        private void closeButton_Click(object sender, RoutedEventArgs e)
+        private async void closeButton_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: prompt user that they cannot change anymore info if final diagnosis is not empty
+            this.finalDiagnosisRichEditBox.Document.GetText(TextGetOptions.None, out var finalDiagnosis);
             this.Hide();
+            if (finalDiagnosis.Trim() != string.Empty)
+            {
+                ConfirmFinalDiagnosisContentDialog confirmFinalDiagnosisContentDialog = new ConfirmFinalDiagnosisContentDialog(this.appointmentNameInfo, finalDiagnosis.Trim());
+                await confirmFinalDiagnosisContentDialog.ShowAsync();
+            }
         }
 
         private async void viewTestsButton_Click(object sender, RoutedEventArgs e)

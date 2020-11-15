@@ -13,7 +13,7 @@
     <Grid>
         <ListView x:Name="orderedTestsListView" Background="#E1E5F2" Margin="0,24,1,37"/>
         <TextBlock HorizontalAlignment="Left" Text="Are you sure you want to order the following tests?" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button x:Name="confirmButton" Content="Confirm" Margin="67,221,0,0" VerticalAlignment="Top" Click="confirmButton_Click"/>
-        <Button x:Name="cancelButton" Content="Cancel" Margin="185,221,0,0" VerticalAlignment="Top" Click="cancelButton_Click"/>
+        <Button x:Name="confirmButton" Foreground="White" Background="#3c6e71" Content="Confirm" Margin="67,221,0,0" VerticalAlignment="Top" Click="confirmButton_Click"/>
+        <Button x:Name="cancelButton" Foreground="White" Background="#3c6e71" Content="Cancel" Margin="185,221,0,0" VerticalAlignment="Top" Click="cancelButton_Click"/>
     </Grid>
 </ContentDialog>

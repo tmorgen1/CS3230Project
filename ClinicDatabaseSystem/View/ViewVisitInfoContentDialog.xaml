@@ -29,7 +29,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="0,7,0,0" Text="Patient Name:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox x:Name="dateTextBox" AllowFocusOnInteraction="False" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163" TabIndex="2" IsTabStop="False"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,437,0,0" Text="Final Diagnosis:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <RichEditBox x:Name="finalDiagnosisRichEditBox" Height="100" AllowFocusOnInteraction="False" Margin="0,461,0,55" IsTabStop="False"/>
+        <RichEditBox x:Name="finalDiagnosisRichEditBox" Height="100" Margin="0,461,0,55"/>
         <TextBlock HorizontalAlignment="Left" Margin="261,7,0,0" Text="Systolic BP:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox x:Name="weightTextBox" HorizontalAlignment="Left" Margin="91,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163"/>
         <TextBox x:Name="patientIdTextBox" HorizontalAlignment="Left" Margin="91,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163"/>
