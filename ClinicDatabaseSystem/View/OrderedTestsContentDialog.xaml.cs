@@ -12,6 +12,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ClinicDatabaseSystem.DAL;
+using ClinicDatabaseSystem.Model;
 using ClinicDatabaseSystem.ViewModel;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -21,6 +23,9 @@ namespace ClinicDatabaseSystem.View
     public sealed partial class OrderedTestsContentDialog : ContentDialog
     {
         private AppointmentNameInfo appointmentNameInfo;
+        private IList<TestResult> orderedTestResults;
+        private TestResult selectedTestResult;
+
         public OrderedTestsContentDialog(AppointmentNameInfo appointmentNameInfo)
         {
             this.InitializeComponent();
@@ -31,6 +36,20 @@ namespace ClinicDatabaseSystem.View
         private void loadTests()
         {
             //TODO: load all tests into list view from database
+            var orderedTests = TestResultDAL.GetTestResultsFromPatientAndVisitInfo(
+                this.appointmentNameInfo.Appointment.PatientId, this.appointmentNameInfo.Appointment.ScheduledDate);
+            this.orderedTestResults = orderedTests;
+            var testTypes = TestDAL.GetTestTypes();
+            foreach (var orderedTest in orderedTests)
+            {
+                foreach (var currentTestType in testTypes)
+                {
+                    if (orderedTest.TestId == currentTestType.TestId)
+                    {
+                        this.orderedTestsListView.Items?.Add(orderedTest.TestId + ": " + currentTestType.Name);
+                    }
+                }
+            }
         }
 
         private async void closeButton_Click(object sender, RoutedEventArgs e)
@@ -43,12 +62,23 @@ namespace ClinicDatabaseSystem.View
         private async void createResultButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            //TODO: if selected item does not have a test result
-            CreateTestResultContentDialog createTestResultContentDialog = new CreateTestResultContentDialog();
-            await createTestResultContentDialog.ShowAsync();
-            //TODO: if selected item has test result
-            //ViewTestResultContentDialog viewTestResultContentDialog = new ViewTestResultContentDialog();
-            //await viewTestResultContentDialog.ShowAsync();
+            var testName = this.orderedTestsListView.SelectedItem?.ToString().Split(':')[1].Trim();
+            if (this.selectedTestHasResult())
+            {
+                CreateTestResultContentDialog createTestResultContentDialog = new CreateTestResultContentDialog(this.selectedTestResult, this.appointmentNameInfo, testName);
+                await createTestResultContentDialog.ShowAsync();
+            }
+            else
+            {
+                ViewTestResultContentDialog viewTestResultContentDialog = new ViewTestResultContentDialog(this.selectedTestResult, this.appointmentNameInfo, testName);
+                await viewTestResultContentDialog.ShowAsync();
+            }
+        }
+
+        private bool selectedTestHasResult()
+        {
+            var resultButton = this.createResultButton;
+            return resultButton != null && resultButton.Content?.ToString() == "Create Result";
         }
 
         private void orderedTestsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -56,6 +86,20 @@ namespace ClinicDatabaseSystem.View
             if (this.orderedTestsListView.SelectedIndex != -1)
             {
                 this.createResultButton.IsEnabled = true;
+                var testId = this.orderedTestsListView.SelectedItem?.ToString().Split(':')[0].Trim();
+                foreach (var orderedTestResult in this.orderedTestResults)
+                {
+                    if (orderedTestResult.TestId == Int32.Parse(testId) && orderedTestResult.Results == string.Empty)
+                    {
+                        this.createResultButton.Content = "Create Result";
+                        this.selectedTestResult = orderedTestResult;
+                    } else if (orderedTestResult.TestId == Int32.Parse(testId) &&
+                               orderedTestResult.Results != string.Empty)
+                    {
+                        this.createResultButton.Content = "View Result";
+                        this.selectedTestResult = orderedTestResult;
+                    }
+                }
             }
             else
             {

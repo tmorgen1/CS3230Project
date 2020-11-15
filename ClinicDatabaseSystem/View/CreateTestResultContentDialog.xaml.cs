@@ -12,6 +12,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ClinicDatabaseSystem.DAL;
+using ClinicDatabaseSystem.Model;
+using ClinicDatabaseSystem.ViewModel;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -19,15 +22,28 @@ namespace ClinicDatabaseSystem.View
 {
     public sealed partial class CreateTestResultContentDialog : ContentDialog
     {
-        public CreateTestResultContentDialog()
+        private TestResult testResult;
+        private string testName;
+        private AppointmentNameInfo appointmentNameInfo;
+
+        public CreateTestResultContentDialog(TestResult testResult, AppointmentNameInfo appointmentNameInfo, string testName)
         {
             this.InitializeComponent();
+            this.testResult = testResult;
+            this.testName = testName;
+            this.appointmentNameInfo = appointmentNameInfo;
             this.loadInfo();
         }
 
         private void loadInfo()
         {
             //TODO: load all info from database that isnt the result.
+            this.patientIdTextBox.Text = this.appointmentNameInfo.Appointment.PatientId.ToString();
+            this.patientNameTextBox.Text = this.appointmentNameInfo.PatientName;
+            this.testIdTextBox.Text = this.testResult.TestId.ToString();
+            this.testNameTextBox.Text = this.testName;
+            this.dateTextBox.Text = this.testResult.ResultDateTime.Date.ToString();
+            this.timeTextBox.Text = this.testResult.ResultDateTime.TimeOfDay.ToString();
         }
 
         private bool validateResults()
@@ -50,6 +66,9 @@ namespace ClinicDatabaseSystem.View
         private void confirmButton_Click(object sender, RoutedEventArgs e)
         {
             //TODO: add test result to database
+            this.resultsRichEditBox.Document.GetText(0, out var results);
+            var newTestResult = new TestResult(this.testResult.TestId, this.testResult.PatientId, this.testResult.ResultDateTime, results);
+            
         }
 
         private void ResultsRichEditBox_OnLostFocus(object sender, RoutedEventArgs e)

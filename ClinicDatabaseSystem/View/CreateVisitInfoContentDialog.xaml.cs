@@ -25,6 +25,7 @@ namespace ClinicDatabaseSystem.View
     public sealed partial class CreateVisitInfoContentDialog : ContentDialog
     {
         private Appointment visitInfoAppointment;
+        private IList<string> orderedTests;
 
         public CreateVisitInfoContentDialog(Appointment appointment)
         {
@@ -32,15 +33,16 @@ namespace ClinicDatabaseSystem.View
             this.visitInfoAppointment = appointment;
         }
 
-        public CreateVisitInfoContentDialog(VisitInformation visitInformation, Appointment appointment)
+        public CreateVisitInfoContentDialog(VisitInformation visitInformation, Appointment appointment, IList<string> orderedTests)
         {
             this.InitializeComponent();
-            this.loadPartialVisitInfo(visitInformation, appointment);
+            this.loadPartialVisitInfo(visitInformation, appointment, orderedTests);
         }
 
-        private void loadPartialVisitInfo(VisitInformation visitInformation, Appointment appointment)
+        private void loadPartialVisitInfo(VisitInformation visitInformation, Appointment appointment, IList<string> orderedTests)
         {
             this.visitInfoAppointment = appointment;
+            this.orderedTests = orderedTests;
             this.systolicBpTextBox.Text = visitInformation.SystolicBp;
             this.diastolicBpTextBox.Text = visitInformation.DiastolicBp;
             this.bodyTempTextBox.Text = visitInformation.BodyTemp;
@@ -111,17 +113,37 @@ namespace ClinicDatabaseSystem.View
         {
             if (this.validateInput())
             {
-                var patientId = this.visitInfoAppointment.PatientId;
-                var date = this.visitInfoAppointment.ScheduledDate;
-                this.symptomsRichEditBox.Document.GetText(0, out var symptoms);
-                this.initialDiagnosisRichEditBox.Document.GetText(0, out var diagnosis);
-                if (VisitInformationDAL.InsertVisitInfo(new VisitInformation(patientId, date,
-                    this.systolicBpTextBox.Text, this.diastolicBpTextBox.Text, this.bodyTempTextBox.Text,
-                    this.pulseTextBox.Text, this.weightTextBox.Text, symptoms, diagnosis, null)))
+                if (this.insertVisitInfo() && this.insertOrderedTests())
                 {
                     this.Hide();
                 }
             }
+        }
+
+        private bool insertVisitInfo()
+        {
+            var patientId = this.visitInfoAppointment.PatientId;
+            var date = this.visitInfoAppointment.ScheduledDate;
+            this.symptomsRichEditBox.Document.GetText(0, out var symptoms);
+            this.initialDiagnosisRichEditBox.Document.GetText(0, out var diagnosis);
+            var visitInformation = new VisitInformation(patientId, date,
+                this.systolicBpTextBox.Text, this.diastolicBpTextBox.Text, this.bodyTempTextBox.Text,
+                this.pulseTextBox.Text, this.weightTextBox.Text, symptoms, diagnosis, null);
+            return VisitInformationDAL.InsertVisitInfo(visitInformation);
+        }
+
+        private bool insertOrderedTests()
+        {
+            foreach (var currentTest in this.orderedTests)
+            {
+                var testId = currentTest.ToString().Split(':')[0].Trim();
+                var testResult = new TestResult(Int32.Parse(testId), this.visitInfoAppointment.PatientId, this.visitInfoAppointment.ScheduledDate, string.Empty);
+                if (!TestResultDAL.InsertTestResult(testResult))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void initialDiagnosisRichEditBox_LostFocus(object sender, RoutedEventArgs e)

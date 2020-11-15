@@ -42,16 +42,35 @@ namespace ClinicDatabaseSystem.View
 
         private async void cancelButton_Click(object sender, RoutedEventArgs e)
         {
+            IList<string> orderedTests = new List<string>();
+            foreach (var test in orderedTests)
+            {
+                this.orderedTestsListView.Items?.Add(test);
+            }
             this.Hide();
-            CreateVisitInfoContentDialog createVisitInfoContentDialog = new CreateVisitInfoContentDialog(this.visitInformation, this.visitInfoAppointment);
+            CreateVisitInfoContentDialog createVisitInfoContentDialog = new CreateVisitInfoContentDialog(this.visitInformation, this.visitInfoAppointment, orderedTests);
             await createVisitInfoContentDialog.ShowAsync();
         }
 
-        private void orderButton_Click(object sender, RoutedEventArgs e)
+        private async void orderButton_Click(object sender, RoutedEventArgs e)
         {
             //TODO: prompt user if they are sure they want to order the specified tests
             //TODO: add the order to the database
+            
+            this.Hide();
+            IList<string> orderedTests = new List<string>();
+            var itemCollection = this.orderedTestsListView.Items;
+            if (itemCollection != null)
+            {
+                foreach (var test in itemCollection)
+                {
+                    orderedTests.Add(test.ToString());
+                }
 
+                ConfirmOrderTestContentDialog confirmOrderTestContentDialog =
+                    new ConfirmOrderTestContentDialog(orderedTests, this.visitInformation, this.visitInfoAppointment);
+                await confirmOrderTestContentDialog.ShowAsync();
+            }
         }
 
         private void checkOrderButton()
