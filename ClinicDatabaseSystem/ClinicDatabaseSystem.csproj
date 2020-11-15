@@ -153,6 +153,9 @@
     <Compile Include="View\CreateAppointmentPatientSelectedContentDialog.xaml.cs">
       <DependentUpon>CreateAppointmentPatientSelectedContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CreateTestResultContentDialog.xaml.cs">
+      <DependentUpon>CreateTestResultContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CreateVisitInfoContentDialog.xaml.cs">
       <DependentUpon>CreateVisitInfoContentDialog.xaml</DependentUpon>
     </Compile>
@@ -161,6 +164,9 @@
     </Compile>
     <Compile Include="View\EditPatientContentDialog.xaml.cs">
       <DependentUpon>EditPatientContentDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\OrderTestContentDialog.xaml.cs">
+      <DependentUpon>OrderTestContentDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PatientAppointmentsPage.xaml.cs">
       <DependentUpon>PatientAppointmentsPage.xaml</DependentUpon>
@@ -206,6 +212,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\CreateTestResultContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CreateVisitInfoContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -215,6 +225,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EditPatientContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\OrderTestContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
