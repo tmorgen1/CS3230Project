@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -33,6 +34,7 @@ namespace ClinicDatabaseSystem.View
         private bool viewVisitInfoHovered;
         private bool deleteAppointmentHovered;
         private AppointmentNameInfo selectedAppointment;
+        private VisitInformationController visitInfoController;
 
         public PatientAppointmentsPage()
         {
@@ -40,6 +42,15 @@ namespace ClinicDatabaseSystem.View
             this.viewModel = new PatientAppointmentsViewModel();
             this.updateCurrentUserTextBlocks();
             this.viewModel.LoadAppointments(PatientController.CurrentPatient);
+            this.visitInfoController = new VisitInformationController();
+            this.visitInfoController.PropertyChanged += VisitInfoControllerOnPropertyChanged;
+        }
+
+        private void VisitInfoControllerOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            this.visitInfoController.CreatedVisitInfo = false;
+            this.appointmentsDataGrid.SelectedItem = this.selectedAppointment;
+            this.checkAppointment(this.selectedAppointment);
         }
 
         private void updateCurrentUserTextBlocks()
@@ -200,7 +211,7 @@ namespace ClinicDatabaseSystem.View
         private async void displayCreateVisitInfoContentDialog(Appointment appointment)
         {
             this.setButtonsDisabled();
-            CreateVisitInfoContentDialog createVisitInfoContentDialog = new CreateVisitInfoContentDialog(appointment);
+            CreateVisitInfoContentDialog createVisitInfoContentDialog = new CreateVisitInfoContentDialog(appointment, this.visitInfoController);
             await createVisitInfoContentDialog.ShowAsync();
             this.appointmentsDataGrid.SelectedItem = this.selectedAppointment;
             this.checkAppointment(this.selectedAppointment);

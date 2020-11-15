@@ -11,26 +11,22 @@ namespace ClinicDatabaseSystem.Controller
 {
     public class VisitInformationController : INotifyPropertyChanged
     {
-        private bool createdVisitInformation;
-        public bool CreatedVisitInformation
+        private bool createdVisitInfo;
+
+        public bool CreatedVisitInfo
         {
-            get => this.createdVisitInformation;
+            get => createdVisitInfo;
             set
             {
-                this.createdVisitInformation = value;
-                this.OnPropertyChanged();
+                if (createdVisitInfo == value) return;
+                createdVisitInfo = value;
+                OnPropertyChanged(nameof(CreatedVisitInfo));
             }
-        }
-
-        public VisitInformationController()
-        {
-            this.createdVisitInformation = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

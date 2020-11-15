@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ClinicDatabaseSystem.Controller;
 using ClinicDatabaseSystem.DAL;
 using ClinicDatabaseSystem.Model;
 
@@ -26,18 +27,21 @@ namespace ClinicDatabaseSystem.View
     {
         private Appointment visitInfoAppointment;
         private IList<string> orderedTests;
+        private VisitInformationController visitInformationController;
 
         public bool CreatedVisitInfoSuccessfully { get; private set; }
 
-        public CreateVisitInfoContentDialog(Appointment appointment)
+        public CreateVisitInfoContentDialog(Appointment appointment, VisitInformationController visitInfoController)
         {
             this.InitializeComponent();
             this.visitInfoAppointment = appointment;
+            this.visitInformationController = visitInfoController;
         }
 
-        public CreateVisitInfoContentDialog(VisitInformation visitInformation, Appointment appointment, IList<string> orderedTests)
+        public CreateVisitInfoContentDialog(VisitInformation visitInformation, Appointment appointment, IList<string> orderedTests, VisitInformationController visitInfoController)
         {
             this.InitializeComponent();
+            this.visitInformationController = visitInfoController;
             this.loadPartialVisitInfo(visitInformation, appointment, orderedTests);
         }
 
@@ -119,6 +123,7 @@ namespace ClinicDatabaseSystem.View
                 {
                     this.Hide();
                     this.CreatedVisitInfoSuccessfully = true;
+                    this.visitInformationController.CreatedVisitInfo = true;
                 }
             }
         }
@@ -386,7 +391,7 @@ namespace ClinicDatabaseSystem.View
                 this.systolicBpTextBox.Text, this.diastolicBpTextBox.Text, this.bodyTempTextBox.Text,
                 this.pulseTextBox.Text, this.weightTextBox.Text, symptoms, diagnosis, null);
             this.Hide();
-            OrderTestContentDialog orderTestContentDialog = new OrderTestContentDialog(visitInfo, this.visitInfoAppointment);
+            OrderTestContentDialog orderTestContentDialog = new OrderTestContentDialog(visitInfo, this.visitInfoAppointment, this.visitInformationController);
             await orderTestContentDialog.ShowAsync();
         }
     }

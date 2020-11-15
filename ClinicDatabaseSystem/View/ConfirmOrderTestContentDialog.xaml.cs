@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ClinicDatabaseSystem.Controller;
 using ClinicDatabaseSystem.DAL;
 using ClinicDatabaseSystem.Model;
 
@@ -24,13 +25,15 @@ namespace ClinicDatabaseSystem.View
         private Appointment visitInfoAppointment;
         private VisitInformation visitInformation;
         private IList<string> orderedTests;
+        private VisitInformationController visitInformationController;
 
-        public ConfirmOrderTestContentDialog(IList<string> orderedTests, VisitInformation visitInformation, Appointment appointment)
+        public ConfirmOrderTestContentDialog(IList<string> orderedTests, VisitInformation visitInformation, Appointment appointment, VisitInformationController visitInfoController)
         {
             this.InitializeComponent();
             this.loadTests(orderedTests);
             this.visitInformation = visitInformation;
             this.visitInfoAppointment = appointment;
+            this.visitInformationController = visitInfoController;
         }
 
         private void loadTests(IList<string> orderedTests)
@@ -45,14 +48,14 @@ namespace ClinicDatabaseSystem.View
         private async void confirmButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            CreateVisitInfoContentDialog createVisitInfoContentDialog = new CreateVisitInfoContentDialog(this.visitInformation, this.visitInfoAppointment, this.orderedTests);
+            CreateVisitInfoContentDialog createVisitInfoContentDialog = new CreateVisitInfoContentDialog(this.visitInformation, this.visitInfoAppointment, this.orderedTests, this.visitInformationController);
             await createVisitInfoContentDialog.ShowAsync();
         }
 
         private async void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            OrderTestContentDialog orderTestContentDialog = new OrderTestContentDialog(this.visitInformation, this.visitInfoAppointment);
+            OrderTestContentDialog orderTestContentDialog = new OrderTestContentDialog(this.visitInformation, this.visitInfoAppointment, this.visitInformationController);
             await orderTestContentDialog.ShowAsync();
         }
     }
