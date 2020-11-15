@@ -1,0 +1,30 @@
+﻿<ContentDialog
+    x:Class="ClinicDatabaseSystem.View.ViewTestResultContentDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ClinicDatabaseSystem.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Test Result"
+    Background="#353535" 
+    Foreground="White">
+
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Text="Patient ID:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,4,0,0"/>
+        <TextBox x:Name="patientIdTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,-3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
+        <TextBox x:Name="patientNameTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,65,0,0" Text="Patient Name:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="testIdTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,126,0,0" Text="Test ID:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="testNameTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,187,0,0" Text="Test Name:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,248,0,0" Text="Date:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,309,0,0" Text="Time:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,368,0,0" Text="Results:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <RichEditBox x:Name="resultsRichEditBox" AllowFocusOnInteraction="False" Margin="0,392,0,67"/>
+        <Button x:Name="closeButton" Content="Close" Foreground="White" Background="#3c6e71" Width="70" Margin="0,611,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Center" Click="closeButton_Click"/>
+        <TextBox x:Name="dateTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,241,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
+        <TextBox x:Name="timeTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,302,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
+    </Grid>
+</ContentDialog>

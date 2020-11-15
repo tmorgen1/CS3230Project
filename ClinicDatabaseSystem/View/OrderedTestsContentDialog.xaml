@@ -1,0 +1,19 @@
+﻿<ContentDialog
+    x:Class="ClinicDatabaseSystem.View.OrderedTestsContentDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ClinicDatabaseSystem.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Ordered Tests"
+    Background="#353535" 
+    Foreground="White">
+
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Text="Tests:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <ListView x:Name="orderedTestsListView" Background="#e1e5f2" BorderBrush="Black" Margin="0,24,0,48" SelectionChanged="orderedTestsListView_SelectionChanged"/>
+        <Button x:Name="createResultButton" IsEnabled="False" Content="Create Result" Foreground="White" Background="#3c6e71" Margin="20,209,0,0" VerticalAlignment="Top" Click="createResultButton_Click"/>
+        <Button x:Name="closeButton" Content="Close" Foreground="White" Background="#3c6e71" Margin="148,209,0,0" VerticalAlignment="Top" Width="102" Click="closeButton_Click"/>
+    </Grid>
+</ContentDialog>

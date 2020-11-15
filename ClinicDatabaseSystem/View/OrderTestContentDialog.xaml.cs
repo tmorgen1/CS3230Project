@@ -31,12 +31,51 @@ namespace ClinicDatabaseSystem.View
 
         private void orderButton_Click(object sender, RoutedEventArgs e)
         {
-
+            //TODO: prompt user if they are sure they want to order the specified tests
+            //TODO: add the order to the database
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
+            var orderedTests = this.orderedTestsListView.Items;
+            if (orderedTests != null && !orderedTests.Contains(this.testsListView.SelectedItem))
+            {
+                this.orderedTestsListView.Items?.Add(this.testsListView.SelectedItem);
+            }
+        }
 
+        private void testsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.testsListView.SelectedIndex != -1)
+            {
+                this.addButton.IsEnabled = true;
+            }
+            else
+            {
+                this.addButton.IsEnabled = false;
+            }
+        }
+
+        private void orderedTestsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.orderedTestsListView.SelectedIndex != -1)
+            {
+                this.removeButton.IsEnabled = true;
+            }
+            else
+            {
+                this.removeButton.IsEnabled = false;
+            }
+        }
+
+        private void removeButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.orderedTestsListView.Items?.Remove(this.orderedTestsListView.SelectedItem);
+        }
+
+        private void SearchTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            //TODO: setup searching for tests in tests list view
         }
     }
 }

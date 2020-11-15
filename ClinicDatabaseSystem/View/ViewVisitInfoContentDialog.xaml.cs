@@ -61,7 +61,14 @@ namespace ClinicDatabaseSystem.View
 
         private void closeButton_Click(object sender, RoutedEventArgs e)
         {
+            //TODO: prompt user that they cannot change anymore info if final diagnosis is not empty
             this.Hide();
+        }
+
+        private async void viewTestsButton_Click(object sender, RoutedEventArgs e)
+        {
+            OrderedTestsContentDialog orderedTestsContentDialog = new OrderedTestsContentDialog();
+            await orderedTestsContentDialog.ShowAsync();
         }
     }
 }

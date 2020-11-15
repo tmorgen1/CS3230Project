@@ -13,26 +13,20 @@
     <Grid>
         <TextBlock HorizontalAlignment="Left" Text="Patient ID:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,4,0,0"/>
         <TextBox x:Name="patientIdTextBox" HorizontalAlignment="Left" Margin="91,-3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
-        <TextBlock x:Name="patientIdErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="91,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox x:Name="patientNameTextBox" HorizontalAlignment="Left" Margin="91,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,65,0,0" Text="Patient Name:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock x:Name="patientNameErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="91,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox x:Name="testIdTextBox" HorizontalAlignment="Left" Margin="91,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,126,0,0" Text="Test ID:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock x:Name="testIdErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="91,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox x:Name="testNameTextBox" HorizontalAlignment="Left" Margin="91,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,187,0,0" Text="Test Name:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock x:Name="testNameErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="91,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,248,0,0" Text="Date:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <DatePicker x:Name="datePicker" Margin="91,241,0,0" VerticalAlignment="Top"/>
-        <TimePicker x:Name="timePicker" Margin="91,302,0,0" VerticalAlignment="Top" Width="296"/>
-        <TextBlock x:Name="dateErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="91,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,309,0,0" Text="Time:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock x:Name="timeErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="91,339,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,368,0,0" Text="Results:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <RichEditBox x:Name="resultsRichEditBox" Margin="0,392,0,67"/>
-        <Button x:Name="confirmButton" Content="Confirm" Foreground="White" Background="#3c6e71" Width="70" Margin="93,611,0,0" VerticalAlignment="Top" Click="confirmButton_Click"/>
+        <RichEditBox x:Name="resultsRichEditBox" Margin="0,392,0,67" LostFocus="ResultsRichEditBox_OnLostFocus" TextChanging="ResultsRichEditBox_OnTextChanging"/>
+        <Button x:Name="confirmButton" IsEnabled="False" Content="Confirm" Foreground="White" Background="#3c6e71" Width="70" Margin="93,611,0,0" VerticalAlignment="Top" Click="confirmButton_Click"/>
         <Button x:Name="cancelButton" Content="Cancel" Foreground="White" Background="#3c6e71" Width="70" Margin="225,611,0,0" VerticalAlignment="Top" Click="cancelButton_Click"/>
         <TextBlock x:Name="resultsErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="0,581,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="dateTextBox" HorizontalAlignment="Left" Margin="91,241,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
+        <TextBox x:Name="timeTextBox" HorizontalAlignment="Left" Margin="91,302,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296"/>
     </Grid>
 </ContentDialog>

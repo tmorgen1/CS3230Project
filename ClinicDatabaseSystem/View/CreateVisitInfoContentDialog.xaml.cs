@@ -327,5 +327,11 @@ namespace ClinicDatabaseSystem.View
                 }
             }
         }
+
+        private async void orderTestsButton_Click(object sender, RoutedEventArgs e)
+        {
+            OrderTestContentDialog orderTestContentDialog = new OrderTestContentDialog();
+            await orderTestContentDialog.ShowAsync();
+        }
     }
 }

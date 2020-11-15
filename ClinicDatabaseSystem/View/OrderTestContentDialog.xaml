@@ -12,13 +12,14 @@
 
     <Grid>
         <TextBlock HorizontalAlignment="Left" Margin="0,7,0,0" Text="Search Test Name:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="118,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="381"/>
-        <ListView Margin="0,69,283,59" Background="#E1E5F2"/>
+        <TextBox x:Name="searchTextBox" HorizontalAlignment="Left" Margin="118,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="381" TextChanged="SearchTextBox_OnTextChanged"/>
+        <ListView x:Name="testsListView" Margin="0,69,289,59" Background="#E1E5F2" SelectionChanged="testsListView_SelectionChanged"/>
         <TextBlock HorizontalAlignment="Left" Margin="-1,45,0,0" Text="Tests:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Button x:Name="cancelButton" Foreground="White" Background="#3c6e71" Content="Cancel" Width="70" Margin="284,306,0,0" VerticalAlignment="Top" Click="cancelButton_Click"/>
         <Button x:Name="orderButton" IsEnabled="False" Foreground="White" Background="#3c6e71" Content="Order" Width="70" Margin="145,306,0,0" VerticalAlignment="Top" Click="orderButton_Click"/>
-        <TextBlock HorizontalAlignment="Left" Margin="284,45,0,0" Text="OrderedTests:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <ListView Margin="284,69,-1,59" Background="#E1E5F2"/>
-        <Button x:Name="addButton" IsEnabled="False" Foreground="White" Background="#3c6e71" Content="Add" HorizontalAlignment="Center" Click="addButton_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="289,45,0,0" Text="OrderedTests:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Button x:Name="addButton" IsEnabled="False" Foreground="White" Background="#3c6e71" Content="Add" HorizontalAlignment="Center" Click="addButton_Click" Width="70"/>
+        <Button x:Name="removeButton" IsEnabled="False" Content="Remove" Foreground="White" Background="#3c6e71" Margin="0,190,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Click="removeButton_Click"/>
+        <ListView x:Name="orderedTestsListView" Margin="289,69,0,59" Background="#E1E5F2" SelectionChanged="orderedTestsListView_SelectionChanged"/>
     </Grid>
 </ContentDialog>

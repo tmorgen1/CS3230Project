@@ -21,7 +21,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="261,136,0,0" Text="Pulse:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,179,0,0" Text="Symptoms:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <RichEditBox x:Name="symptomsRichEditBox" AllowFocusOnInteraction="False" Height="100" Margin="0,203,0,313" TabIndex="7" IsTabStop="False"/>
-        <Button x:Name="closeButton" Content="Close" Width="90" Foreground="White" Background="#3c6e71" Margin="0,584,0,0" VerticalAlignment="Stretch" TabIndex="1" Click="closeButton_Click" HorizontalAlignment="Center"/>
+        <Button x:Name="closeButton" Content="Confirm" Width="114" Foreground="White" Background="#3c6e71" Margin="280,584,0,0" VerticalAlignment="Stretch" TabIndex="1" Click="closeButton_Click"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,308,0,0" Text="Initial Diagnosis:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <RichEditBox x:Name="initialDiagnosisRichEditBox" AllowFocusOnInteraction="False" Height="100" Margin="0,332,0,184" TabIndex="8" IsTabStop="False"/>
         <TextBox x:Name="patientNameTextBox" AllowFocusOnInteraction="False" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163" TabIndex="1" IsTabStop="False"/>
@@ -34,5 +34,6 @@
         <TextBox x:Name="weightTextBox" HorizontalAlignment="Left" Margin="91,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163"/>
         <TextBox x:Name="patientIdTextBox" HorizontalAlignment="Left" Margin="91,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,136,0,0" Text="Weight:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Button x:Name="viewTestsButton" Content="View Tests" Foreground="White" Background="#3c6e71" Margin="104,584,0,0" VerticalAlignment="Top" Width="114" Click="viewTestsButton_Click"/>
     </Grid>
 </ContentDialog>
