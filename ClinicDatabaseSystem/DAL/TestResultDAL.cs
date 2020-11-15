@@ -50,5 +50,28 @@ namespace ClinicDatabaseSystem.DAL
 
             return testResults;
         }
+
+        public static bool InsertTestResult(TestResult testResult)
+        {
+            using (MySqlConnection conn = DbConnection.GetConnection())
+            {
+                conn.Open();
+                string insertStatement = "insert into test_result values (@tId, @pId, @dateTime, @results);";
+
+                using (MySqlCommand comm = new MySqlCommand(insertStatement, conn))
+                {
+                    comm.Parameters.Add("@tId", MySqlDbType.Int32);
+                    comm.Parameters["@tId"].Value = testResult.TestId;
+                    comm.Parameters.Add("@pId", MySqlDbType.Int32);
+                    comm.Parameters["@pId"].Value = testResult.PatientId;
+                    comm.Parameters.Add("@dateTime", MySqlDbType.DateTime);
+                    comm.Parameters["@dateTime"].Value = testResult.ResultDateTime;
+                    comm.Parameters.Add("@results", MySqlDbType.VarChar);
+                    comm.Parameters["@results"].Value = testResult.Results;
+
+                    return comm.ExecuteNonQuery() > 0;
+                }
+            }
+        }
     }
 }
