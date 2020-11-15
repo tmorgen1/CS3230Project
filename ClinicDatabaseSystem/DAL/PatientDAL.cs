@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -272,14 +273,18 @@ namespace ClinicDatabaseSystem.DAL
             using (MySqlConnection conn = DbConnection.GetConnection())
             {
                 conn.Open();
-                string query = "select * from patient where firstName = @firstName and lastName = @lastName";
+                // Thomas's Stored Procedure
+                string storedProcedureName = "patient_getPatientByFullName";
 
-                using (MySqlCommand comm = new MySqlCommand(query, conn))
+                using (MySqlCommand comm = new MySqlCommand(storedProcedureName, conn))
                 {
-                    comm.Parameters.Add("@firstName", MySqlDbType.VarChar);
-                    comm.Parameters["@firstName"].Value = firstName;
-                    comm.Parameters.Add("@lastName", MySqlDbType.VarChar);
-                    comm.Parameters["@lastName"].Value = lastName;
+                    comm.CommandType = CommandType.StoredProcedure;
+                    comm.Parameters.Add("@firstNameInput", MySqlDbType.VarChar);
+                    comm.Parameters["@firstNameInput"].Value = firstName;
+                    comm.Parameters["@firstNameInput"].Direction = ParameterDirection.Input;
+                    comm.Parameters.Add("@lastNameInput", MySqlDbType.VarChar);
+                    comm.Parameters["@lastNameInput"].Value = lastName;
+                    comm.Parameters["@lastNameInput"].Direction = ParameterDirection.Input;
 
                     using (MySqlDataReader reader = comm.ExecuteReader())
                     {
