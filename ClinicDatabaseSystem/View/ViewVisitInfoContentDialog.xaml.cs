@@ -67,7 +67,8 @@ namespace ClinicDatabaseSystem.View
 
         private async void viewTestsButton_Click(object sender, RoutedEventArgs e)
         {
-            OrderedTestsContentDialog orderedTestsContentDialog = new OrderedTestsContentDialog();
+            this.Hide();
+            OrderedTestsContentDialog orderedTestsContentDialog = new OrderedTestsContentDialog(this.appointmentNameInfo);
             await orderedTestsContentDialog.ShowAsync();
         }
     }

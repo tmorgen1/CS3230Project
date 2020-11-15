@@ -12,6 +12,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ClinicDatabaseSystem.DAL;
+using ClinicDatabaseSystem.Model;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -19,20 +21,49 @@ namespace ClinicDatabaseSystem.View
 {
     public sealed partial class OrderTestContentDialog : ContentDialog
     {
-        public OrderTestContentDialog()
+        private Appointment visitInfoAppointment;
+        private VisitInformation visitInformation;
+
+        public OrderTestContentDialog(VisitInformation visitInformation, Appointment appointment)
         {
             this.InitializeComponent();
+            this.visitInformation = visitInformation;
+            this.visitInfoAppointment = appointment;
+            this.loadTests();
         }
 
-        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        private void loadTests()
+        {
+            foreach (var test in TestDAL.GetTestTypes())
+            {
+                this.testsListView.Items?.Add(test.TestId + ": " + test.Name);
+            }
+        }
+
+        private async void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
+            CreateVisitInfoContentDialog createVisitInfoContentDialog = new CreateVisitInfoContentDialog(this.visitInformation, this.visitInfoAppointment);
+            await createVisitInfoContentDialog.ShowAsync();
         }
 
         private void orderButton_Click(object sender, RoutedEventArgs e)
         {
             //TODO: prompt user if they are sure they want to order the specified tests
             //TODO: add the order to the database
+
+        }
+
+        private void checkOrderButton()
+        {
+            if (this.orderedTestsListView.Items?.Count != 0)
+            {
+                this.orderButton.IsEnabled = true;
+            }
+            else
+            {
+                this.orderButton.IsEnabled = false;
+            }
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
@@ -42,6 +73,7 @@ namespace ClinicDatabaseSystem.View
             {
                 this.orderedTestsListView.Items?.Add(this.testsListView.SelectedItem);
             }
+            this.checkOrderButton();
         }
 
         private void testsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -71,11 +103,30 @@ namespace ClinicDatabaseSystem.View
         private void removeButton_Click(object sender, RoutedEventArgs e)
         {
             this.orderedTestsListView.Items?.Remove(this.orderedTestsListView.SelectedItem);
+            this.checkOrderButton();
         }
 
         private void SearchTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             //TODO: setup searching for tests in tests list view
+            if (this.searchTextBox.Text != string.Empty)
+            {
+                this.testsListView.Items?.Clear();
+                foreach (var test in TestDAL.GetTestTypes())
+                {
+                    var testName = test.Name.ToLower();
+                    var searchName = this.searchTextBox.Text.ToLower();
+                    if (testName.Contains(searchName))
+                    {
+                        this.testsListView.Items?.Add(test.TestId + ": " + test.Name);
+                    }
+                }
+            }
+            else
+            {
+                this.testsListView.Items?.Clear();
+                this.loadTests();
+            }
         }
     }
 }

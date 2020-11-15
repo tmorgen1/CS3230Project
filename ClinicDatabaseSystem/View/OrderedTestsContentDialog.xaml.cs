@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ClinicDatabaseSystem.ViewModel;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -19,9 +20,11 @@ namespace ClinicDatabaseSystem.View
 {
     public sealed partial class OrderedTestsContentDialog : ContentDialog
     {
-        public OrderedTestsContentDialog()
+        private AppointmentNameInfo appointmentNameInfo;
+        public OrderedTestsContentDialog(AppointmentNameInfo appointmentNameInfo)
         {
             this.InitializeComponent();
+            this.appointmentNameInfo = appointmentNameInfo;
             this.loadTests();
         }
 
@@ -30,13 +33,16 @@ namespace ClinicDatabaseSystem.View
             //TODO: load all tests into list view from database
         }
 
-        private void closeButton_Click(object sender, RoutedEventArgs e)
+        private async void closeButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
+            ViewVisitInfoContentDialog viewVisitInfoContentDialog = new ViewVisitInfoContentDialog(this.appointmentNameInfo);
+            await viewVisitInfoContentDialog.ShowAsync();
         }
 
         private async void createResultButton_Click(object sender, RoutedEventArgs e)
         {
+            this.Hide();
             //TODO: if selected item does not have a test result
             CreateTestResultContentDialog createTestResultContentDialog = new CreateTestResultContentDialog();
             await createTestResultContentDialog.ShowAsync();

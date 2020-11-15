@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
+using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -23,12 +24,30 @@ namespace ClinicDatabaseSystem.View
 {
     public sealed partial class CreateVisitInfoContentDialog : ContentDialog
     {
-        private readonly Appointment visitInfoAppointment;
+        private Appointment visitInfoAppointment;
 
         public CreateVisitInfoContentDialog(Appointment appointment)
         {
             this.InitializeComponent();
             this.visitInfoAppointment = appointment;
+        }
+
+        public CreateVisitInfoContentDialog(VisitInformation visitInformation, Appointment appointment)
+        {
+            this.InitializeComponent();
+            this.loadPartialVisitInfo(visitInformation, appointment);
+        }
+
+        private void loadPartialVisitInfo(VisitInformation visitInformation, Appointment appointment)
+        {
+            this.visitInfoAppointment = appointment;
+            this.systolicBpTextBox.Text = visitInformation.SystolicBp;
+            this.diastolicBpTextBox.Text = visitInformation.DiastolicBp;
+            this.bodyTempTextBox.Text = visitInformation.BodyTemp;
+            this.pulseTextBox.Text = visitInformation.Pulse;
+            this.weightTextBox.Text = visitInformation.Weight;
+            this.symptomsRichEditBox.Document.SetText(TextSetOptions.None, visitInformation.Symptoms);
+            this.initialDiagnosisRichEditBox.Document.SetText(TextSetOptions.None, visitInformation.InitialDiagnosis);
         }
 
         private bool validateInput()
@@ -330,7 +349,15 @@ namespace ClinicDatabaseSystem.View
 
         private async void orderTestsButton_Click(object sender, RoutedEventArgs e)
         {
-            OrderTestContentDialog orderTestContentDialog = new OrderTestContentDialog();
+            var patientId = this.visitInfoAppointment.PatientId;
+            var date = this.visitInfoAppointment.ScheduledDate;
+            this.symptomsRichEditBox.Document.GetText(0, out var symptoms);
+            this.initialDiagnosisRichEditBox.Document.GetText(0, out var diagnosis);
+            var visitInfo = new VisitInformation(patientId, date,
+                this.systolicBpTextBox.Text, this.diastolicBpTextBox.Text, this.bodyTempTextBox.Text,
+                this.pulseTextBox.Text, this.weightTextBox.Text, symptoms, diagnosis, null);
+            this.Hide();
+            OrderTestContentDialog orderTestContentDialog = new OrderTestContentDialog(visitInfo, this.visitInfoAppointment);
             await orderTestContentDialog.ShowAsync();
         }
     }
