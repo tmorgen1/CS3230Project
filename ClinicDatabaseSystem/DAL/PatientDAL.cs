@@ -279,12 +279,12 @@ namespace ClinicDatabaseSystem.DAL
                 using (MySqlCommand comm = new MySqlCommand(storedProcedureName, conn))
                 {
                     comm.CommandType = CommandType.StoredProcedure;
-                    comm.Parameters.Add("@firstNameInput", MySqlDbType.VarChar);
-                    comm.Parameters["@firstNameInput"].Value = firstName;
-                    comm.Parameters["@firstNameInput"].Direction = ParameterDirection.Input;
-                    comm.Parameters.Add("@lastNameInput", MySqlDbType.VarChar);
-                    comm.Parameters["@lastNameInput"].Value = lastName;
-                    comm.Parameters["@lastNameInput"].Direction = ParameterDirection.Input;
+                    comm.Parameters.Add("firstNameInput", MySqlDbType.VarChar);
+                    comm.Parameters["firstNameInput"].Value = firstName;
+                    comm.Parameters["firstNameInput"].Direction = ParameterDirection.Input;
+                    comm.Parameters.Add("lastNameInput", MySqlDbType.VarChar);
+                    comm.Parameters["lastNameInput"].Value = lastName;
+                    comm.Parameters["lastNameInput"].Direction = ParameterDirection.Input;
 
                     using (MySqlDataReader reader = comm.ExecuteReader())
                     {
