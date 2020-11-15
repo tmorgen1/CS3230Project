@@ -25,13 +25,15 @@ namespace ClinicDatabaseSystem.View
         private TestResult testResult;
         private string testName;
         private AppointmentNameInfo appointmentNameInfo;
+        private bool viewResultsOnly;
 
-        public CreateTestResultContentDialog(TestResult testResult, AppointmentNameInfo appointmentNameInfo, string testName)
+        public CreateTestResultContentDialog(TestResult testResult, AppointmentNameInfo appointmentNameInfo, string testName, bool viewResultsOnly)
         {
             this.InitializeComponent();
             this.testResult = testResult;
             this.testName = testName;
             this.appointmentNameInfo = appointmentNameInfo;
+            this.viewResultsOnly = viewResultsOnly;
             this.loadInfo();
         }
 
@@ -61,7 +63,7 @@ namespace ClinicDatabaseSystem.View
         private async void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            OrderedTestsContentDialog orderedTestsContentDialog = new OrderedTestsContentDialog(this.appointmentNameInfo);
+            OrderedTestsContentDialog orderedTestsContentDialog = new OrderedTestsContentDialog(this.appointmentNameInfo, this.viewResultsOnly);
             await orderedTestsContentDialog.ShowAsync();
         }
 
@@ -72,7 +74,7 @@ namespace ClinicDatabaseSystem.View
             if (TestResultDAL.EditTestResult(newTestResult, this.testResult))
             {
                 this.Hide();
-                OrderedTestsContentDialog orderedTestsContentDialog = new OrderedTestsContentDialog(this.appointmentNameInfo);
+                OrderedTestsContentDialog orderedTestsContentDialog = new OrderedTestsContentDialog(this.appointmentNameInfo, this.viewResultsOnly);
                 await orderedTestsContentDialog.ShowAsync();
             }
         }

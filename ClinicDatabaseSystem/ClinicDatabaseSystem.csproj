@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="Controller\LoginController.cs" />
     <Compile Include="Controller\PatientController.cs" />
+    <Compile Include="Controller\VisitInformationController.cs" />
     <Compile Include="Converters\DateTimeConverter.cs" />
     <Compile Include="DAL\AddressDAL.cs" />
     <Compile Include="DAL\AppointmentDAL.cs" />

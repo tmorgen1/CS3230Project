@@ -25,6 +25,7 @@ namespace ClinicDatabaseSystem.View
     {
 
         private AppointmentNameInfo appointmentNameInfo;
+        private bool hasInitialFinalDiagnosis;
 
         public ViewVisitInfoContentDialog(AppointmentNameInfo appointmentNameInfo)
         {
@@ -45,7 +46,7 @@ namespace ClinicDatabaseSystem.View
         {
             this.patientIdTextBox.Text = this.appointmentNameInfo.Appointment.PatientId.ToString();
             this.patientNameTextBox.Text = this.appointmentNameInfo.PatientName;
-            this.dateTextBox.Text = this.appointmentNameInfo.Appointment.ScheduledDate.ToString();
+            this.dateTextBox.Text = this.appointmentNameInfo.Appointment.ScheduledDate.Date.ToString("MM/dd/yyyy");
             
             var visitInfo = VisitInformationDAL.GetVisitInfoFromAppointment(this.appointmentNameInfo.Appointment)[0];
             this.systolicBpTextBox.Text = visitInfo.SystolicBp;
@@ -64,6 +65,8 @@ namespace ClinicDatabaseSystem.View
             {
                 this.finalDiagnosisRichEditBox.Document.SetText(TextSetOptions.None, visitInfo.FinalDiagnosis);
                 this.finalDiagnosisRichEditBox.IsReadOnly = true;
+                this.finalDiagnosisRichEditBox.IsTabStop = false;
+                this.hasInitialFinalDiagnosis = true;
             }
         }
 
@@ -71,17 +74,30 @@ namespace ClinicDatabaseSystem.View
         {
             this.finalDiagnosisRichEditBox.Document.GetText(TextGetOptions.None, out var finalDiagnosis);
             this.Hide();
-            if (finalDiagnosis.Trim() != string.Empty)
+            if (finalDiagnosis.Trim() != string.Empty && !this.hasInitialFinalDiagnosis)
             {
-                ConfirmFinalDiagnosisContentDialog confirmFinalDiagnosisContentDialog = new ConfirmFinalDiagnosisContentDialog(this.appointmentNameInfo, finalDiagnosis.Trim());
+                var patientId = this.appointmentNameInfo.Appointment.PatientId;
+                var date = this.appointmentNameInfo.Appointment.ScheduledDate;
+                this.symptomsRichEditBox.Document.GetText(0, out var symptoms);
+                this.initialDiagnosisRichEditBox.Document.GetText(0, out var diagnosis);
+                var visitInformation = new VisitInformation(patientId, date,
+                    this.systolicBpTextBox.Text, this.diastolicBpTextBox.Text, this.bodyTempTextBox.Text,
+                    this.pulseTextBox.Text, this.weightTextBox.Text, symptoms, diagnosis, finalDiagnosis.Trim());
+                ConfirmFinalDiagnosisContentDialog confirmFinalDiagnosisContentDialog = new ConfirmFinalDiagnosisContentDialog(visitInformation, this.appointmentNameInfo, finalDiagnosis.Trim());
                 await confirmFinalDiagnosisContentDialog.ShowAsync();
             }
+        }
+
+        private bool hasFinalDiagnosis()
+        {
+            this.finalDiagnosisRichEditBox.Document.GetText(TextGetOptions.None, out var finalDiagnosis);
+            return finalDiagnosis.Trim() != string.Empty;
         }
 
         private async void viewTestsButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            OrderedTestsContentDialog orderedTestsContentDialog = new OrderedTestsContentDialog(this.appointmentNameInfo);
+            OrderedTestsContentDialog orderedTestsContentDialog = new OrderedTestsContentDialog(this.appointmentNameInfo, this.hasFinalDiagnosis());
             await orderedTestsContentDialog.ShowAsync();
         }
     }

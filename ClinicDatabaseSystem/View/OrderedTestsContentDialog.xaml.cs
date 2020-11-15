@@ -25,12 +25,23 @@ namespace ClinicDatabaseSystem.View
         private AppointmentNameInfo appointmentNameInfo;
         private IList<TestResult> orderedTestResults;
         private TestResult selectedTestResult;
+        private bool viewResultsOnly;
 
-        public OrderedTestsContentDialog(AppointmentNameInfo appointmentNameInfo)
+        public OrderedTestsContentDialog(AppointmentNameInfo appointmentNameInfo, bool viewResultsOnly)
         {
             this.InitializeComponent();
             this.appointmentNameInfo = appointmentNameInfo;
+            this.viewResultsOnly = viewResultsOnly;
             this.loadTests();
+            this.checkFinalDiagnosis();
+        }
+
+        private void checkFinalDiagnosis()
+        {
+            if (this.viewResultsOnly)
+            {
+                this.createResultButton.Content = "View Result";
+            }
         }
 
         private void loadTests()
@@ -65,12 +76,12 @@ namespace ClinicDatabaseSystem.View
             var testName = this.orderedTestsListView.SelectedItem?.ToString().Split(':')[1].Trim();
             if (this.selectedTestHasResult())
             {
-                CreateTestResultContentDialog createTestResultContentDialog = new CreateTestResultContentDialog(this.selectedTestResult, this.appointmentNameInfo, testName);
+                CreateTestResultContentDialog createTestResultContentDialog = new CreateTestResultContentDialog(this.selectedTestResult, this.appointmentNameInfo, testName, this.viewResultsOnly);
                 await createTestResultContentDialog.ShowAsync();
             }
             else
             {
-                ViewTestResultContentDialog viewTestResultContentDialog = new ViewTestResultContentDialog(this.selectedTestResult, this.appointmentNameInfo, testName);
+                ViewTestResultContentDialog viewTestResultContentDialog = new ViewTestResultContentDialog(this.selectedTestResult, this.appointmentNameInfo, testName, this.viewResultsOnly);
                 await viewTestResultContentDialog.ShowAsync();
             }
         }
@@ -89,12 +100,12 @@ namespace ClinicDatabaseSystem.View
                 var testId = this.orderedTestsListView.SelectedItem?.ToString().Split(':')[0].Trim();
                 foreach (var orderedTestResult in this.orderedTestResults)
                 {
-                    if (orderedTestResult.TestId == Int32.Parse(testId) && orderedTestResult.Results == string.Empty)
+                    if (orderedTestResult.TestId == Int32.Parse(testId) && orderedTestResult.Results == string.Empty && !this.viewResultsOnly)
                     {
                         this.createResultButton.Content = "Create Result";
                         this.selectedTestResult = orderedTestResult;
                     } else if (orderedTestResult.TestId == Int32.Parse(testId) &&
-                               orderedTestResult.Results != string.Empty)
+                               orderedTestResult.Results != string.Empty || this.viewResultsOnly && orderedTestResult.TestId == Int32.Parse(testId))
                     {
                         this.createResultButton.Content = "View Result";
                         this.selectedTestResult = orderedTestResult;

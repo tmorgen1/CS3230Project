@@ -23,6 +23,7 @@ namespace ClinicDatabaseSystem.View
     public sealed partial class CreateAppointmentPatientSelectedContentDialog : ContentDialog
     {
         public bool CreateAppointmentSuccessful { get; private set; }
+        public Appointment CreatedAppointment { get; private set; }
 
         public CreateAppointmentPatientSelectedContentDialog()
         {
@@ -124,10 +125,12 @@ namespace ClinicDatabaseSystem.View
                 this.reasonRichEditBox.Document.GetText(0, out var reasons);
                 var date = this.getSelectedDateAndTime();
                 reasons = reasons.Trim();
-                if (AppointmentDAL.InsertAppointment(new Appointment(int.Parse(patientID ?? string.Empty),
-                    date, int.Parse(doctorID ?? string.Empty), reasons)))
+                var appointment = new Appointment(int.Parse(patientID ?? string.Empty),
+                    date, int.Parse(doctorID ?? string.Empty), reasons);
+                if (AppointmentDAL.InsertAppointment(appointment))
                 {
                     this.CreateAppointmentSuccessful = true;
+                    this.CreatedAppointment = appointment;
                     this.Hide();
                 }
             }

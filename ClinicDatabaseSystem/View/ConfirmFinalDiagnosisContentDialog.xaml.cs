@@ -12,6 +12,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ClinicDatabaseSystem.DAL;
+using ClinicDatabaseSystem.Model;
 using ClinicDatabaseSystem.ViewModel;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -20,12 +22,14 @@ namespace ClinicDatabaseSystem.View
 {
     public sealed partial class ConfirmFinalDiagnosisContentDialog : ContentDialog
     {
+        private VisitInformation visitInformation;
         private AppointmentNameInfo appointmentNameInfo;
         private string finalDiagnosis;
 
-        public ConfirmFinalDiagnosisContentDialog(AppointmentNameInfo appointmentNameInfo, string finalDiagnosis)
+        public ConfirmFinalDiagnosisContentDialog(VisitInformation visitInformation, AppointmentNameInfo appointmentNameInfo, string finalDiagnosis)
         {
             this.InitializeComponent();
+            this.visitInformation = visitInformation;
             this.appointmentNameInfo = appointmentNameInfo;
             this.finalDiagnosis = finalDiagnosis;
         }
@@ -33,7 +37,7 @@ namespace ClinicDatabaseSystem.View
         private void confirmButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            //TODO: edit visit info
+            VisitInformationDAL.AddFinalDiagnosis(this.visitInformation, this.finalDiagnosis);
         }
 
         private async void cancelButton_Click(object sender, RoutedEventArgs e)

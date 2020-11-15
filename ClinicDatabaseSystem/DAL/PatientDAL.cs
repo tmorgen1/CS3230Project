@@ -116,10 +116,12 @@ namespace ClinicDatabaseSystem.DAL
             using (MySqlConnection conn = DbConnection.GetConnection())
             {
                 conn.Open();
-                string query = "select * from patient";
+                //Stored procedure by Michael
+                string spName = "patient_getAllPatients";
 
-                using (MySqlCommand comm = new MySqlCommand(query, conn))
+                using (MySqlCommand comm = new MySqlCommand(spName, conn))
                 {
+                    comm.CommandType = CommandType.StoredProcedure;
                     using (MySqlDataReader reader = comm.ExecuteReader())
                     {
                         int idOrdinal = reader.GetOrdinal("patientID");

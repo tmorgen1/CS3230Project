@@ -27,6 +27,8 @@ namespace ClinicDatabaseSystem.View
         private Appointment visitInfoAppointment;
         private IList<string> orderedTests;
 
+        public bool CreatedVisitInfoSuccessfully { get; private set; }
+
         public CreateVisitInfoContentDialog(Appointment appointment)
         {
             this.InitializeComponent();
@@ -116,6 +118,7 @@ namespace ClinicDatabaseSystem.View
                 if (this.insertVisitInfo() && this.insertOrderedTests())
                 {
                     this.Hide();
+                    this.CreatedVisitInfoSuccessfully = true;
                 }
             }
         }
@@ -134,6 +137,10 @@ namespace ClinicDatabaseSystem.View
 
         private bool insertOrderedTests()
         {
+            if (this.orderedTests == null || this.orderedTests.Count == 0)
+            {
+                return true;
+            }
             foreach (var currentTest in this.orderedTests)
             {
                 var testId = currentTest.ToString().Split(':')[0].Trim();

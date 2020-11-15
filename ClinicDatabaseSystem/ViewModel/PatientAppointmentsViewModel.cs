@@ -67,6 +67,19 @@ namespace ClinicDatabaseSystem.ViewModel
             this.Appointments = appointmentNameInfoList;
         }
 
+        public AppointmentNameInfo getAppointmentNameInfo(Appointment appointment)
+        {
+            foreach (var appointmentNameInfo in this.appointments)
+            {
+                if (appointment.Equals(appointmentNameInfo.Appointment))
+                {
+                    return appointmentNameInfo;
+                }
+            }
+
+            return null;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

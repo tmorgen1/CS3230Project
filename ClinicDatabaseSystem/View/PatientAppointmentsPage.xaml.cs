@@ -57,9 +57,10 @@ namespace ClinicDatabaseSystem.View
             if (createAppointmentContentDialog.CreateAppointmentSuccessful)
             {
                 this.viewModel.LoadAppointments(PatientController.CurrentPatient);
+                this.appointmentsDataGrid.SelectedItem = this.viewModel.getAppointmentNameInfo(createAppointmentContentDialog.CreatedAppointment);
             }
 
-            this.appointmentsDataGrid.SelectedItem = this.selectedAppointment;
+            
             this.checkAppointment(this.selectedAppointment);
         }
 

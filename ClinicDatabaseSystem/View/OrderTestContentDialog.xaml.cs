@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ClinicDatabaseSystem.Controller;
 using ClinicDatabaseSystem.DAL;
 using ClinicDatabaseSystem.Model;
 
@@ -50,6 +51,14 @@ namespace ClinicDatabaseSystem.View
             this.Hide();
             CreateVisitInfoContentDialog createVisitInfoContentDialog = new CreateVisitInfoContentDialog(this.visitInformation, this.visitInfoAppointment, orderedTests);
             await createVisitInfoContentDialog.ShowAsync();
+            if (createVisitInfoContentDialog.CreatedVisitInfoSuccessfully)
+            {
+                VisitInformationController.CreatedVisitInformation = true;
+            }
+            else
+            {
+                VisitInformationController.CreatedVisitInformation = false;
+            }
         }
 
         private async void orderButton_Click(object sender, RoutedEventArgs e)
