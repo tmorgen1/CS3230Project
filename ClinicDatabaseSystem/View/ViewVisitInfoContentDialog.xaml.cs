@@ -67,6 +67,7 @@ namespace ClinicDatabaseSystem.View
                 this.finalDiagnosisRichEditBox.IsReadOnly = true;
                 this.finalDiagnosisRichEditBox.IsTabStop = false;
                 this.hasInitialFinalDiagnosis = true;
+                this.closeButton.Content = "Done";
             }
         }
 
