@@ -24,12 +24,14 @@ namespace ClinicDatabaseSystem.View
     {
         private Appointment visitInfoAppointment;
         private VisitInformation visitInformation;
+        private VisitInformationController visitInformationController;
 
-        public OrderTestContentDialog(VisitInformation visitInformation, Appointment appointment)
+        public OrderTestContentDialog(VisitInformation visitInformation, Appointment appointment, VisitInformationController visitInfoController)
         {
             this.InitializeComponent();
             this.visitInformation = visitInformation;
             this.visitInfoAppointment = appointment;
+            this.visitInformationController = visitInfoController;
             this.loadTests();
         }
 
@@ -49,23 +51,12 @@ namespace ClinicDatabaseSystem.View
                 this.orderedTestsListView.Items?.Add(test);
             }
             this.Hide();
-            CreateVisitInfoContentDialog createVisitInfoContentDialog = new CreateVisitInfoContentDialog(this.visitInformation, this.visitInfoAppointment, orderedTests);
+            CreateVisitInfoContentDialog createVisitInfoContentDialog = new CreateVisitInfoContentDialog(this.visitInformation, this.visitInfoAppointment, orderedTests, this.visitInformationController);
             await createVisitInfoContentDialog.ShowAsync();
-            if (createVisitInfoContentDialog.CreatedVisitInfoSuccessfully)
-            {
-                
-            }
-            else
-            {
-                
-            }
         }
 
         private async void orderButton_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: prompt user if they are sure they want to order the specified tests
-            //TODO: add the order to the database
-            
             this.Hide();
             IList<string> orderedTests = new List<string>();
             var itemCollection = this.orderedTestsListView.Items;
@@ -77,7 +68,7 @@ namespace ClinicDatabaseSystem.View
                 }
 
                 ConfirmOrderTestContentDialog confirmOrderTestContentDialog =
-                    new ConfirmOrderTestContentDialog(orderedTests, this.visitInformation, this.visitInfoAppointment);
+                    new ConfirmOrderTestContentDialog(orderedTests, this.visitInformation, this.visitInfoAppointment, this.visitInformationController);
                 await confirmOrderTestContentDialog.ShowAsync();
             }
         }
