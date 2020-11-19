@@ -149,6 +149,8 @@
     <Compile Include="Model\VisitInformation.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Utils\StateConverter.cs" />
+    <Compile Include="ViewModel\AdminQueryResults.cs" />
+    <Compile Include="ViewModel\AdminQueryViewModel.cs" />
     <Compile Include="ViewModel\AppointmentNameInfo.cs" />
     <Compile Include="ViewModel\PatientAppointmentsViewModel.cs" />
     <Compile Include="ViewModel\PatientRecordsViewModel.cs" />
