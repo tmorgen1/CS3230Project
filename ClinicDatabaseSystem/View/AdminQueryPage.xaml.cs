@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -26,7 +27,6 @@ namespace ClinicDatabaseSystem.View
     /// </summary>
     public sealed partial class AdminQueryPage : Page
     {
-        private AdminQueryResults results;
 
         public AdminQueryPage()
         {
@@ -39,20 +39,24 @@ namespace ClinicDatabaseSystem.View
             this.loadDataTable(result);
         }
 
-        private void loadDataTable(AdminQueryResults result)
+        private void loadDataTable(DataTable result)
         {
-            var dataTable = new DataTable();
-            foreach (var columnName in result.ColumnNames)
+            this.dataGrid.Columns.Clear();
+            for (var i = 0; i < result.Columns.Count; i++)
             {
-                dataTable.Columns.Add(columnName);
+                this.dataGrid.Columns.Add(new DataGridTextColumn()
+                {
+                    Header = result.Columns[i].ColumnName,
+                    Binding = new Binding { Path = new PropertyPath("[" + i.ToString() + "]") }
+                });
             }
-            DataGrid dataGrid = new DataGrid();
-            dataGrid.Height = 700;
-            dataGrid.Width = 700;
-            dataGrid.Margin = new Thickness(150, 0, 0, 0);
-            dataGrid.AutoGenerateColumns = false;
-            dataGrid.DataContext = dataTable;
-            this.grid.Children.Add(dataGrid);
+            var collection = new ObservableCollection<object>();
+            foreach (DataRow row in result.Rows)
+            {
+                collection.Add(row.ItemArray);
+            }
+
+            this.dataGrid.ItemsSource = collection;
         }
     }
 }

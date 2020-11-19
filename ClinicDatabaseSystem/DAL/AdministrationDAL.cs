@@ -12,10 +12,7 @@ namespace ClinicDatabaseSystem.DAL
 {
     public static class AdministrationDAL
     {
-        private const int ORDINAL_INDEX = 1;
-        private const int COLUMN_NAME_INDEX = 0;
-
-        public static AdminQueryResults AdminQuery(string query)
+        public static DataTable AdminQuery(string query)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())
             {
@@ -23,32 +20,13 @@ namespace ClinicDatabaseSystem.DAL
 
                 using (MySqlCommand comm = new MySqlCommand(query, conn))
                 {
-                    using (MySqlDataReader reader = comm.ExecuteReader())
+                    var dataTable = new DataTable();
+                    using (var dataAdapter = new MySqlDataAdapter(comm))
                     {
-                        DataTable table = reader.GetSchemaTable();
-                        var ordinals = new List<int>();
-                        var columnNames = new List<string>();
-                        if (table != null)
-                        {
-                            foreach (DataRow row in table.Rows)
-                            {
-                                ordinals.Add((int) row[ORDINAL_INDEX]);
-                                columnNames.Add((string) row[COLUMN_NAME_INDEX]);
-                            }
-                        }
-
-                        var queryData = new List<object[]>();
-                        for (var i = 0; i < ordinals.Count && reader.Read(); i++)
-                        {
-                            queryData.Add(new object[columnNames.Count]);
-                            for (var j = 0; j < columnNames.Count; j++)
-                            {
-                                queryData[i][j] = reader.GetValue(j);
-                            }
-                        }
-                        var adminQueryResults = new AdminQueryResults(columnNames, queryData);
-                        return adminQueryResults;
+                        dataAdapter.Fill(dataTable);
                     }
+
+                    return dataTable;
                 }
             }
         }

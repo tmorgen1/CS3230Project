@@ -9,8 +9,17 @@
     mc:Ignorable="d"
     Background="#353535">
 
-    <Grid x:Name="grid">
+    <Grid>
         <TextBox x:Name="queryTextBox" HorizontalAlignment="Left" Margin="260,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="914"/>
         <Button Content="Start" Margin="42,168,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+
+        <controls:DataGrid x:Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Center" Height="679" Width="1694" AutoGenerateColumns="False" Foreground="White" IsReadOnly="True" Margin="195,0,0,0" >
+
+        </controls:DataGrid>
+        <TextBlock HorizontalAlignment="Left" Margin="294,113,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Margin="10,10,0,0" Text="Current User" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,42,0,0" Text="FullName:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,66,0,0" Text="Username:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,90,0,0" Text="ID:" TextWrapping="Wrap" VerticalAlignment="Top"/>
     </Grid>
 </Page>
