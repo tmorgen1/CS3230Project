@@ -132,27 +132,32 @@ namespace ClinicDatabaseSystem.View
                 var date = appointment.Appointment.ScheduledDate;
                 var datetimeCompare = DateTime.Compare(date, DateTime.Today);
                 this.selectedAppointment = appointment;
+                int visitInfoCount = VisitInformationDAL.GetVisitInfoFromAppointment(appointment.Appointment).Count;
+
                 if (datetimeCompare > 0)
                 {
                     this.editAppointmentButton.IsEnabled = true;
+                    this.deleteAppointmentButton.IsEnabled = true;
                 }
                 else
                 {
                     this.editAppointmentButton.IsEnabled = false;
+                    this.deleteAppointmentButton.IsEnabled = false;
                 }
 
-                if (VisitInformationDAL.GetVisitInfoFromAppointment(appointment.Appointment).Count == 0)
+                if (visitInfoCount == 0)
                 {
                     this.createVisitInfoButton.IsEnabled = true;
                     this.viewVisitInfoButton.IsEnabled = false;
+                    
                 }
                 else
                 {
                     this.createVisitInfoButton.IsEnabled = false;
                     this.viewVisitInfoButton.IsEnabled = true;
+                    this.editAppointmentButton.IsEnabled = false;
+                    this.deleteAppointmentButton.IsEnabled = false;
                 }
-
-                this.deleteAppointmentButton.IsEnabled = true;
             }
         }
 

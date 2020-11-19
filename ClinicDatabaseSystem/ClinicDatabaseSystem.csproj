@@ -124,6 +124,7 @@
     <Compile Include="Controller\VisitInformationController.cs" />
     <Compile Include="Converters\DateTimeConverter.cs" />
     <Compile Include="DAL\AddressDAL.cs" />
+    <Compile Include="DAL\AdministrationDAL.cs" />
     <Compile Include="DAL\AppointmentDAL.cs" />
     <Compile Include="DAL\AuthDAL.cs" />
     <Compile Include="DAL\DbConnection.cs" />
