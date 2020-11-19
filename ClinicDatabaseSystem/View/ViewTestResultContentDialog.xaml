@@ -21,10 +21,11 @@
         <TextBlock HorizontalAlignment="Left" Margin="0,187,0,0" Text="Test Name:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,248,0,0" Text="Date:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,309,0,0" Text="Time:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,368,0,0" Text="Results:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <RichEditBox x:Name="resultsRichEditBox" AllowFocusOnInteraction="False" Margin="0,392,0,67" TabIndex="7"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,398,0,0" Text="Results:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <RichEditBox x:Name="resultsRichEditBox" AllowFocusOnInteraction="False" Margin="0,422,0,37" TabIndex="7"/>
         <Button x:Name="closeButton" Content="Close" Foreground="White" Background="#3c6e71" Width="70" Margin="0,611,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Center" Click="closeButton_Click" TabIndex="8"/>
         <TextBox x:Name="dateTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,241,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" TabIndex="5"/>
         <TextBox x:Name="timeTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,302,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" TabIndex="6"/>
+        <CheckBox x:Name="abnormalCheckBox" Content="Abnormal" Margin="0,352,0,0" VerticalAlignment="Top" FocusVisualPrimaryBrush="White" Foreground="White" BorderBrush="White" IsEnabled="False"/>
     </Grid>
 </ContentDialog>
