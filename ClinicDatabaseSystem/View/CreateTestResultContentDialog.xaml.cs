@@ -70,7 +70,8 @@ namespace ClinicDatabaseSystem.View
         private async void confirmButton_Click(object sender, RoutedEventArgs e)
         {
             this.resultsRichEditBox.Document.GetText(0, out var results);
-            var newTestResult = new TestResult(this.testResult.TestId, this.testResult.PatientId, this.testResult.ResultDateTime, results);
+            var isAbnormalChecked = this.abnormalCheckBox.IsChecked ?? false;
+            var newTestResult = new TestResult(this.testResult.TestId, this.testResult.PatientId, this.testResult.ResultDateTime, results, isAbnormalChecked);
             if (TestResultDAL.EditTestResult(newTestResult, this.testResult))
             {
                 this.Hide();

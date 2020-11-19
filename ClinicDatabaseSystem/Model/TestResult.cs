@@ -16,12 +16,15 @@ namespace ClinicDatabaseSystem.Model
 
         public string Results { get; set; }
 
-        public TestResult(int testId, int patientId, DateTime resultDateTime, string results)
+        public bool Abnormal { get; set; }
+
+        public TestResult(int testId, int patientId, DateTime resultDateTime, string results, bool abnormal)
         {
             this.TestId = testId;
             this.PatientId = patientId;
             this.ResultDateTime = resultDateTime;
             this.Results = results;
+            this.Abnormal = abnormal;
         }
     }
 }

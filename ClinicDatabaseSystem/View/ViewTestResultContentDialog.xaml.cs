@@ -47,6 +47,7 @@ namespace ClinicDatabaseSystem.View
             this.timeTextBox.Text = this.testResult.ResultDateTime.TimeOfDay.ToString();
             this.resultsRichEditBox.Document.SetText(TextSetOptions.None, this.testResult.Results);
             this.resultsRichEditBox.IsReadOnly = true;
+            this.abnormalCheckBox.IsChecked = this.testResult.Abnormal;
         }
 
         private async void closeButton_Click(object sender, RoutedEventArgs e)
