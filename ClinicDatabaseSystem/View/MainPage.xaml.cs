@@ -19,17 +19,17 @@ namespace ClinicDatabaseSystem.View
 
         private void nurseLoginButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            this.displayLoginContentDialog();
+            this.displayLoginContentDialog(true);
         }
 
         private void accessAdminButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-
+            this.displayLoginContentDialog(false);
         }
 
-        private async void displayLoginContentDialog()
+        private async void displayLoginContentDialog(bool isNurseLogin)
         {
-            LoginContentDialog loginContentDialog = new LoginContentDialog();
+            LoginContentDialog loginContentDialog = new LoginContentDialog(isNurseLogin);
             ContentDialogResult result = await loginContentDialog.ShowAsync();
         }
     }

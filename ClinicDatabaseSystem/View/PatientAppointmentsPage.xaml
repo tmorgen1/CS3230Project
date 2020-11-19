@@ -19,7 +19,7 @@
         <TextBlock x:Name="usernameTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="80,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="idTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="32,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
-        <controls:DataGrid x:Name="appointmentsDataGrid" HorizontalAlignment="Left" VerticalAlignment="Center" Height="679" Width="1694" AutoGenerateColumns="False" ItemsSource="{x:Bind viewModel.Appointments, Mode=TwoWay}" Foreground="White" IsReadOnly="True" Margin="195,0,0,0" LostFocus="appointmentsDataGrid_LostFocus" SelectionChanged="AppointmentsDataGrid_OnSelectionChanged">
+        <controls:DataGrid x:Name="appointmentsDataGrid" HorizontalAlignment="Left" VerticalAlignment="Center" Height="679" Width="1694" AutoGenerateColumns="False" ItemsSource="{x:Bind viewModel.Appointments, Mode=TwoWay}" Foreground="White" IsReadOnly="True" Margin="195,0,0,0" LostFocus="appointmentsDataGrid_LostFocus" SelectionChanged="AppointmentsDataGrid_OnSelectionChanged" LoadingRow="AppointmentsDataGrid_OnLoadingRow">
             <controls:DataGrid.Columns>
                 <controls:DataGridTextColumn Header="Patient ID" Width="SizeToHeader" Binding="{Binding Appointment.PatientId}" FontSize="17"/>
                 <controls:DataGridTextColumn Header="Patient Name" Width="300" Binding="{Binding PatientName}" FontSize="17"/>

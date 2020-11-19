@@ -152,6 +152,9 @@
     <Compile Include="ViewModel\AppointmentNameInfo.cs" />
     <Compile Include="ViewModel\PatientAppointmentsViewModel.cs" />
     <Compile Include="ViewModel\PatientRecordsViewModel.cs" />
+    <Compile Include="View\AdminQueryPage.xaml.cs">
+      <DependentUpon>AdminQueryPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ConfirmFinalDiagnosisContentDialog.xaml.cs">
       <DependentUpon>ConfirmFinalDiagnosisContentDialog.xaml</DependentUpon>
     </Compile>
@@ -222,6 +225,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="View\AdminQueryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ConfirmFinalDiagnosisContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

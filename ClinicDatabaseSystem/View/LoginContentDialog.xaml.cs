@@ -21,12 +21,32 @@ namespace ClinicDatabaseSystem.View
 {
     public sealed partial class LoginContentDialog : ContentDialog
     {
-        public LoginContentDialog()
+        private bool isNurseLogin;
+
+        public LoginContentDialog(bool isNurseLogin)
         {
             this.InitializeComponent();
+            this.isNurseLogin = isNurseLogin;
         }
 
         private void loginButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.isNurseLogin)
+            {
+                this.nurseLogin();
+            }
+            else
+            {
+                this.adminLogin();
+            }
+        }
+
+        private void closeButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+        }
+
+        private void nurseLogin()
         {
             var nurseId = AuthDAL.AuthenticateNurse(this.usernameTextBox.Text, this.passwordBox.Password);
             if (nurseId > 0)
@@ -42,9 +62,19 @@ namespace ClinicDatabaseSystem.View
             }
         }
 
-        private void closeButton_Click(object sender, RoutedEventArgs e)
+        private void adminLogin()
         {
-            this.Hide();
+            var adminId = AuthDAL.AuthenticateAdmin(this.usernameTextBox.Text, this.passwordBox.Password);
+            if (adminId > 0)
+            {
+                (Window.Current.Content as Frame)?.Navigate(typeof(AdminQueryPage), null);
+                this.Hide();
+            }
+            else
+            {
+                this.loginErrorTextBox.Text = "Invalid Credentials.";
+                this.loginErrorTextBox.Visibility = Visibility.Visible;
+            }
         }
 
         private void UsernameTextBox_OnTextChanged(object sender, RoutedEventArgs e)

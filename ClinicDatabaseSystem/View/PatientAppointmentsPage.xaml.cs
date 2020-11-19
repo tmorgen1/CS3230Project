@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -17,6 +18,7 @@ using ClinicDatabaseSystem.Controller;
 using ClinicDatabaseSystem.DAL;
 using ClinicDatabaseSystem.Model;
 using ClinicDatabaseSystem.ViewModel;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -274,6 +276,24 @@ namespace ClinicDatabaseSystem.View
         private void DeleteAppointmentButton_OnPointerExited(object sender, PointerRoutedEventArgs e)
         {
             this.deleteAppointmentHovered = false;
+        }
+
+        private void AppointmentsDataGrid_OnLoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            var rowIndex = e.Row.GetIndex();
+            var appointmentNameInfo = this.viewModel.Appointments[rowIndex];
+            var date = appointmentNameInfo.Appointment.ScheduledDate;
+            var datetimeCompare = DateTime.Compare(date, DateTime.Today);
+            var visitInfo = VisitInformationDAL.GetVisitInfoFromAppointment(appointmentNameInfo.Appointment)[0];
+            var finalDiagnosis = visitInfo.FinalDiagnosis;
+            if (datetimeCompare < 0)
+            {
+                e.Row.Background = new SolidColorBrush(Color.FromArgb(255, 84, 84, 84));
+            }
+            else
+            {
+                e.Row.Background = finalDiagnosis != null ? new SolidColorBrush(Color.FromArgb(255, 92, 152, 103)) : new SolidColorBrush(Color.FromArgb(255, 4, 96, 112));
+            }
         }
     }
 }
