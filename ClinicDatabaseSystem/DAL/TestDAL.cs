@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ClinicDatabaseSystem.Model;
+﻿using ClinicDatabaseSystem.Model;
 using MySql.Data.MySqlClient;
+using System.Collections.Generic;
 
 namespace ClinicDatabaseSystem.DAL
 {
+    /// <summary>
+    /// Data Access Layer for tests in the database.
+    /// </summary>
     public static class TestDAL
     {
+        /// <summary>
+        /// Gets the test types from the database.
+        /// </summary>
+        /// <returns>Collection of test types</returns>
         public static IList<Test> GetTestTypes()
         {
             List<Test> testTypes = new List<Test>();

@@ -1,31 +1,40 @@
-﻿using System;
+﻿using ClinicDatabaseSystem.DAL;
+using ClinicDatabaseSystem.Model;
+using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using ClinicDatabaseSystem.DAL;
-using ClinicDatabaseSystem.Model;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ClinicDatabaseSystem.View
 {
+    /// <summary>
+    /// Handles information gather to edit an appointment.
+    /// </summary>
+    /// <seealso cref="Windows.UI.Xaml.Controls.ContentDialog" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class EditAppointmentContentDialog : ContentDialog
     {
+        /// <summary>
+        /// Specifies if appointment was edited successfully.
+        /// </summary>
         public bool EditAppointmentSuccessful;
         private readonly Appointment previousAppointment;
 
+        /// <summary>
+        /// Creates new appointment.
+        /// </summary>
+        /// <value>
+        /// The new appointment.
+        /// </value>
         public Appointment NewAppointment { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EditAppointmentContentDialog"/> class.
+        /// </summary>
+        /// <param name="appointment">The appointment.</param>
         public EditAppointmentContentDialog(Appointment appointment)
         {
             this.InitializeComponent();

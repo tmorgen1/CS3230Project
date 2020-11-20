@@ -1,32 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using ClinicDatabaseSystem.DAL;
+﻿using ClinicDatabaseSystem.DAL;
 using ClinicDatabaseSystem.Model;
 using ClinicDatabaseSystem.ViewModel;
+using System;
+using System.Collections.Generic;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ClinicDatabaseSystem.View
 {
+    /// <summary>
+    /// Handles showing user the ordered tests for a visit/appointment.
+    /// </summary>
+    /// <seealso cref="Windows.UI.Xaml.Controls.ContentDialog" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class OrderedTestsContentDialog : ContentDialog
     {
-        private AppointmentNameInfo appointmentNameInfo;
+        private readonly AppointmentNameInfo appointmentNameInfo;
         private IList<TestResult> orderedTestResults;
         private TestResult selectedTestResult;
-        private bool viewResultsOnly;
+        private readonly bool viewResultsOnly;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OrderedTestsContentDialog"/> class.
+        /// </summary>
+        /// <param name="appointmentNameInfo">The appointment name information.</param>
+        /// <param name="viewResultsOnly">if set to <c>true</c> [view results only].</param>
         public OrderedTestsContentDialog(AppointmentNameInfo appointmentNameInfo, bool viewResultsOnly)
         {
             this.InitializeComponent();
@@ -104,8 +105,9 @@ namespace ClinicDatabaseSystem.View
                     {
                         this.createResultButton.Content = "Create Result";
                         this.selectedTestResult = orderedTestResult;
-                    } else if (orderedTestResult.TestId == Int32.Parse(testId) &&
-                               orderedTestResult.Results != string.Empty || this.viewResultsOnly && orderedTestResult.TestId == Int32.Parse(testId))
+                    }
+                    else if (orderedTestResult.TestId == Int32.Parse(testId) &&
+                             orderedTestResult.Results != string.Empty || this.viewResultsOnly && orderedTestResult.TestId == Int32.Parse(testId))
                     {
                         this.createResultButton.Content = "View Result";
                         this.selectedTestResult = orderedTestResult;

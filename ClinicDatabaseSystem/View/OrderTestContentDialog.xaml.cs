@@ -1,31 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using ClinicDatabaseSystem.Controller;
+﻿using ClinicDatabaseSystem.Controller;
 using ClinicDatabaseSystem.DAL;
 using ClinicDatabaseSystem.Model;
+using System;
+using System.Collections.Generic;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ClinicDatabaseSystem.View
 {
+    /// <summary>
+    /// Handles selecting tests to order.
+    /// </summary>
+    /// <seealso cref="Windows.UI.Xaml.Controls.ContentDialog" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class OrderTestContentDialog : ContentDialog
     {
-        private Appointment visitInfoAppointment;
-        private VisitInformation visitInformation;
-        private VisitInformationController visitInformationController;
+        private readonly Appointment visitInfoAppointment;
+        private readonly VisitInformation visitInformation;
+        private readonly VisitInformationController visitInformationController;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OrderTestContentDialog"/> class.
+        /// </summary>
+        /// <param name="visitInformation">The visit information.</param>
+        /// <param name="appointment">The appointment.</param>
+        /// <param name="visitInfoController">The visit information controller.</param>
         public OrderTestContentDialog(VisitInformation visitInformation, Appointment appointment, VisitInformationController visitInfoController)
         {
             this.InitializeComponent();

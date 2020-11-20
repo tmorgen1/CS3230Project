@@ -1,16 +1,26 @@
-﻿using System;
+﻿using ClinicDatabaseSystem.Model;
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ClinicDatabaseSystem.Model;
-using MySql.Data.MySqlClient;
 
 namespace ClinicDatabaseSystem.DAL
 {
+    /// <summary>
+    /// Data Access Layer for patients in the database.
+    /// </summary>
     public static class PatientDAL
     {
+        /// <summary>
+        /// Inserts the patient into the database.
+        /// </summary>
+        /// <param name="lastName">The last name.</param>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="dob">The dob.</param>
+        /// <param name="phoneNumber">The phone number.</param>
+        /// <param name="address">The address.</param>
+        /// <param name="zip">The zip.</param>
+        /// <returns>True if the number of rows affected is greater than 0. AKA patient is inserted into table.</returns>
         public static bool InsertPatient(string lastName, string firstName, DateTime dob, string phoneNumber,
             Address address, string zip)
         {
@@ -62,6 +72,11 @@ namespace ClinicDatabaseSystem.DAL
             }
         }
 
+        /// <summary>
+        /// Edits the patient.
+        /// </summary>
+        /// <param name="patient">The patient.</param>
+        /// <returns>True if the number of rows affected is greater than 0. AKA patient is edited in the table.</returns>
         public static bool EditPatient(Patient patient)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())
@@ -109,6 +124,10 @@ namespace ClinicDatabaseSystem.DAL
             }
         }
 
+        /// <summary>
+        /// Gets all patients from the database.
+        /// </summary>
+        /// <returns>Collection of all the patients</returns>
         public static IList<Patient> GetAllPatients()
         {
             List<Patient> patients = new List<Patient>();
@@ -142,7 +161,7 @@ namespace ClinicDatabaseSystem.DAL
                                 ? reader.GetString(firstNameOrdinal)
                                 : null;
                             DateTime dob = !reader.IsDBNull(dobOrdinal)
-                                ? reader.GetDateTime(dobOrdinal) 
+                                ? reader.GetDateTime(dobOrdinal)
                                 : default(DateTime);
                             string phoneNumber = !reader.IsDBNull(phoneNumberOrdinal)
                                 ? reader.GetString(phoneNumberOrdinal)
@@ -162,6 +181,11 @@ namespace ClinicDatabaseSystem.DAL
             return patients;
         }
 
+        /// <summary>
+        /// Gets the patient by identifier from the database.
+        /// </summary>
+        /// <param name="pId">The patient identifier.</param>
+        /// <returns>The patient object</returns>
         public static Patient GetPatientById(int pId)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())
@@ -214,6 +238,11 @@ namespace ClinicDatabaseSystem.DAL
             return null;
         }
 
+        /// <summary>
+        /// Searches for patients in the database.
+        /// </summary>
+        /// <param name="dob">The date of birth.</param>
+        /// <returns>Collection of patients born on dob</returns>
         public static IList<Patient> SearchForPatients(DateTime dob)
         {
             List<Patient> patients = new List<Patient>();
@@ -268,6 +297,12 @@ namespace ClinicDatabaseSystem.DAL
             return patients;
         }
 
+        /// <summary>
+        /// Searches for patients in database.
+        /// </summary>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="lastName">The last name.</param>
+        /// <returns>Collection of patients with the full name given</returns>
         public static IList<Patient> SearchForPatients(string firstName, string lastName)
         {
             List<Patient> patients = new List<Patient>();
@@ -328,6 +363,13 @@ namespace ClinicDatabaseSystem.DAL
             return patients;
         }
 
+        /// <summary>
+        /// Searches for patients in the database.
+        /// </summary>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="lastName">The last name.</param>
+        /// <param name="dob">The date of birth.</param>
+        /// <returns>Collection of patients with full name given and dob on given date</returns>
         public static IList<Patient> SearchForPatients(string firstName, string lastName, DateTime dob)
         {
             List<Patient> patients = new List<Patient>();

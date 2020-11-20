@@ -1,35 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text.RegularExpressions;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using ClinicDatabaseSystem.DAL;
+﻿using ClinicDatabaseSystem.DAL;
 using ClinicDatabaseSystem.Enums;
 using ClinicDatabaseSystem.Model;
 using ClinicDatabaseSystem.Utils;
+using System;
+using System.Linq;
+using System.Text.RegularExpressions;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ClinicDatabaseSystem.View
 {
+    /// <summary>
+    /// Handles editing a patients information.
+    /// </summary>
+    /// <seealso cref="Windows.UI.Xaml.Controls.ContentDialog" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class EditPatientContentDialog : ContentDialog
     {
-        private Patient patient;
+        private readonly Patient patient;
 
+        /// <summary>
+        /// Gets a value indicating whether [update successful].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [update successful]; otherwise, <c>false</c>.
+        /// </value>
         public bool UpdateSuccessful { get; private set; }
 
-        public Patient newPatient { get; private set; }
+        /// <summary>
+        /// Gets the new patient.
+        /// </summary>
+        /// <value>
+        /// The new patient.
+        /// </value>
+        public Patient NewPatient { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EditPatientContentDialog"/> class.
+        /// </summary>
+        /// <param name="patient">The patient.</param>
         public EditPatientContentDialog(Patient patient)
         {
             this.InitializeComponent();
@@ -56,7 +69,7 @@ namespace ClinicDatabaseSystem.View
             this.zipTextBox.Text = patient.Address.Zip;
             this.address2TextBox.Text = patient.Address.Address2;
             this.cityTextBox.Text = patient.Address.City;
-            this.stateComboBox.SelectedIndex = (int) StateConverter.ConvertToState(patient.Address.State);
+            this.stateComboBox.SelectedIndex = (int)StateConverter.ConvertToState(patient.Address.State);
         }
 
         private bool validateInput()
@@ -314,7 +327,7 @@ namespace ClinicDatabaseSystem.View
                 this.updatePatientInfo();
                 if (PatientDAL.EditPatient(this.patient))
                 {
-                    this.newPatient = this.patient;
+                    this.NewPatient = this.patient;
                     this.UpdateSuccessful = true;
                     this.Hide();
                 }

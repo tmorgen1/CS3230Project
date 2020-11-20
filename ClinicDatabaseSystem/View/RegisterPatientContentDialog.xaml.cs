@@ -1,33 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text.RegularExpressions;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.System;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using ClinicDatabaseSystem.DAL;
+﻿using ClinicDatabaseSystem.DAL;
 using ClinicDatabaseSystem.Enums;
 using ClinicDatabaseSystem.Model;
+using System;
+using System.Linq;
+using System.Text.RegularExpressions;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ClinicDatabaseSystem.View
 {
+    /// <summary>
+    /// Handles taking information to register a patient.
+    /// </summary>
+    /// <seealso cref="Windows.UI.Xaml.Controls.ContentDialog" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class RegisterPatientContentDialog : ContentDialog
     {
 
+        /// <summary>
+        /// Gets a value indicating whether [register successful].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [register successful]; otherwise, <c>false</c>.
+        /// </value>
         public bool RegisterSuccessful { get; private set; }
-        
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RegisterPatientContentDialog"/> class.
+        /// </summary>
         public RegisterPatientContentDialog()
         {
             this.InitializeComponent();
