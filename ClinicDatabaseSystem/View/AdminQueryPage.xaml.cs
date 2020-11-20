@@ -5,6 +5,7 @@ using System.Data;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
+using ClinicDatabaseSystem.Controller;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -38,10 +39,17 @@ namespace ClinicDatabaseSystem.View
             var result = AdministrationDAL.AdminQuery(this.queryTextBox.Text);
             this.loadDataTable(result);
         }
-
+        
         private void loadDataTable(DataTable result)
         {
             this.dataGrid.Columns.Clear();
+            if (result == null)
+            {
+                this.queryErrorTextBlock.Text = "Error in sql";
+                this.queryErrorTextBlock.Visibility = Visibility.Visible;
+                return;
+            }
+            this.queryErrorTextBlock.Visibility = Visibility.Collapsed;
             for (var i = 0; i < result.Columns.Count; i++)
             {
                 this.dataGrid.Columns.Add(new DataGridTextColumn()
@@ -83,22 +91,16 @@ namespace ClinicDatabaseSystem.View
 
         private void checkStartAndEndDates()
         {
-            if (this.startDatePicker.SelectedDate.HasValue && this.endDatePicker.SelectedDate.HasValue)
-            {
-                this.viewReportButton.IsEnabled = true;
-            }
-            else
-            {
-                this.viewReportButton.IsEnabled = false;
-            }
-            if (this.endDatePicker.SelectedDate.HasValue && this.endDatePicker.Date < this.startDatePicker.Date)
+            if (this.startDatePicker.SelectedDate.HasValue && this.endDatePicker.SelectedDate.HasValue && this.endDatePicker.Date < this.startDatePicker.Date)
             {
                 this.datesErrorTextBlock.Text = "Start date must come before end date.";
                 this.datesErrorTextBlock.Visibility = Visibility.Visible;
+                this.viewReportButton.IsEnabled = false;
             }
-            else
+            else if (this.startDatePicker.SelectedDate.HasValue && this.endDatePicker.SelectedDate.HasValue)
             {
                 this.datesErrorTextBlock.Visibility = Visibility.Collapsed;
+                this.viewReportButton.IsEnabled = true;
             }
         }
 

@@ -4,6 +4,7 @@ using ClinicDatabaseSystem.ViewModel;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using ClinicDatabaseSystem.Controller;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -28,7 +29,7 @@ namespace ClinicDatabaseSystem.View
         /// <param name="visitInformation">The visit information.</param>
         /// <param name="appointmentNameInfo">The appointment name information.</param>
         /// <param name="finalDiagnosis">The final diagnosis.</param>
-        public ConfirmFinalDiagnosisContentDialog(VisitInformation visitInformation, AppointmentNameInfo appointmentNameInfo, string finalDiagnosis)
+        public ConfirmFinalDiagnosisContentDialog(VisitInformation visitInformation, AppointmentNameInfo appointmentNameInfo, string finalDiagnosis, VisitInformationController visitInformationController)
         {
             this.InitializeComponent();
             this.visitInformation = visitInformation;

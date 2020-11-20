@@ -5,6 +5,7 @@ using System;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using ClinicDatabaseSystem.Controller;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -27,12 +28,12 @@ namespace ClinicDatabaseSystem.View
         /// Initializes a new instance of the <see cref="ViewVisitInfoContentDialog"/> class.
         /// </summary>
         /// <param name="appointmentNameInfo">The appointment name information.</param>
-        public ViewVisitInfoContentDialog(AppointmentNameInfo appointmentNameInfo)
+        public ViewVisitInfoContentDialog(AppointmentNameInfo appointmentNameInfo, VisitInformationController visitInformationController)
         {
             this.InitializeComponent();
             this.appointmentNameInfo = appointmentNameInfo;
             this.visitInformationController = visitInformationController;
-            this.loadVistInfo();
+            this.loadVisitInfo();
         }
 
         /// <summary>
@@ -40,12 +41,12 @@ namespace ClinicDatabaseSystem.View
         /// </summary>
         /// <param name="appointmentNameInfo">The appointment name information.</param>
         /// <param name="finalDiagnosis">The final diagnosis.</param>
-        public ViewVisitInfoContentDialog(AppointmentNameInfo appointmentNameInfo, string finalDiagnosis)
+        public ViewVisitInfoContentDialog(AppointmentNameInfo appointmentNameInfo, string finalDiagnosis, VisitInformationController visitInformationController)
         {
             this.InitializeComponent();
             this.appointmentNameInfo = appointmentNameInfo;
             this.visitInformationController = visitInformationController;
-            this.loadVistInfo();
+            this.loadVisitInfo();
             this.finalDiagnosisRichEditBox.Document.SetText(0, finalDiagnosis);
         }
 

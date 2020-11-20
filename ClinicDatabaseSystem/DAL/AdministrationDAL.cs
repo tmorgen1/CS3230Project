@@ -39,6 +39,10 @@ namespace ClinicDatabaseSystem.DAL
                 {
                     // handle sql exception
                 }
+                catch (Exception exception)
+                {
+                    // handle
+                }
             }
 
             return null;

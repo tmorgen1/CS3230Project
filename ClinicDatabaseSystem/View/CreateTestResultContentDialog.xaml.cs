@@ -4,6 +4,7 @@ using ClinicDatabaseSystem.ViewModel;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using ClinicDatabaseSystem.Controller;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -30,7 +31,7 @@ namespace ClinicDatabaseSystem.View
         /// <param name="appointmentNameInfo">The appointment name information.</param>
         /// <param name="testName">Name of the test.</param>
         /// <param name="viewResultsOnly">if set to <c>true</c> [view results only].</param>
-        public CreateTestResultContentDialog(TestResult testResult, AppointmentNameInfo appointmentNameInfo, string testName, bool viewResultsOnly)
+        public CreateTestResultContentDialog(TestResult testResult, AppointmentNameInfo appointmentNameInfo, string testName, bool viewResultsOnly, VisitInformationController visitInformationController)
         {
             this.InitializeComponent();
             this.testResult = testResult;

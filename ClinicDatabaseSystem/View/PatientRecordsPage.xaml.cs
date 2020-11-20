@@ -50,6 +50,8 @@ namespace ClinicDatabaseSystem.View
         private void logoutButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MainPage));
+            LoginController.CurrentAdministrator = null;
+            LoginController.CurrentNurse = null;
         }
 
         private void updateCurrentUserTextBlocks()
