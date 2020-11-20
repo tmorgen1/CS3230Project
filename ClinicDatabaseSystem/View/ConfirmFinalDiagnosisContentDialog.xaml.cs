@@ -1,34 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using ClinicDatabaseSystem.Controller;
-using ClinicDatabaseSystem.DAL;
+﻿using ClinicDatabaseSystem.DAL;
 using ClinicDatabaseSystem.Model;
 using ClinicDatabaseSystem.ViewModel;
+using System;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ClinicDatabaseSystem.View
 {
+    /// <summary>
+    /// Handles confirming final diagnosis, leading to a read only visit info.
+    /// </summary>
+    /// <seealso cref="Windows.UI.Xaml.Controls.ContentDialog" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class ConfirmFinalDiagnosisContentDialog : ContentDialog
     {
-        private VisitInformation visitInformation;
-        private AppointmentNameInfo appointmentNameInfo;
-        private string finalDiagnosis;
+        private readonly VisitInformation visitInformation;
+        private readonly AppointmentNameInfo appointmentNameInfo;
+        private readonly string finalDiagnosis;
         private VisitInformationController visitInformationController;
 
-        public ConfirmFinalDiagnosisContentDialog(VisitInformation visitInformation, AppointmentNameInfo appointmentNameInfo, string finalDiagnosis, VisitInformationController visitInformationController)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConfirmFinalDiagnosisContentDialog"/> class.
+        /// </summary>
+        /// <param name="visitInformation">The visit information.</param>
+        /// <param name="appointmentNameInfo">The appointment name information.</param>
+        /// <param name="finalDiagnosis">The final diagnosis.</param>
+        public ConfirmFinalDiagnosisContentDialog(VisitInformation visitInformation, AppointmentNameInfo appointmentNameInfo, string finalDiagnosis)
         {
             this.InitializeComponent();
             this.visitInformation = visitInformation;

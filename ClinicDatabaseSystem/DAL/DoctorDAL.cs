@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ClinicDatabaseSystem.Model;
+﻿using ClinicDatabaseSystem.Model;
 using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
 
 namespace ClinicDatabaseSystem.DAL
 {
+    /// <summary>
+    /// Data Access Layer for doctors held in the database.
+    /// </summary>
     public static class DoctorDAL
     {
+        /// <summary>
+        /// Gets all doctors from database.
+        /// </summary>
+        /// <returns>List of all doctors in the database</returns>
         public static IList<Doctor> GetAllDoctors()
         {
             List<Doctor> doctors = new List<Doctor>();
@@ -62,6 +66,11 @@ namespace ClinicDatabaseSystem.DAL
             return doctors;
         }
 
+        /// <summary>
+        /// Gets the doctor by doctor id from the database.
+        /// </summary>
+        /// <param name="dId">The doctor identifier.</param>
+        /// <returns>Doctor with specific doctor id</returns>
         public static Doctor GetDoctorById(int dId)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())
@@ -115,11 +124,23 @@ namespace ClinicDatabaseSystem.DAL
             return null;
         }
 
+        /// <summary>
+        /// Gets the address and zip using a new connection object.
+        /// </summary>
+        /// <param name="doctorId">The doctor identifier.</param>
+        /// <param name="address1">The address1.</param>
+        /// <param name="zip">The zip.</param>
+        /// <returns>Address of the doctor</returns>
         private static Address GetAddressAndZipNewConnection(int doctorId, string address1, string zip)
         {
             return AddressDAL.GetAddressWithDoctorId(doctorId, address1, zip);
         }
 
+        /// <summary>
+        /// Gets the specialties using a new connection object.
+        /// </summary>
+        /// <param name="doctorId">The doctor identifier.</param>
+        /// <returns>List of doctor specialties</returns>
         private static IList<DoctorSpecialty> GetSpecialtiesNewConnection(int doctorId)
         {
             return DoctorSpecialtyDAL.GetSpecialtyWithDoctorId(doctorId);

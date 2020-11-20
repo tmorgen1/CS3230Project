@@ -1,34 +1,35 @@
-﻿using System;
+﻿using ClinicDatabaseSystem.Controller;
+using ClinicDatabaseSystem.DAL;
+using ClinicDatabaseSystem.Model;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.System;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using ClinicDatabaseSystem.Controller;
-using ClinicDatabaseSystem.DAL;
-using ClinicDatabaseSystem.Model;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ClinicDatabaseSystem.View
 {
+    /// <summary>
+    /// Handles taking visit information.
+    /// </summary>
+    /// <seealso cref="Windows.UI.Xaml.Controls.ContentDialog" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class CreateVisitInfoContentDialog : ContentDialog
     {
         private Appointment visitInfoAppointment;
         private IList<string> orderedTests;
-        private VisitInformationController visitInformationController;
+        private readonly VisitInformationController visitInformationController;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreateVisitInfoContentDialog"/> class.
+        /// </summary>
+        /// <param name="appointment">The appointment.</param>
+        /// <param name="visitInfoController">The visit information controller.</param>
         public CreateVisitInfoContentDialog(Appointment appointment, VisitInformationController visitInfoController)
         {
             this.InitializeComponent();
@@ -36,6 +37,13 @@ namespace ClinicDatabaseSystem.View
             this.visitInformationController = visitInfoController;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreateVisitInfoContentDialog"/> class.
+        /// </summary>
+        /// <param name="visitInformation">The visit information.</param>
+        /// <param name="appointment">The appointment.</param>
+        /// <param name="orderedTests">The ordered tests.</param>
+        /// <param name="visitInfoController">The visit information controller.</param>
         public CreateVisitInfoContentDialog(VisitInformation visitInformation, Appointment appointment, IList<string> orderedTests, VisitInformationController visitInfoController)
         {
             this.InitializeComponent();

@@ -1,35 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using ClinicDatabaseSystem.DAL;
+using ClinicDatabaseSystem.Model;
+using ClinicDatabaseSystem.ViewModel;
+using System;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using ClinicDatabaseSystem.Controller;
-using ClinicDatabaseSystem.DAL;
-using ClinicDatabaseSystem.Model;
-using ClinicDatabaseSystem.ViewModel;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ClinicDatabaseSystem.View
 {
+    /// <summary>
+    /// Handles showing visit info to user.
+    /// </summary>
+    /// <seealso cref="Windows.UI.Xaml.Controls.ContentDialog" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class ViewVisitInfoContentDialog : ContentDialog
     {
 
-        private AppointmentNameInfo appointmentNameInfo;
+        private readonly AppointmentNameInfo appointmentNameInfo;
         private bool hasInitialFinalDiagnosis;
         private VisitInformationController visitInformationController;
 
-        public ViewVisitInfoContentDialog(AppointmentNameInfo appointmentNameInfo, VisitInformationController visitInformationController)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ViewVisitInfoContentDialog"/> class.
+        /// </summary>
+        /// <param name="appointmentNameInfo">The appointment name information.</param>
+        public ViewVisitInfoContentDialog(AppointmentNameInfo appointmentNameInfo)
         {
             this.InitializeComponent();
             this.appointmentNameInfo = appointmentNameInfo;
@@ -37,7 +35,12 @@ namespace ClinicDatabaseSystem.View
             this.loadVistInfo();
         }
 
-        public ViewVisitInfoContentDialog(AppointmentNameInfo appointmentNameInfo, string finalDiagnosis, VisitInformationController visitInformationController)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ViewVisitInfoContentDialog"/> class.
+        /// </summary>
+        /// <param name="appointmentNameInfo">The appointment name information.</param>
+        /// <param name="finalDiagnosis">The final diagnosis.</param>
+        public ViewVisitInfoContentDialog(AppointmentNameInfo appointmentNameInfo, string finalDiagnosis)
         {
             this.InitializeComponent();
             this.appointmentNameInfo = appointmentNameInfo;
@@ -46,7 +49,7 @@ namespace ClinicDatabaseSystem.View
             this.finalDiagnosisRichEditBox.Document.SetText(0, finalDiagnosis);
         }
 
-        private void loadVistInfo()
+        private void loadVisitInfo()
         {
             this.patientIdTextBox.Text = this.appointmentNameInfo.Appointment.PatientId.ToString();
             this.patientNameTextBox.Text = this.appointmentNameInfo.PatientName;
@@ -61,10 +64,10 @@ namespace ClinicDatabaseSystem.View
 
             this.symptomsRichEditBox.Document.SetText(TextSetOptions.None, visitInfo.Symptoms);
             this.symptomsRichEditBox.IsReadOnly = true;
-            
+
             this.initialDiagnosisRichEditBox.Document.SetText(TextSetOptions.None, visitInfo.InitialDiagnosis);
             this.initialDiagnosisRichEditBox.IsReadOnly = true;
-            
+
             if (visitInfo.FinalDiagnosis != null)
             {
                 this.finalDiagnosisRichEditBox.Document.SetText(TextSetOptions.None, visitInfo.FinalDiagnosis);

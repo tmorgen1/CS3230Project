@@ -1,37 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ClinicDatabaseSystem.Model;
-using ClinicDatabaseSystem.ViewModel;
+﻿using ClinicDatabaseSystem.Model;
 using MySql.Data.MySqlClient;
+using System;
+using System.Data;
 
 namespace ClinicDatabaseSystem.DAL
 {
+    /// <summary>
+    /// Data Access Layer for administrators held in the database.
+    /// </summary>
     public static class AdministrationDAL
     {
+
+        /// <summary>
+        /// Gets the data from administrator queries.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <returns>DataTable containing query data.</returns>
         public static DataTable AdminQuery(string query)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())
             {
                 conn.Open();
 
-                using (MySqlCommand comm = new MySqlCommand(query, conn))
+                try
                 {
-                    var dataTable = new DataTable();
-                    using (var dataAdapter = new MySqlDataAdapter(comm))
+                    using (MySqlCommand comm = new MySqlCommand(query, conn))
                     {
-                        dataAdapter.Fill(dataTable);
-                    }
+                        var dataTable = new DataTable();
+                        using (var dataAdapter = new MySqlDataAdapter(comm))
+                        {
+                            dataAdapter.Fill(dataTable);
+                        }
 
-                    return dataTable;
+                        return dataTable;
+                    }
+                }
+                catch (MySqlException sqlExc)
+                {
+                    // handle sql exception
                 }
             }
+
+            return null;
         }
 
+        /// <summary>
+        /// Gets an admin from the database.
+        /// </summary>
+        /// <param name="adminId">The admin identifier.</param>
+        /// <returns>Administrator object</returns>
         public static Administrator GetAdmin(int adminId)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())
@@ -89,9 +106,9 @@ namespace ClinicDatabaseSystem.DAL
             return null;
         }
 
-        private static Address GetAddressAndZipNewConnection(int nurseId, string address1, string zip)
+        private static Address GetAddressAndZipNewConnection(int adminId, string address1, string zip)
         {
-            return AddressDAL.GetAddressWithNurseId(nurseId, address1, zip);
+            return AddressDAL.GetAddressWithAdminId(adminId, address1, zip);
         }
     }
 }

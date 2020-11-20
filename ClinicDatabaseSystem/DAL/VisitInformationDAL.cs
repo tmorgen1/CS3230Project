@@ -1,15 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ClinicDatabaseSystem.Model;
+﻿using ClinicDatabaseSystem.Model;
 using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
 
 namespace ClinicDatabaseSystem.DAL
 {
+    /// <summary>
+    /// Data Access Layer for visit information in the database.
+    /// </summary>
     public static class VisitInformationDAL
     {
+        /// <summary>
+        /// Gets the visit information from given appointment.
+        /// </summary>
+        /// <param name="appointment">The appointment.</param>
+        /// <returns>The visit information for the given appointment</returns>
         public static VisitInformation GetVisitInfoFromAppointment(Appointment appointment)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())
@@ -74,6 +79,11 @@ namespace ClinicDatabaseSystem.DAL
             return null;
         }
 
+        /// <summary>
+        /// Inserts the visit information into the database.
+        /// </summary>
+        /// <param name="visitInfo">The visit information.</param>
+        /// <returns>True if the visit information is inserted into the database</returns>
         public static bool InsertVisitInfo(VisitInformation visitInfo)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())
@@ -109,6 +119,11 @@ namespace ClinicDatabaseSystem.DAL
             }
         }
 
+        /// <summary>
+        /// Deletes the visit information.
+        /// </summary>
+        /// <param name="visitInfo">The visit information.</param>
+        /// <returns>True if visit info is deleted</returns>
         public static bool DeleteVisitInfo(VisitInformation visitInfo)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())
@@ -128,6 +143,12 @@ namespace ClinicDatabaseSystem.DAL
             }
         }
 
+        /// <summary>
+        /// Edits the visit information and updates the database.
+        /// </summary>
+        /// <param name="oldVisitInfo">The old visit information.</param>
+        /// <param name="newVisitInfo">The new visit information.</param>
+        /// <returns>True if visit info is updated</returns>
         public static bool EditVisitInfo(VisitInformation oldVisitInfo, VisitInformation newVisitInfo)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())
@@ -169,10 +190,16 @@ namespace ClinicDatabaseSystem.DAL
             }
         }
 
+        /// <summary>
+        /// Adds the final diagnosis into an existing visit info.
+        /// </summary>
+        /// <param name="visitInfo">The visit information.</param>
+        /// <param name="finalDiagnosis">The final diagnosis.</param>
+        /// <returns>True if visit info updates</returns>
         public static bool AddFinalDiagnosis(VisitInformation visitInfo, string finalDiagnosis)
         {
             VisitInformation oldVisitInfo = visitInfo;
-            VisitInformation newVisitInfo = new VisitInformation(oldVisitInfo.PatientId, oldVisitInfo.VisitDateTime, oldVisitInfo.SystolicBp, oldVisitInfo.DiastolicBp, 
+            VisitInformation newVisitInfo = new VisitInformation(oldVisitInfo.PatientId, oldVisitInfo.VisitDateTime, oldVisitInfo.SystolicBp, oldVisitInfo.DiastolicBp,
                 oldVisitInfo.BodyTemp, oldVisitInfo.Pulse, oldVisitInfo.Weight, oldVisitInfo.Symptoms, oldVisitInfo.InitialDiagnosis, finalDiagnosis);
 
             return EditVisitInfo(oldVisitInfo, newVisitInfo);

@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ClinicDatabaseSystem.Model;
+﻿using ClinicDatabaseSystem.Model;
 using MySql.Data.MySqlClient;
+using System;
 
 namespace ClinicDatabaseSystem.DAL
 {
+    /// <summary>
+    /// Data Access Layer for nurses in the database.
+    /// </summary>
     public static class NurseDAL
     {
+        /// <summary>
+        /// Gets the nurse by nurse ID from the database.
+        /// </summary>
+        /// <param name="nurseId">The nurse identifier.</param>
+        /// <returns>The nurse object</returns>
         public static Nurse GetNurse(int nurseId)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())
@@ -21,7 +25,7 @@ namespace ClinicDatabaseSystem.DAL
                 {
                     comm.Parameters.Add("@nurseId", MySqlDbType.Int32);
                     comm.Parameters["@nurseId"].Value = nurseId;
-                    
+
                     using (MySqlDataReader reader = comm.ExecuteReader())
                     {
                         int nurseIdOrdinal = reader.GetOrdinal("nurseID");

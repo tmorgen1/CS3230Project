@@ -1,7 +1,5 @@
 ﻿using System;
 using Windows.UI.Xaml.Controls;
-using ClinicDatabaseSystem.DAL;
-using ClinicDatabaseSystem.Model;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -12,6 +10,9 @@ namespace ClinicDatabaseSystem.View
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainPage"/> class.
+        /// </summary>
         public MainPage()
         {
             this.InitializeComponent();

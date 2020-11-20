@@ -1,31 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using ClinicDatabaseSystem.Controller;
+﻿using ClinicDatabaseSystem.Controller;
 using ClinicDatabaseSystem.DAL;
 using ClinicDatabaseSystem.Model;
 using ClinicDatabaseSystem.ViewModel;
 using Microsoft.Toolkit.Uwp.UI.Controls;
+using System;
+using System.ComponentModel;
+using Windows.UI;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ClinicDatabaseSystem.View
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// Page that shows all the appointments for a specific patient.
     /// </summary>
     public sealed partial class PatientAppointmentsPage : Page
     {
@@ -36,8 +27,11 @@ namespace ClinicDatabaseSystem.View
         private bool viewVisitInfoHovered;
         private bool deleteAppointmentHovered;
         private AppointmentNameInfo selectedAppointment;
-        private VisitInformationController visitInfoController;
+        private readonly VisitInformationController visitInfoController;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PatientAppointmentsPage"/> class.
+        /// </summary>
         public PatientAppointmentsPage()
         {
             this.InitializeComponent();
@@ -81,10 +75,10 @@ namespace ClinicDatabaseSystem.View
             if (createAppointmentContentDialog.CreateAppointmentSuccessful)
             {
                 this.viewModel.LoadAppointments(PatientController.CurrentPatient);
-                this.appointmentsDataGrid.SelectedItem = this.viewModel.getAppointmentNameInfo(createAppointmentContentDialog.CreatedAppointment);
+                this.appointmentsDataGrid.SelectedItem = this.viewModel.GetAppointmentNameInfo(createAppointmentContentDialog.CreatedAppointment);
             }
 
-            
+
             this.checkAppointment(this.selectedAppointment);
         }
 
@@ -162,7 +156,7 @@ namespace ClinicDatabaseSystem.View
                 {
                     this.createVisitInfoButton.IsEnabled = true;
                     this.viewVisitInfoButton.IsEnabled = false;
-                    
+
                 }
                 else
                 {

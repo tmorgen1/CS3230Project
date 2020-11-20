@@ -1,30 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using ClinicDatabaseSystem.Controller;
+﻿using ClinicDatabaseSystem.Controller;
 using ClinicDatabaseSystem.DAL;
 using ClinicDatabaseSystem.Model;
+using System;
+using System.Collections.Generic;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ClinicDatabaseSystem.View
 {
+    /// <summary>
+    /// Handles creating an appointment with a doctor at a specified time with a patient already selected in the patient records list.
+    /// </summary>
+    /// <seealso cref="Windows.UI.Xaml.Controls.ContentDialog" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class CreateAppointmentPatientSelectedContentDialog : ContentDialog
     {
+        /// <summary>
+        /// Gets a value indicating whether [create appointment successful].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [create appointment successful]; otherwise, <c>false</c>.
+        /// </value>
         public bool CreateAppointmentSuccessful { get; private set; }
+        /// <summary>
+        /// Gets the created appointment.
+        /// </summary>
+        /// <value>
+        /// The created appointment.
+        /// </value>
         public Appointment CreatedAppointment { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreateAppointmentPatientSelectedContentDialog"/> class.
+        /// </summary>
         public CreateAppointmentPatientSelectedContentDialog()
         {
             this.InitializeComponent();
@@ -34,7 +45,7 @@ namespace ClinicDatabaseSystem.View
 
         private bool validateInput()
         {
-            return this.validatePatient() && this.validateDoctor() && this.validateReason() && this.validateDate() && this.validateTime() && !this.IsDoubleBooked();
+            return this.validatePatient() && this.validateDoctor() && this.validateReason() && this.validateDate() && this.validateTime() && !this.isDoubleBooked();
         }
 
         private void checkButtonStatus()
@@ -42,7 +53,7 @@ namespace ClinicDatabaseSystem.View
             this.createButton.IsEnabled = this.validateInput();
         }
 
-        private bool IsDoubleBooked()
+        private bool isDoubleBooked()
         {
             var appointments = (List<Appointment>)AppointmentDAL.GetAllAppointments();
             foreach (var appointment in appointments)
@@ -149,7 +160,7 @@ namespace ClinicDatabaseSystem.View
                 this.timeErrorTextBlock.Text = "Invalid Time";
                 this.timeErrorTextBlock.Visibility = Visibility.Visible;
             }
-            else if (this.IsDoubleBooked())
+            else if (this.isDoubleBooked())
             {
                 this.timeErrorTextBlock.Text = "Time already booked";
                 this.timeErrorTextBlock.Visibility = Visibility.Visible;
@@ -168,7 +179,7 @@ namespace ClinicDatabaseSystem.View
                 this.dateErrorTextBlock.Text = "Invalid Date";
                 this.dateErrorTextBlock.Visibility = Visibility.Visible;
             }
-            else if (this.IsDoubleBooked())
+            else if (this.isDoubleBooked())
             {
                 this.dateErrorTextBlock.Text = "Date already booked";
                 this.dateErrorTextBlock.Visibility = Visibility.Visible;

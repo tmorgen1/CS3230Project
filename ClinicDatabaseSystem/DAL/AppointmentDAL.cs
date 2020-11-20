@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ClinicDatabaseSystem.Model;
+﻿using ClinicDatabaseSystem.Model;
 using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
 
 namespace ClinicDatabaseSystem.DAL
 {
+    /// <summary>
+    /// Data Access Layer for appointments held in the database.
+    /// </summary>
     public static class AppointmentDAL
     {
+        /// <summary>
+        /// Gets all appointments from database.
+        /// </summary>
+        /// <returns>collection of all appointments</returns>
         public static IList<Appointment> GetAllAppointments()
         {
             List<Appointment> appointments = new List<Appointment>();
@@ -47,6 +51,11 @@ namespace ClinicDatabaseSystem.DAL
             return appointments;
         }
 
+        /// <summary>
+        /// Gets all appointments for specific patient from database.
+        /// </summary>
+        /// <param name="patientId">The patient identifier.</param>
+        /// <returns>Collection of appointments for a specific patient</returns>
         public static IList<Appointment> GetAllAppointmentsFromPatientId(int patientId)
         {
             List<Appointment> appointments = new List<Appointment>();
@@ -85,6 +94,11 @@ namespace ClinicDatabaseSystem.DAL
             return appointments;
         }
 
+        /// <summary>
+        /// Inserts the appointment into the database.
+        /// </summary>
+        /// <param name="appointment">The appointment.</param>
+        /// <returns>True if the number of rows affected is greater than 0. AKA appointment inserted into table.</returns>
         public static bool InsertAppointment(Appointment appointment)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())
@@ -108,6 +122,11 @@ namespace ClinicDatabaseSystem.DAL
             }
         }
 
+        /// <summary>
+        /// Deletes the appointment from database.
+        /// </summary>
+        /// <param name="appointment">The appointment.</param>
+        /// <returns>True if the number of rows affected is greater than 0. AKA appointment deleted from table.</returns>
         public static bool DeleteAppointment(Appointment appointment)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())
@@ -127,6 +146,12 @@ namespace ClinicDatabaseSystem.DAL
             }
         }
 
+        /// <summary>
+        /// Edits the appointment and updates in the database.
+        /// </summary>
+        /// <param name="prevAppointment">The previous appointment.</param>
+        /// <param name="newAppointment">The new appointment.</param>
+        /// <returns>True if the number of rows affected is greater than 0. AKA appointment is updated in the table.</returns>
         public static bool EditAppointment(Appointment prevAppointment, Appointment newAppointment)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())

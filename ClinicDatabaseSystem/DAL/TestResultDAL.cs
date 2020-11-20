@@ -1,15 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ClinicDatabaseSystem.Model;
+﻿using ClinicDatabaseSystem.Model;
 using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
 
 namespace ClinicDatabaseSystem.DAL
 {
+    /// <summary>
+    /// Data Access Layer for test results in the database.
+    /// </summary>
     public static class TestResultDAL
     {
+        /// <summary>
+        /// Gets the test results from patient and visit information.
+        /// </summary>
+        /// <param name="patientId">The patient identifier.</param>
+        /// <param name="visitDateTime">The visit date time.</param>
+        /// <returns>Collection of test results</returns>
         public static IList<TestResult> GetTestResultsFromPatientAndVisitInfo(int patientId, DateTime visitDateTime)
         {
             List<TestResult> testResults = new List<TestResult>();
@@ -53,6 +59,11 @@ namespace ClinicDatabaseSystem.DAL
             return testResults;
         }
 
+        /// <summary>
+        /// Inserts the test result into the database.
+        /// </summary>
+        /// <param name="testResult">The test result.</param>
+        /// <returns>True if test result inserted properly</returns>
         public static bool InsertTestResult(TestResult testResult)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())
@@ -78,6 +89,12 @@ namespace ClinicDatabaseSystem.DAL
             }
         }
 
+        /// <summary>
+        /// Edits the test result and updates the database.
+        /// </summary>
+        /// <param name="newTestResult">The new test result.</param>
+        /// <param name="oldTestResult">The old test result.</param>
+        /// <returns>True if test result is updated successfully</returns>
         public static bool EditTestResult(TestResult newTestResult, TestResult oldTestResult)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())

@@ -1,32 +1,34 @@
-﻿using System;
+﻿using ClinicDatabaseSystem.Controller;
+using ClinicDatabaseSystem.Model;
+using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using ClinicDatabaseSystem.Controller;
-using ClinicDatabaseSystem.DAL;
-using ClinicDatabaseSystem.Model;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ClinicDatabaseSystem.View
 {
+    /// <summary>
+    /// Handles confirming test orders after selecting them.
+    /// </summary>
+    /// <seealso cref="Windows.UI.Xaml.Controls.ContentDialog" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class ConfirmOrderTestContentDialog : ContentDialog
     {
-        private Appointment visitInfoAppointment;
-        private VisitInformation visitInformation;
+        private readonly Appointment visitInfoAppointment;
+        private readonly VisitInformation visitInformation;
         private IList<string> orderedTests;
-        private VisitInformationController visitInformationController;
+        private readonly VisitInformationController visitInformationController;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConfirmOrderTestContentDialog"/> class.
+        /// </summary>
+        /// <param name="orderedTests">The ordered tests.</param>
+        /// <param name="visitInformation">The visit information.</param>
+        /// <param name="appointment">The appointment.</param>
+        /// <param name="visitInfoController">The visit information controller.</param>
         public ConfirmOrderTestContentDialog(IList<string> orderedTests, VisitInformation visitInformation, Appointment appointment, VisitInformationController visitInfoController)
         {
             this.InitializeComponent();

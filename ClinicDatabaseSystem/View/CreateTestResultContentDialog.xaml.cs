@@ -1,35 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using ClinicDatabaseSystem.Controller;
-using ClinicDatabaseSystem.DAL;
+﻿using ClinicDatabaseSystem.DAL;
 using ClinicDatabaseSystem.Model;
 using ClinicDatabaseSystem.ViewModel;
+using System;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ClinicDatabaseSystem.View
 {
+    /// <summary>
+    /// Handles taking in test result information.
+    /// </summary>
+    /// <seealso cref="Windows.UI.Xaml.Controls.ContentDialog" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class CreateTestResultContentDialog : ContentDialog
     {
-        private TestResult testResult;
-        private string testName;
-        private AppointmentNameInfo appointmentNameInfo;
-        private bool viewResultsOnly;
+        private readonly TestResult testResult;
+        private readonly string testName;
+        private readonly AppointmentNameInfo appointmentNameInfo;
+        private readonly bool viewResultsOnly;
         private VisitInformationController visitInformationController;
 
-        public CreateTestResultContentDialog(TestResult testResult, AppointmentNameInfo appointmentNameInfo, string testName, bool viewResultsOnly, VisitInformationController visitInformationController)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreateTestResultContentDialog"/> class.
+        /// </summary>
+        /// <param name="testResult">The test result.</param>
+        /// <param name="appointmentNameInfo">The appointment name information.</param>
+        /// <param name="testName">Name of the test.</param>
+        /// <param name="viewResultsOnly">if set to <c>true</c> [view results only].</param>
+        public CreateTestResultContentDialog(TestResult testResult, AppointmentNameInfo appointmentNameInfo, string testName, bool viewResultsOnly)
         {
             this.InitializeComponent();
             this.testResult = testResult;

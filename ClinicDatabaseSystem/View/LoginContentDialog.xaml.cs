@@ -1,28 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using ClinicDatabaseSystem.Controller;
+using ClinicDatabaseSystem.DAL;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using ClinicDatabaseSystem.Controller;
-using ClinicDatabaseSystem.DAL;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ClinicDatabaseSystem.View
 {
+    /// <summary>
+    /// Handles logins.
+    /// </summary>
+    /// <seealso cref="Windows.UI.Xaml.Controls.ContentDialog" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class LoginContentDialog : ContentDialog
     {
-        private bool isNurseLogin;
+        private readonly bool isNurseLogin;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoginContentDialog"/> class.
+        /// </summary>
+        /// <param name="isNurseLogin">if set to <c>true</c> [is nurse login].</param>
         public LoginContentDialog(bool isNurseLogin)
         {
             this.InitializeComponent();

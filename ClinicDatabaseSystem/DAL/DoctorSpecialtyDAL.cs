@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ClinicDatabaseSystem.Model;
+﻿using ClinicDatabaseSystem.Model;
 using MySql.Data.MySqlClient;
+using System.Collections.Generic;
 
 namespace ClinicDatabaseSystem.DAL
 {
+    /// <summary>
+    /// Data Access Layer for doctor specialties.
+    /// </summary>
     public static class DoctorSpecialtyDAL
     {
+        /// <summary>
+        /// Gets the specialties with doctor identifier.
+        /// </summary>
+        /// <param name="doctorId">The doctor identifier.</param>
+        /// <returns>Collection of specialties</returns>
         public static IList<DoctorSpecialty> GetSpecialtyWithDoctorId(int doctorId)
         {
             List<DoctorSpecialty> specialties = new List<DoctorSpecialty>();

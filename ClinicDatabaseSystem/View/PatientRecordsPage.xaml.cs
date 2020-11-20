@@ -1,30 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using ClinicDatabaseSystem.Controller;
+﻿using ClinicDatabaseSystem.Controller;
 using ClinicDatabaseSystem.DAL;
 using ClinicDatabaseSystem.Model;
 using ClinicDatabaseSystem.ViewModel;
+using System;
+using System.Collections.Generic;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ClinicDatabaseSystem.View
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// Shows all the patients in the database and allows to search for them.
     /// </summary>
     public sealed partial class PatientRecordsPage : Page
     {
@@ -33,6 +22,9 @@ namespace ClinicDatabaseSystem.View
         private bool editPatientHovered;
         private bool viewAppointmentHovered;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PatientRecordsPage"/> class.
+        /// </summary>
         public PatientRecordsPage()
         {
             this.InitializeComponent();
@@ -80,7 +72,7 @@ namespace ClinicDatabaseSystem.View
             if (editPatientContentDialog.UpdateSuccessful)
             {
                 this.viewModel.LoadPatients();
-                this.selectedPatient = editPatientContentDialog.newPatient;
+                this.selectedPatient = editPatientContentDialog.NewPatient;
             }
 
             this.recordsDataGrid.SelectedItem = patient;

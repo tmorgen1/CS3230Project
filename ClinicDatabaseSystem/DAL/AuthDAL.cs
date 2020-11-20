@@ -1,17 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ClinicDatabaseSystem.Hashing;
+﻿using ClinicDatabaseSystem.Hashing;
 using MySql.Data.MySqlClient;
 
 namespace ClinicDatabaseSystem.DAL
 {
+    /// <summary>
+    /// Data Access Layer for authentication by accessing the database.
+    /// </summary>
     public static class AuthDAL
     {
         private const string HexKey = "t3stk3y";
 
+        /// <summary>
+        /// Authenticates the nurse.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>The nurses' nurseId</returns>
         public static int AuthenticateNurse(string username, string password)
         {
             BlowFish bf = new BlowFish(HexKey);
@@ -60,6 +64,12 @@ namespace ClinicDatabaseSystem.DAL
             return 0;
         }
 
+        /// <summary>
+        /// Authenticates the admin.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>The admins' adminId</returns>
         public static int AuthenticateAdmin(string username, string password)
         {
             BlowFish bf = new BlowFish(HexKey);
@@ -86,10 +96,10 @@ namespace ClinicDatabaseSystem.DAL
                         while (reader.Read())
                         {
                             string readUsername = !reader.IsDBNull(usernameOrdinal)
-                                ? reader.GetString(usernameOrdinal) 
+                                ? reader.GetString(usernameOrdinal)
                                 : null;
-                            int adminId = !reader.IsDBNull(adminIdOrdinal) 
-                                ? reader.GetInt32(adminIdOrdinal) 
+                            int adminId = !reader.IsDBNull(adminIdOrdinal)
+                                ? reader.GetInt32(adminIdOrdinal)
                                 : 0;
 
                             if (readUsername == null)

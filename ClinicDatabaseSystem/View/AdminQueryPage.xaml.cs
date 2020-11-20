@@ -1,34 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ClinicDatabaseSystem.DAL;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using ClinicDatabaseSystem.Controller;
-using ClinicDatabaseSystem.DAL;
-using ClinicDatabaseSystem.ViewModel;
-using Microsoft.Toolkit.Uwp.UI.Controls;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ClinicDatabaseSystem.View
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// Holds the admin capabilities including their ability to query.
     /// </summary>
     public sealed partial class AdminQueryPage : Page
     {
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AdminQueryPage"/> class.
+        /// </summary>
         public AdminQueryPage()
         {
             this.InitializeComponent();
