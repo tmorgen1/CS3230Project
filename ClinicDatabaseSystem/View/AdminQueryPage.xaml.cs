@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ClinicDatabaseSystem.Controller;
 using ClinicDatabaseSystem.DAL;
 using ClinicDatabaseSystem.ViewModel;
 using Microsoft.Toolkit.Uwp.UI.Controls;
@@ -31,6 +32,15 @@ namespace ClinicDatabaseSystem.View
         public AdminQueryPage()
         {
             this.InitializeComponent();
+            this.updateCurrentUserTextBlocks();
+        }
+
+        private void updateCurrentUserTextBlocks()
+        {
+            this.fullNameTextBlock.Text =
+                LoginController.CurrentAdministrator.FirstName + " " + LoginController.CurrentAdministrator.LastName;
+            this.usernameTextBlock.Text = LoginController.CurrentAdministrator.AccountId;
+            this.idTextBlock.Text = LoginController.CurrentAdministrator.AdminId.ToString();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -57,6 +67,54 @@ namespace ClinicDatabaseSystem.View
             }
 
             this.dataGrid.ItemsSource = collection;
+        }
+
+        private void viewReportButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void queryTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (this.queryTextBox.Text == string.Empty)
+            {
+                this.executeButton.IsEnabled = false;
+            }
+            else
+            {
+                this.executeButton.IsEnabled = true;
+            }
+        }
+
+        private void StartDatePicker_OnDateChanged(object sender, DatePickerValueChangedEventArgs e)
+        {
+            this.checkStartAndEndDates();
+        }
+
+        private void checkStartAndEndDates()
+        {
+            if (this.startDatePicker.SelectedDate.HasValue && this.endDatePicker.SelectedDate.HasValue)
+            {
+                this.viewReportButton.IsEnabled = true;
+            }
+            else
+            {
+                this.viewReportButton.IsEnabled = false;
+            }
+            if (this.endDatePicker.SelectedDate.HasValue && this.endDatePicker.Date < this.startDatePicker.Date)
+            {
+                this.datesErrorTextBlock.Text = "Start date must come before end date.";
+                this.datesErrorTextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.datesErrorTextBlock.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void EndDatePicker_OnDateChanged(object sender, DatePickerValueChangedEventArgs e)
+        {
+            this.checkStartAndEndDates();
         }
     }
 }

@@ -14,17 +14,17 @@
     </UserControl.Resources>
 
     <Grid>
-        <SymbolIcon Symbol="Cancel" Foreground="White" Tapped="SymbolIcon_Tapped" VerticalAlignment="Top" Margin="1183,57,717,0" Height="20" Width="20"  />
-        <Button x:Name="newPatientButton" Foreground="White" Background="#3c6e71" Content="New Patient" Margin="18,161,0,0" VerticalAlignment="Top" Click="newPatientButton_Click" Width="146"/>
-        <Button x:Name="logoutButton" Foreground="White" Background="#3c6e71" Content="Logout" Margin="18,363,0,0" VerticalAlignment="Top" Width="146" Click="logoutButton_Click"/>
-        <Button x:Name="editPatientButton" IsEnabled="False" Foreground="White" Background="#3c6e71" Content="Edit Patient" Margin="18,217,0,0" VerticalAlignment="Top" Width="146" Click="editPatientButton_Click" PointerEntered="EditPatientButton_OnPointerEntered" PointerExited="EditPatientButton_OnPointerExited"/>
-        <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Margin="10,10,0,0" Text="Current User" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,42,0,0" Text="FullName:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock x:Name="fullNameTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="79,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,66,0,0" Text="Username:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,90,0,0" Text="ID:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock x:Name="usernameTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="80,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock x:Name="idTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="32,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <SymbolIcon Symbol="Cancel" Foreground="White" Tapped="SymbolIcon_Tapped" VerticalAlignment="Top" Margin="1317,57,583,0" Height="20" Width="20"  />
+        <Button x:Name="newPatientButton" Foreground="White" Background="#3c6e71" Content="New Patient" Margin="18,193,0,0" VerticalAlignment="Top" Click="newPatientButton_Click" Width="146"/>
+        <Button x:Name="logoutButton" Foreground="White" Background="#3c6e71" Content="Logout" Margin="18,395,0,0" VerticalAlignment="Top" Width="146" Click="logoutButton_Click"/>
+        <Button x:Name="editPatientButton" IsEnabled="False" Foreground="White" Background="#3c6e71" Content="Edit Patient" Margin="18,249,0,0" VerticalAlignment="Top" Width="146" Click="editPatientButton_Click" PointerEntered="EditPatientButton_OnPointerEntered" PointerExited="EditPatientButton_OnPointerExited"/>
+        <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Margin="10,52,0,0" Text="Current User" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,84,0,0" Text="FullName:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock x:Name="fullNameTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="79,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,108,0,0" Text="Username:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,132,0,0" Text="ID:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock x:Name="usernameTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="80,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock x:Name="idTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="32,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
         <Custom:DataGrid x:Name="recordsDataGrid" HorizontalAlignment="Left" VerticalAlignment="Center" Height="679" Width="1697" AutoGenerateColumns="False" ItemsSource="{x:Bind viewModel.Patients, Mode=TwoWay}" Foreground="White" IsReadOnly="True" SelectionChanged="recordsDataGrid_SelectionChanged" LostFocus="RecordsDataGrid_OnLostFocus" Margin="195,0,0,0">
             <Custom:DataGrid.Columns>
@@ -40,11 +40,13 @@
                 <Custom:DataGridTextColumn Header="State" Width="200" Binding="{Binding Address.State}" FontSize="17"/>
             </Custom:DataGrid.Columns>
         </Custom:DataGrid>
-        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="169,57,0,0" Text="Full Name:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="searchFullName" HorizontalAlignment="Left" Margin="239,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="325" LostFocus="searchFullName_LostFocus"/>
-        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="789,57,0,0" Text="Birthdate:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <DatePicker x:Name="searchDatePicker" Margin="853,50,0,0" VerticalAlignment="Top" Width="325" LostFocus="searchDatePicker_LostFocus" SelectedDateChanged="SearchDatePicker_OnSelectedDateChanged"/>
+        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="303,57,0,0" Text="Full Name:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="searchFullName" HorizontalAlignment="Left" Margin="373,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="325" LostFocus="searchFullName_LostFocus"/>
+        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="923,57,0,0" Text="Birthdate:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <DatePicker x:Name="searchDatePicker" Margin="987,50,0,0" VerticalAlignment="Top" Width="325" LostFocus="searchDatePicker_LostFocus" SelectedDateChanged="SearchDatePicker_OnSelectedDateChanged"/>
         <TextBlock x:Name="searchFullNameErrorTextBlock" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Left" Margin="239,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button x:Name="viewAppointmentsButton" IsEnabled="False" Content="View Appointments" Foreground="White" Background="#3c6e71" Margin="18,267,0,0" VerticalAlignment="Top" Width="146" PointerEntered="viewAppointmentsButton_PointerEntered" PointerExited="ViewAppointmentsButton_OnPointerExited" Click="viewAppointmentsButton_Click"/>
+        <Button x:Name="viewAppointmentsButton" IsEnabled="False" Content="View Appointments" Foreground="White" Background="#3c6e71" Margin="18,299,0,0" VerticalAlignment="Top" Width="146" PointerEntered="viewAppointmentsButton_PointerEntered" PointerExited="ViewAppointmentsButton_OnPointerExited" Click="viewAppointmentsButton_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="7,11,0,0" Foreground="#3c6e71" FontWeight="Bold" Text="Patient Records" FontSize="25" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Foreground="White" FontWeight="Bold" Text="Patient Records" FontSize="25" TextWrapping="Wrap" VerticalAlignment="Top"/>
     </Grid>
 </Page>

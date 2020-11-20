@@ -63,9 +63,9 @@ namespace ClinicDatabaseSystem.View
         private void updateCurrentUserTextBlocks()
         {
             this.fullNameTextBlock.Text =
-                LoginController.CurrentUser.FirstName + " " + LoginController.CurrentUser.LastName;
-            this.usernameTextBlock.Text = LoginController.CurrentUser.AccountId;
-            this.idTextBlock.Text = LoginController.CurrentUser.NurseId.ToString();
+                LoginController.CurrentNurse.FirstName + " " + LoginController.CurrentNurse.LastName;
+            this.usernameTextBlock.Text = LoginController.CurrentNurse.AccountId;
+            this.idTextBlock.Text = LoginController.CurrentNurse.NurseId.ToString();
         }
 
         private void editPatientButton_Click(object sender, RoutedEventArgs e)

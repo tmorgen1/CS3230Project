@@ -43,6 +43,7 @@ namespace ClinicDatabaseSystem.View
             this.InitializeComponent();
             this.viewModel = new PatientAppointmentsViewModel();
             this.updateCurrentUserTextBlocks();
+            this.updateCurrentPageTitle();
             this.viewModel.LoadAppointments(PatientController.CurrentPatient);
             this.visitInfoController = new VisitInformationController();
             this.visitInfoController.PropertyChanged += VisitInfoControllerOnPropertyChanged;
@@ -51,6 +52,8 @@ namespace ClinicDatabaseSystem.View
         private void VisitInfoControllerOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             this.visitInfoController.CreatedVisitInfo = false;
+            this.appointmentsDataGrid.ItemsSource = null;
+            this.viewModel.LoadAppointments(PatientController.CurrentPatient);
             this.appointmentsDataGrid.SelectedItem = this.selectedAppointment;
             this.checkAppointment(this.selectedAppointment);
         }
@@ -58,9 +61,17 @@ namespace ClinicDatabaseSystem.View
         private void updateCurrentUserTextBlocks()
         {
             this.fullNameTextBlock.Text =
-                LoginController.CurrentUser.FirstName + " " + LoginController.CurrentUser.LastName;
-            this.usernameTextBlock.Text = LoginController.CurrentUser.AccountId;
-            this.idTextBlock.Text = LoginController.CurrentUser.NurseId.ToString();
+                LoginController.CurrentNurse.FirstName + " " + LoginController.CurrentNurse.LastName;
+            this.usernameTextBlock.Text = LoginController.CurrentNurse.AccountId;
+            this.idTextBlock.Text = LoginController.CurrentNurse.NurseId.ToString();
+        }
+
+        private void updateCurrentPageTitle()
+        {
+            var currentPatient = PatientDAL.GetPatientById(PatientController.CurrentPatient);
+            var title = currentPatient.FirstName + " " + currentPatient.LastName + "'s Appointments";
+            this.pageTitle1.Text = title;
+            this.pageTitle2.Text = title;
         }
 
         private async void createAppointmentButton_Click(object sender, RoutedEventArgs e)
@@ -134,7 +145,7 @@ namespace ClinicDatabaseSystem.View
                 var date = appointment.Appointment.ScheduledDate;
                 var datetimeCompare = DateTime.Compare(date, DateTime.Today);
                 this.selectedAppointment = appointment;
-                int visitInfoCount = VisitInformationDAL.GetVisitInfoFromAppointment(appointment.Appointment).Count;
+                var visitInfoCount = VisitInformationDAL.GetVisitInfoFromAppointment(appointment.Appointment);
 
                 if (datetimeCompare > 0)
                 {
@@ -147,7 +158,7 @@ namespace ClinicDatabaseSystem.View
                     this.deleteAppointmentButton.IsEnabled = false;
                 }
 
-                if (visitInfoCount == 0)
+                if (visitInfoCount == null)
                 {
                     this.createVisitInfoButton.IsEnabled = true;
                     this.viewVisitInfoButton.IsEnabled = false;
@@ -220,6 +231,8 @@ namespace ClinicDatabaseSystem.View
             this.setButtonsDisabled();
             CreateVisitInfoContentDialog createVisitInfoContentDialog = new CreateVisitInfoContentDialog(appointment, this.visitInfoController);
             await createVisitInfoContentDialog.ShowAsync();
+            this.appointmentsDataGrid.ItemsSource = null;
+            this.viewModel.LoadAppointments(PatientController.CurrentPatient);
             this.appointmentsDataGrid.SelectedItem = this.selectedAppointment;
             this.checkAppointment(this.selectedAppointment);
         }
@@ -240,8 +253,10 @@ namespace ClinicDatabaseSystem.View
         private async void displayViewVisitInfoContentDialog(AppointmentNameInfo appointment)
         {
             this.setButtonsDisabled();
-            ViewVisitInfoContentDialog viewVisitInfoContentDialog = new ViewVisitInfoContentDialog(appointment);
+            ViewVisitInfoContentDialog viewVisitInfoContentDialog = new ViewVisitInfoContentDialog(appointment, this.visitInfoController);
             await viewVisitInfoContentDialog.ShowAsync();
+            this.appointmentsDataGrid.ItemsSource = null;
+            this.viewModel.LoadAppointments(PatientController.CurrentPatient);
             this.appointmentsDataGrid.SelectedItem = this.selectedAppointment;
             this.checkAppointment(this.selectedAppointment);
         }
@@ -263,7 +278,7 @@ namespace ClinicDatabaseSystem.View
             {
                 this.setButtonsDisabled();
                 AppointmentDAL.DeleteAppointment(this.selectedAppointment.Appointment);
-                this.viewModel.LoadAppointments(this.selectedAppointment.Appointment.PatientId);
+                this.viewModel.LoadAppointments(PatientController.CurrentPatient);
                 this.appointmentsDataGrid.SelectedItem = null;
             }
         }
@@ -284,15 +299,22 @@ namespace ClinicDatabaseSystem.View
             var appointmentNameInfo = this.viewModel.Appointments[rowIndex];
             var date = appointmentNameInfo.Appointment.ScheduledDate;
             var datetimeCompare = DateTime.Compare(date, DateTime.Today);
-            var visitInfo = VisitInformationDAL.GetVisitInfoFromAppointment(appointmentNameInfo.Appointment)[0];
-            var finalDiagnosis = visitInfo.FinalDiagnosis;
+            var visitInfo = VisitInformationDAL.GetVisitInfoFromAppointment(appointmentNameInfo.Appointment);
             if (datetimeCompare < 0)
             {
                 e.Row.Background = new SolidColorBrush(Color.FromArgb(255, 84, 84, 84));
             }
             else
             {
-                e.Row.Background = finalDiagnosis != null ? new SolidColorBrush(Color.FromArgb(255, 92, 152, 103)) : new SolidColorBrush(Color.FromArgb(255, 4, 96, 112));
+                if (visitInfo == null)
+                {
+                    e.Row.Background = new SolidColorBrush(Color.FromArgb(255, 119, 102, 153));
+                }
+                else
+                {
+                    var finalDiagnosis = visitInfo.FinalDiagnosis;
+                    e.Row.Background = finalDiagnosis != null ? new SolidColorBrush(Color.FromArgb(255, 92, 152, 103)) : new SolidColorBrush(Color.FromArgb(255, 4, 96, 112));
+                }
             }
         }
     }

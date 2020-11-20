@@ -51,7 +51,7 @@ namespace ClinicDatabaseSystem.View
             var nurseId = AuthDAL.AuthenticateNurse(this.usernameTextBox.Text, this.passwordBox.Password);
             if (nurseId > 0)
             {
-                LoginController.CurrentUser = NurseDAL.GetNurse(nurseId);
+                LoginController.CurrentNurse = NurseDAL.GetNurse(nurseId);
                 (Window.Current.Content as Frame)?.Navigate(typeof(PatientRecordsPage), null);
                 this.Hide();
             }
@@ -67,6 +67,7 @@ namespace ClinicDatabaseSystem.View
             var adminId = AuthDAL.AuthenticateAdmin(this.usernameTextBox.Text, this.passwordBox.Password);
             if (adminId > 0)
             {
+                LoginController.CurrentAdministrator = AdministrationDAL.GetAdmin(adminId);
                 (Window.Current.Content as Frame)?.Navigate(typeof(AdminQueryPage), null);
                 this.Hide();
             }

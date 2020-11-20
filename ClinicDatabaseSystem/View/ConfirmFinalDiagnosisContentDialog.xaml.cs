@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ClinicDatabaseSystem.Controller;
 using ClinicDatabaseSystem.DAL;
 using ClinicDatabaseSystem.Model;
 using ClinicDatabaseSystem.ViewModel;
@@ -25,17 +26,20 @@ namespace ClinicDatabaseSystem.View
         private VisitInformation visitInformation;
         private AppointmentNameInfo appointmentNameInfo;
         private string finalDiagnosis;
+        private VisitInformationController visitInformationController;
 
-        public ConfirmFinalDiagnosisContentDialog(VisitInformation visitInformation, AppointmentNameInfo appointmentNameInfo, string finalDiagnosis)
+        public ConfirmFinalDiagnosisContentDialog(VisitInformation visitInformation, AppointmentNameInfo appointmentNameInfo, string finalDiagnosis, VisitInformationController visitInformationController)
         {
             this.InitializeComponent();
             this.visitInformation = visitInformation;
             this.appointmentNameInfo = appointmentNameInfo;
             this.finalDiagnosis = finalDiagnosis;
+            this.visitInformationController = visitInformationController;
         }
 
         private void confirmButton_Click(object sender, RoutedEventArgs e)
         {
+            this.visitInformationController.CreatedVisitInfo = true;
             this.Hide();
             VisitInformationDAL.AddFinalDiagnosis(this.visitInformation, this.finalDiagnosis);
         }
@@ -44,7 +48,7 @@ namespace ClinicDatabaseSystem.View
         {
             this.Hide();
             ViewVisitInfoContentDialog viewVisitInfoContentDialog =
-                new ViewVisitInfoContentDialog(this.appointmentNameInfo, this.finalDiagnosis);
+                new ViewVisitInfoContentDialog(this.appointmentNameInfo, this.finalDiagnosis, this.visitInformationController);
             await viewVisitInfoContentDialog.ShowAsync();
         }
     }

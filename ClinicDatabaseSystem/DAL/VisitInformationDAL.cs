@@ -10,10 +10,8 @@ namespace ClinicDatabaseSystem.DAL
 {
     public static class VisitInformationDAL
     {
-        public static IList<VisitInformation> GetVisitInfoFromAppointment(Appointment appointment)
+        public static VisitInformation GetVisitInfoFromAppointment(Appointment appointment)
         {
-            List<VisitInformation> visitInfos = new List<VisitInformation>();
-
             using (MySqlConnection conn = DbConnection.GetConnection())
             {
                 conn.Open();
@@ -66,13 +64,14 @@ namespace ClinicDatabaseSystem.DAL
                                 ? reader.GetString(finalDiagnosisOrdinal)
                                 : null;
 
-                            visitInfos.Add(new VisitInformation(pId, dateTime, systolicBp, diastolicBp, bodyTemp, pulse, weight, symptoms, initialDiagnosis, finalDiagnosis));
+                            return new VisitInformation(pId, dateTime, systolicBp, diastolicBp, bodyTemp, pulse,
+                                weight, symptoms, initialDiagnosis, finalDiagnosis);
                         }
                     }
                 }
             }
 
-            return visitInfos;
+            return null;
         }
 
         public static bool InsertVisitInfo(VisitInformation visitInfo)

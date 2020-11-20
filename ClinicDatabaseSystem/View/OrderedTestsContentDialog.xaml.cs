@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ClinicDatabaseSystem.Controller;
 using ClinicDatabaseSystem.DAL;
 using ClinicDatabaseSystem.Model;
 using ClinicDatabaseSystem.ViewModel;
@@ -26,12 +27,14 @@ namespace ClinicDatabaseSystem.View
         private IList<TestResult> orderedTestResults;
         private TestResult selectedTestResult;
         private bool viewResultsOnly;
+        private VisitInformationController visitInformationController;
 
-        public OrderedTestsContentDialog(AppointmentNameInfo appointmentNameInfo, bool viewResultsOnly)
+        public OrderedTestsContentDialog(AppointmentNameInfo appointmentNameInfo, bool viewResultsOnly, VisitInformationController visitInformationController)
         {
             this.InitializeComponent();
             this.appointmentNameInfo = appointmentNameInfo;
             this.viewResultsOnly = viewResultsOnly;
+            this.visitInformationController = visitInformationController;
             this.loadTests();
             this.checkFinalDiagnosis();
         }
@@ -66,7 +69,7 @@ namespace ClinicDatabaseSystem.View
         private async void closeButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            ViewVisitInfoContentDialog viewVisitInfoContentDialog = new ViewVisitInfoContentDialog(this.appointmentNameInfo);
+            ViewVisitInfoContentDialog viewVisitInfoContentDialog = new ViewVisitInfoContentDialog(this.appointmentNameInfo, this.visitInformationController);
             await viewVisitInfoContentDialog.ShowAsync();
         }
 
@@ -76,12 +79,12 @@ namespace ClinicDatabaseSystem.View
             var testName = this.orderedTestsListView.SelectedItem?.ToString().Split(':')[1].Trim();
             if (this.selectedTestHasResult())
             {
-                CreateTestResultContentDialog createTestResultContentDialog = new CreateTestResultContentDialog(this.selectedTestResult, this.appointmentNameInfo, testName, this.viewResultsOnly);
+                CreateTestResultContentDialog createTestResultContentDialog = new CreateTestResultContentDialog(this.selectedTestResult, this.appointmentNameInfo, testName, this.viewResultsOnly, this.visitInformationController);
                 await createTestResultContentDialog.ShowAsync();
             }
             else
             {
-                ViewTestResultContentDialog viewTestResultContentDialog = new ViewTestResultContentDialog(this.selectedTestResult, this.appointmentNameInfo, testName, this.viewResultsOnly);
+                ViewTestResultContentDialog viewTestResultContentDialog = new ViewTestResultContentDialog(this.selectedTestResult, this.appointmentNameInfo, testName, this.viewResultsOnly, this.visitInformationController);
                 await viewTestResultContentDialog.ShowAsync();
             }
         }

@@ -10,14 +10,7 @@
     Background="#353535">
 
     <Grid>
-        <Button x:Name="logoutButton" Foreground="White" Background="#3c6e71" Content="Logout" Margin="18,488,0,0" VerticalAlignment="Top" Width="146" Click="logoutButton_Click"/>
-        <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Margin="10,10,0,0" Text="Current User" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,42,0,0" Text="FullName:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock x:Name="fullNameTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="79,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,66,0,0" Text="Username:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,90,0,0" Text="ID:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock x:Name="usernameTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="80,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock x:Name="idTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="32,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Button x:Name="logoutButton" Foreground="White" Background="#3c6e71" Content="Logout" Margin="18,563,0,0" VerticalAlignment="Top" Width="146" Click="logoutButton_Click"/>
 
         <controls:DataGrid x:Name="appointmentsDataGrid" HorizontalAlignment="Left" VerticalAlignment="Center" Height="679" Width="1694" AutoGenerateColumns="False" ItemsSource="{x:Bind viewModel.Appointments, Mode=TwoWay}" Foreground="White" IsReadOnly="True" Margin="195,0,0,0" LostFocus="appointmentsDataGrid_LostFocus" SelectionChanged="AppointmentsDataGrid_OnSelectionChanged" LoadingRow="AppointmentsDataGrid_OnLoadingRow">
             <controls:DataGrid.Columns>
@@ -29,11 +22,20 @@
                 <controls:DataGridTextColumn Header="Reason" Width="650" Binding="{Binding Appointment.Reason}" FontSize="17"/>
             </controls:DataGrid.Columns>
         </controls:DataGrid>
-        <Button x:Name="createAppointmentButton" Foreground="White" Background="#3c6e71" Content="New Appointment" Margin="18,232,0,0" VerticalAlignment="Top" Width="146" Click="createAppointmentButton_Click"/>
-        <Button x:Name="viewPatientsButton" Content="View Patients" Foreground="White" Background="#3c6e71" Margin="18,160,0,0" VerticalAlignment="Top" Width="146" Click="viewPatientsButton_Click"/>
-        <Button x:Name="editAppointmentButton" IsEnabled="False" Content="Edit Appointment" Foreground="White" Background="#3c6e71" Margin="18,269,0,0" VerticalAlignment="Top" Width="146" PointerEntered="EditAppointmentButton_OnPointerEntered" PointerExited="EditAppointmentButton_OnPointerExited" Click="editAppointmentButton_Click"/>
-        <Button x:Name="createVisitInfoButton" IsEnabled="False" Foreground="White" Background="#3c6e71" Content="New Visit Info" Margin="18,394,0,0" VerticalAlignment="Top" Width="146" PointerEntered="createVisitInfoButton_PointerEntered" PointerExited="CreateVisitInfoButton_OnPointerExited" Click="createVisitInfoButton_Click"/>
-        <Button x:Name="viewVisitInfoButton" IsEnabled="False" Foreground="White" Background="#3c6e71"  Content="View Visit Info" Margin="18,431,0,0" VerticalAlignment="Top" Width="146" Click="viewVisitInfoButton_Click" PointerEntered="ViewVisitInfoButton_OnPointerEntered" PointerExited="ViewVisitInfoButton_OnPointerExited"/>
-        <Button x:Name="deleteAppointmentButton" IsEnabled="False" Content="Delete Appointment" Foreground="White" Background="#3c6e71" Margin="18,306,0,0" VerticalAlignment="Top" Width="146" Height="32" Click="deleteAppointmentButton_Click" PointerEntered="DeleteAppointmentButton_OnPointerEntered" PointerExited="DeleteAppointmentButton_OnPointerExited"/>
+        <Button x:Name="createAppointmentButton" Foreground="White" Background="#3c6e71" Content="New Appointment" Margin="18,307,0,0" VerticalAlignment="Top" Width="146" Click="createAppointmentButton_Click"/>
+        <Button x:Name="viewPatientsButton" Content="View Patients" Foreground="White" Background="#3c6e71" Margin="18,235,0,0" VerticalAlignment="Top" Width="146" Click="viewPatientsButton_Click"/>
+        <Button x:Name="editAppointmentButton" IsEnabled="False" Content="Edit Appointment" Foreground="White" Background="#3c6e71" Margin="18,344,0,0" VerticalAlignment="Top" Width="146" PointerEntered="EditAppointmentButton_OnPointerEntered" PointerExited="EditAppointmentButton_OnPointerExited" Click="editAppointmentButton_Click"/>
+        <Button x:Name="createVisitInfoButton" IsEnabled="False" Foreground="White" Background="#3c6e71" Content="New Visit Info" Margin="18,469,0,0" VerticalAlignment="Top" Width="146" PointerEntered="createVisitInfoButton_PointerEntered" PointerExited="CreateVisitInfoButton_OnPointerExited" Click="createVisitInfoButton_Click"/>
+        <Button x:Name="viewVisitInfoButton" IsEnabled="False" Foreground="White" Background="#3c6e71"  Content="View Visit Info" Margin="18,506,0,0" VerticalAlignment="Top" Width="146" Click="viewVisitInfoButton_Click" PointerEntered="ViewVisitInfoButton_OnPointerEntered" PointerExited="ViewVisitInfoButton_OnPointerExited"/>
+        <Button x:Name="deleteAppointmentButton" IsEnabled="False" Content="Delete Appointment" Foreground="White" Background="#3c6e71" Margin="18,381,0,0" VerticalAlignment="Top" Width="146" Height="32" Click="deleteAppointmentButton_Click" PointerEntered="DeleteAppointmentButton_OnPointerEntered" PointerExited="DeleteAppointmentButton_OnPointerExited"/>
+        <TextBlock Foreground="White" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Margin="10,52,0,0" Text="Current User" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,84,0,0" Text="FullName:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock x:Name="fullNameTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="79,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,108,0,0" Text="Username:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,132,0,0" Text="ID:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock x:Name="usernameTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="80,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock x:Name="idTextBlock" Foreground="White" HorizontalAlignment="Left" Margin="32,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock x:Name="pageTitle1" HorizontalAlignment="Left" Margin="7,11,0,0" Foreground="#3c6e71" FontWeight="Bold" Text="Patient Appointments" FontSize="25" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock x:Name="pageTitle2" HorizontalAlignment="Left" Margin="10,10,0,0" Foreground="White" FontWeight="Bold" Text="Patient Appointments" FontSize="25" TextWrapping="Wrap" VerticalAlignment="Top"/>
     </Grid>
 </Page>

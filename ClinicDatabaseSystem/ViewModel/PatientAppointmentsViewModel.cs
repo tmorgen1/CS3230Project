@@ -20,11 +20,8 @@ namespace ClinicDatabaseSystem.ViewModel
             get => this.appointments;
             set
             {
-                if (this.appointments != value)
-                {
-                    this.appointments = value;
-                    this.OnPropertyChanged();
-                }
+                this.appointments = value;
+                this.OnPropertyChanged();
             }
         }
 

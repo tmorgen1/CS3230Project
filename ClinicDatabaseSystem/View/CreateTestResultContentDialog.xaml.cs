@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ClinicDatabaseSystem.Controller;
 using ClinicDatabaseSystem.DAL;
 using ClinicDatabaseSystem.Model;
 using ClinicDatabaseSystem.ViewModel;
@@ -26,14 +27,16 @@ namespace ClinicDatabaseSystem.View
         private string testName;
         private AppointmentNameInfo appointmentNameInfo;
         private bool viewResultsOnly;
+        private VisitInformationController visitInformationController;
 
-        public CreateTestResultContentDialog(TestResult testResult, AppointmentNameInfo appointmentNameInfo, string testName, bool viewResultsOnly)
+        public CreateTestResultContentDialog(TestResult testResult, AppointmentNameInfo appointmentNameInfo, string testName, bool viewResultsOnly, VisitInformationController visitInformationController)
         {
             this.InitializeComponent();
             this.testResult = testResult;
             this.testName = testName;
             this.appointmentNameInfo = appointmentNameInfo;
             this.viewResultsOnly = viewResultsOnly;
+            this.visitInformationController = visitInformationController;
             this.loadInfo();
         }
 
@@ -63,7 +66,7 @@ namespace ClinicDatabaseSystem.View
         private async void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            OrderedTestsContentDialog orderedTestsContentDialog = new OrderedTestsContentDialog(this.appointmentNameInfo, this.viewResultsOnly);
+            OrderedTestsContentDialog orderedTestsContentDialog = new OrderedTestsContentDialog(this.appointmentNameInfo, this.viewResultsOnly, this.visitInformationController);
             await orderedTestsContentDialog.ShowAsync();
         }
 
@@ -75,7 +78,7 @@ namespace ClinicDatabaseSystem.View
             if (TestResultDAL.EditTestResult(newTestResult, this.testResult))
             {
                 this.Hide();
-                OrderedTestsContentDialog orderedTestsContentDialog = new OrderedTestsContentDialog(this.appointmentNameInfo, this.viewResultsOnly);
+                OrderedTestsContentDialog orderedTestsContentDialog = new OrderedTestsContentDialog(this.appointmentNameInfo, this.viewResultsOnly, this.visitInformationController);
                 await orderedTestsContentDialog.ShowAsync();
             }
         }

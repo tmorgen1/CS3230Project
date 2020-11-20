@@ -9,8 +9,8 @@ namespace ClinicDatabaseSystem.Controller
 {
     public static class LoginController
     {
-        public static Nurse CurrentUser { get; set; }
+        public static Nurse CurrentNurse { get; set; }
 
-        
+        public static Administrator CurrentAdministrator { get; set; }
     }
 }
