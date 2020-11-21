@@ -1,11 +1,14 @@
-﻿using ClinicDatabaseSystem.DAL;
+﻿using System;
+using ClinicDatabaseSystem.DAL;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System.Collections.ObjectModel;
 using System.Data;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using ClinicDatabaseSystem.Controller;
+using MySql.Data.MySqlClient;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -34,10 +37,27 @@ namespace ClinicDatabaseSystem.View
             this.idTextBlock.Text = LoginController.CurrentAdministrator.AdminId.ToString();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            var result = AdministrationDAL.AdminQuery(this.queryTextBox.Text);
-            this.loadDataTable(result);
+            try
+            {
+                var result = AdministrationDAL.AdminQuery(this.queryTextBox.Text);
+                this.loadDataTable(result.Result);
+            }
+            catch (MySqlException sqlExc)
+            {
+                var messageDialog = new MessageDialog("Error No: " + sqlExc.Number + ": " + sqlExc.SqlState, "Sql Error");
+                messageDialog.CancelCommandIndex = 0;
+                messageDialog.DefaultCommandIndex = 0;
+                await messageDialog.ShowAsync();
+            }
+            catch (Exception exception)
+            {
+                var messageDialog = new MessageDialog("Invalid sql statement.", "Sql Error");
+                messageDialog.CancelCommandIndex = 0;
+                messageDialog.DefaultCommandIndex = 0;
+                await messageDialog.ShowAsync();
+            }
         }
         
         private void loadDataTable(DataTable result)

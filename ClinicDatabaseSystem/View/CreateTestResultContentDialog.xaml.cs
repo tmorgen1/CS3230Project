@@ -22,7 +22,7 @@ namespace ClinicDatabaseSystem.View
         private readonly string testName;
         private readonly AppointmentNameInfo appointmentNameInfo;
         private readonly bool viewResultsOnly;
-        private VisitInformationController visitInformationController;
+        private readonly VisitInformationController visitInformationController;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateTestResultContentDialog"/> class.
@@ -31,6 +31,7 @@ namespace ClinicDatabaseSystem.View
         /// <param name="appointmentNameInfo">The appointment name information.</param>
         /// <param name="testName">Name of the test.</param>
         /// <param name="viewResultsOnly">if set to <c>true</c> [view results only].</param>
+        /// <param name="visitInformationController"></param>
         public CreateTestResultContentDialog(TestResult testResult, AppointmentNameInfo appointmentNameInfo, string testName, bool viewResultsOnly, VisitInformationController visitInformationController)
         {
             this.InitializeComponent();
@@ -44,13 +45,17 @@ namespace ClinicDatabaseSystem.View
 
         private void loadInfo()
         {
-            //TODO: load all info from database that isnt the result.
             this.patientIdTextBox.Text = this.appointmentNameInfo.Appointment.PatientId.ToString();
             this.patientNameTextBox.Text = this.appointmentNameInfo.PatientName;
             this.testIdTextBox.Text = this.testResult.TestId.ToString();
             this.testNameTextBox.Text = this.testName;
-            this.dateTextBox.Text = this.testResult.ResultDateTime.Date.ToString();
-            this.timeTextBox.Text = this.testResult.ResultDateTime.TimeOfDay.ToString();
+            this.dateTextBox.Text = this.testResult.VisitDateTime.Date.ToString("MM/dd/yyyy");
+            this.testResultDatePicker.SelectedDate = this.testResult.VisitDateTime;
+        }
+
+        private bool validateInput()
+        {
+            return this.validateResults() && this.validateTestResultDate();
         }
 
         private bool validateResults()
@@ -60,9 +65,14 @@ namespace ClinicDatabaseSystem.View
             return reasons != string.Empty;
         }
 
+        private bool validateTestResultDate()
+        {
+            return this.testResultDatePicker.Date > this.testResult.VisitDateTime.Date;
+        }
+
         private void checkButtonStatus()
         {
-            this.confirmButton.IsEnabled = this.validateResults();
+            this.confirmButton.IsEnabled = this.validateInput();
         }
 
         private async void cancelButton_Click(object sender, RoutedEventArgs e)
@@ -76,7 +86,7 @@ namespace ClinicDatabaseSystem.View
         {
             this.resultsRichEditBox.Document.GetText(0, out var results);
             var isAbnormalChecked = this.abnormalCheckBox.IsChecked ?? false;
-            var newTestResult = new TestResult(this.testResult.TestId, this.testResult.PatientId, this.testResult.ResultDateTime, results, isAbnormalChecked);
+            var newTestResult = new TestResult(this.testResult.TestId, this.testResult.PatientId, this.testResult.VisitDateTime, results, isAbnormalChecked, this.testResultDatePicker.Date.DateTime);
             if (TestResultDAL.EditTestResult(newTestResult, this.testResult))
             {
                 this.Hide();
@@ -106,6 +116,20 @@ namespace ClinicDatabaseSystem.View
             if (value != string.Empty)
             {
                 this.resultsErrorTextBlock.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void TestResultDatePicker_OnSelectedDateChanged(DatePicker sender, DatePickerSelectedValueChangedEventArgs args)
+        {
+            this.checkButtonStatus();
+            if (!this.validateTestResultDate())
+            {
+                this.testResultDateErrorTextBlock.Text = "Test Result date cannot come before visit date.";
+                this.testResultDateErrorTextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.testResultDateErrorTextBlock.Visibility = Visibility.Collapsed;
             }
         }
     }

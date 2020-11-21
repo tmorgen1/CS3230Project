@@ -25,7 +25,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="0,308,0,0" Text="Initial Diagnosis:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <RichEditBox x:Name="initialDiagnosisRichEditBox" AllowFocusOnInteraction="False" Height="100" Margin="0,332,0,184" TabIndex="8" IsTabStop="False"/>
         <TextBox x:Name="patientNameTextBox" AllowFocusOnInteraction="False" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163" TabIndex="1" IsTabStop="False"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,90,0,0" Text="Date:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,90,0,0" Text="Visit Date:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,7,0,0" Text="Patient Name:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox x:Name="dateTextBox" AllowFocusOnInteraction="False" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163" TabIndex="2" IsTabStop="False"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,437,0,0" Text="Final Diagnosis:" TextWrapping="Wrap" VerticalAlignment="Top"/>

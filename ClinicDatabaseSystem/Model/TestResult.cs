@@ -29,7 +29,7 @@ namespace ClinicDatabaseSystem.Model
         /// <value>
         /// The result date time.
         /// </value>
-        public DateTime ResultDateTime { get; set; }
+        public DateTime VisitDateTime { get; set; }
 
         /// <summary>
         /// Gets or sets the results.
@@ -48,20 +48,29 @@ namespace ClinicDatabaseSystem.Model
         public bool Abnormal { get; set; }
 
         /// <summary>
+        /// Gets or sets the test result date time.
+        /// </summary>
+        /// <value>
+        /// The test result date time.
+        /// </value>
+        public DateTime TestResultDateTime { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="TestResult"/> class.
         /// </summary>
         /// <param name="testId">The test identifier.</param>
         /// <param name="patientId">The patient identifier.</param>
-        /// <param name="resultDateTime">The result date time.</param>
+        /// <param name="visitDateTime">The result date time.</param>
         /// <param name="results">The results.</param>
         /// <param name="abnormal">if set to <c>true</c> [abnormal].</param>
-        public TestResult(int testId, int patientId, DateTime resultDateTime, string results, bool abnormal)
+        public TestResult(int testId, int patientId, DateTime visitDateTime, string results, bool abnormal, DateTime testResultDateTime)
         {
             this.TestId = testId;
             this.PatientId = patientId;
-            this.ResultDateTime = resultDateTime;
+            this.VisitDateTime = visitDateTime;
             this.Results = results;
             this.Abnormal = abnormal;
+            this.TestResultDateTime = testResultDateTime;
         }
     }
 }

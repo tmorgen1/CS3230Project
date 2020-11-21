@@ -12,22 +12,23 @@
 
     <Grid>
         <TextBlock HorizontalAlignment="Left" Text="Patient ID:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,4,0,0"/>
-        <TextBox x:Name="patientIdTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,-3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" TabIndex="4"/>
-        <TextBox x:Name="patientNameTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" TabIndex="5"/>
+        <TextBox x:Name="patientIdTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="106,-3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="281" TabIndex="4"/>
+        <TextBox x:Name="patientNameTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="106,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="281" TabIndex="5"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,65,0,0" Text="Patient Name:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="testIdTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" TabIndex="6"/>
+        <TextBox x:Name="testIdTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="106,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="281" TabIndex="6"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,126,0,0" Text="Test ID:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="testNameTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" TabIndex="7"/>
+        <TextBox x:Name="testNameTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="106,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="281" TabIndex="7"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,187,0,0" Text="Test Name:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,248,0,0" Text="Date:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,309,0,0" Text="Time:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,248,0,0" Text="Visit Date:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,309,0,0" Text="Test Result Date:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,398,0,0" Text="Results:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <RichEditBox x:Name="resultsRichEditBox" Margin="0,422,0,67" LostFocus="ResultsRichEditBox_OnLostFocus" TextChanging="ResultsRichEditBox_OnTextChanging" TabIndex="1"/>
         <Button x:Name="confirmButton" IsEnabled="False" Content="Confirm" Foreground="White" Background="#3c6e71" Width="70" Margin="93,626,0,0" VerticalAlignment="Top" Click="confirmButton_Click" TabIndex="2"/>
         <Button x:Name="cancelButton" Content="Cancel" Foreground="White" Background="#3c6e71" Width="70" Margin="225,626,0,0" VerticalAlignment="Top" Click="cancelButton_Click" TabIndex="3"/>
         <TextBlock x:Name="resultsErrorTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Left" Margin="0,596,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="dateTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,241,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" TabIndex="8"/>
-        <TextBox x:Name="timeTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="91,302,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" TabIndex="7"/>
-        <CheckBox x:Name="abnormalCheckBox" Content="Abnormal" Margin="0,352,0,0" VerticalAlignment="Top" FocusVisualPrimaryBrush="White" Foreground="White"/>
+        <TextBox x:Name="dateTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="106,241,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="281" TabIndex="8"/>
+        <CheckBox x:Name="abnormalCheckBox" Content="Abnormal" Margin="0,365,0,0" VerticalAlignment="Top" RequestedTheme="Dark"/>
+        <DatePicker x:Name="testResultDatePicker" Margin="106,302,0,0" VerticalAlignment="Top" SelectedDateChanged="TestResultDatePicker_OnSelectedDateChanged"/>
+        <TextBlock x:Name="testResultDateErrorTextBlock" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Left" Margin="106,339,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
     </Grid>
 </ContentDialog>

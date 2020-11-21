@@ -39,6 +39,7 @@ namespace ClinicDatabaseSystem.DAL
                         int dateOrdinal = reader.GetOrdinal("dateTime");
                         int resultsOrdinal = reader.GetOrdinal("results");
                         int abnormalOrdinal = reader.GetOrdinal("abnormal");
+                        int testResultDateOrdinal = reader.GetOrdinal("testResultDate");
 
                         while (reader.Read())
                         {
@@ -49,8 +50,11 @@ namespace ClinicDatabaseSystem.DAL
                                 : default(DateTime);
                             string results = !reader.IsDBNull(resultsOrdinal) ? reader.GetString(resultsOrdinal) : null;
                             bool abnormal = !reader.IsDBNull(abnormalOrdinal) && reader.GetBoolean(abnormalOrdinal);
+                            DateTime testResultDateTime = !reader.IsDBNull(testResultDateOrdinal)
+                                ? reader.GetDateTime(testResultDateOrdinal)
+                                : default(DateTime);
 
-                            testResults.Add(new TestResult(testId, patientId, dateTime, results, abnormal));
+                            testResults.Add(new TestResult(testId, patientId, dateTime, results, abnormal, testResultDateTime));
                         }
                     }
                 }
@@ -69,7 +73,7 @@ namespace ClinicDatabaseSystem.DAL
             using (MySqlConnection conn = DbConnection.GetConnection())
             {
                 conn.Open();
-                string insertStatement = "insert into test_result values (@tId, @pId, @dateTime, @results, @abnormal);";
+                string insertStatement = "insert into test_result values (@tId, @pId, @dateTime, @results, @abnormal, @testResultDate);";
 
                 using (MySqlCommand comm = new MySqlCommand(insertStatement, conn))
                 {
@@ -78,11 +82,13 @@ namespace ClinicDatabaseSystem.DAL
                     comm.Parameters.Add("@pId", MySqlDbType.Int32);
                     comm.Parameters["@pId"].Value = testResult.PatientId;
                     comm.Parameters.Add("@dateTime", MySqlDbType.DateTime);
-                    comm.Parameters["@dateTime"].Value = testResult.ResultDateTime;
+                    comm.Parameters["@dateTime"].Value = testResult.VisitDateTime;
                     comm.Parameters.Add("@results", MySqlDbType.VarChar);
                     comm.Parameters["@results"].Value = testResult.Results;
                     comm.Parameters.Add("@abnormal", MySqlDbType.Int16);
                     comm.Parameters["@abnormal"].Value = testResult.Abnormal;
+                    comm.Parameters.Add("@testResultDate", MySqlDbType.DateTime);
+                    comm.Parameters["@testResultDate"].Value = testResult.TestResultDateTime;
 
                     return comm.ExecuteNonQuery() > 0;
                 }
@@ -101,7 +107,8 @@ namespace ClinicDatabaseSystem.DAL
             {
                 conn.Open();
                 string editStatement = "update test_result set testID = @tId, patientID = @pId, dateTime = @dateTime," +
-                                       " results = @results, abnormal = @abnormal where testID = @oldTId and patientID = @oldPId and dateTime = @oldDateTime";
+                                       " results = @results, abnormal = @abnormal, testResultDate = @testResultDate where " +
+                                       "testID = @oldTId and patientID = @oldPId and dateTime = @oldDateTime";
 
                 using (MySqlCommand comm = new MySqlCommand(editStatement, conn))
                 {
@@ -110,17 +117,19 @@ namespace ClinicDatabaseSystem.DAL
                     comm.Parameters.Add("@pId", MySqlDbType.Int32);
                     comm.Parameters["@pId"].Value = newTestResult.PatientId;
                     comm.Parameters.Add("@dateTime", MySqlDbType.DateTime);
-                    comm.Parameters["@dateTime"].Value = newTestResult.ResultDateTime;
+                    comm.Parameters["@dateTime"].Value = newTestResult.VisitDateTime;
                     comm.Parameters.Add("@results", MySqlDbType.VarChar);
                     comm.Parameters["@results"].Value = newTestResult.Results;
                     comm.Parameters.Add("@abnormal", MySqlDbType.Int16);
                     comm.Parameters["@abnormal"].Value = newTestResult.Abnormal;
+                    comm.Parameters.Add("@testResultDate", MySqlDbType.DateTime);
+                    comm.Parameters["@testResultDate"].Value = newTestResult.TestResultDateTime;
                     comm.Parameters.Add("@oldTId", MySqlDbType.Int32);
                     comm.Parameters["@oldTId"].Value = oldTestResult.TestId;
                     comm.Parameters.Add("@oldPId", MySqlDbType.Int32);
                     comm.Parameters["@oldPId"].Value = oldTestResult.PatientId;
                     comm.Parameters.Add("@oldDateTime", MySqlDbType.DateTime);
-                    comm.Parameters["@oldDateTime"].Value = oldTestResult.ResultDateTime;
+                    comm.Parameters["@oldDateTime"].Value = oldTestResult.VisitDateTime;
 
                     return comm.ExecuteNonQuery() > 0;
                 }

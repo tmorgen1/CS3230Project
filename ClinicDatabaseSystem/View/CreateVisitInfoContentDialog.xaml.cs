@@ -154,7 +154,7 @@ namespace ClinicDatabaseSystem.View
             foreach (var currentTest in this.orderedTests)
             {
                 var testId = currentTest.ToString().Split(':')[0].Trim();
-                var testResult = new TestResult(Int32.Parse(testId), this.visitInfoAppointment.PatientId, this.visitInfoAppointment.ScheduledDate, string.Empty, false);
+                var testResult = new TestResult(Int32.Parse(testId), this.visitInfoAppointment.PatientId, this.visitInfoAppointment.ScheduledDate, string.Empty, false, this.visitInfoAppointment.ScheduledDate);
                 if (!TestResultDAL.InsertTestResult(testResult))
                 {
                     return false;

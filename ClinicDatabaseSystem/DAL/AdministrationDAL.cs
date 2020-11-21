@@ -2,6 +2,8 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Data;
+using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 namespace ClinicDatabaseSystem.DAL
 {
@@ -16,32 +18,21 @@ namespace ClinicDatabaseSystem.DAL
         /// </summary>
         /// <param name="query">The query.</param>
         /// <returns>DataTable containing query data.</returns>
-        public static DataTable AdminQuery(string query)
+        public static async Task<DataTable> AdminQuery(string query)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())
             {
                 conn.Open();
 
-                try
+                using (MySqlCommand comm = new MySqlCommand(query, conn))
                 {
-                    using (MySqlCommand comm = new MySqlCommand(query, conn))
+                    var dataTable = new DataTable();
+                    using (var dataAdapter = new MySqlDataAdapter(comm))
                     {
-                        var dataTable = new DataTable();
-                        using (var dataAdapter = new MySqlDataAdapter(comm))
-                        {
-                            dataAdapter.Fill(dataTable);
-                        }
-
-                        return dataTable;
+                        dataAdapter.Fill(dataTable);
                     }
-                }
-                catch (MySqlException sqlExc)
-                {
-                    // handle sql exception
-                }
-                catch (Exception exception)
-                {
-                    // handle
+
+                    return dataTable;
                 }
             }
 

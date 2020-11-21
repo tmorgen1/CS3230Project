@@ -48,8 +48,8 @@ namespace ClinicDatabaseSystem.View
             this.patientNameTextBox.Text = this.appointmentNameInfo.PatientName;
             this.testIdTextBox.Text = this.testResult.TestId.ToString();
             this.testNameTextBox.Text = this.testName;
-            this.dateTextBox.Text = this.testResult.ResultDateTime.Date.ToString();
-            this.timeTextBox.Text = this.testResult.ResultDateTime.TimeOfDay.ToString();
+            this.visitDateTextBox.Text = this.testResult.VisitDateTime.Date.ToString("MM/dd/yyyy");
+            this.testResultDateTextBox.Text = this.testResult.VisitDateTime.Date.ToString("MM/dd/yyyy");
             this.resultsRichEditBox.Document.SetText(TextSetOptions.None, this.testResult.Results);
             this.resultsRichEditBox.IsReadOnly = true;
             this.abnormalCheckBox.IsChecked = this.testResult.Abnormal;
