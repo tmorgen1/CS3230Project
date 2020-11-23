@@ -331,8 +331,10 @@ namespace ClinicDatabaseSystem.View
                     this.UpdateSuccessful = true;
                     this.Hide();
                 }
-
-                this.UpdateSuccessful = false;
+                else
+                {
+                    this.UpdateSuccessful = false;
+                }
             }
         }
 

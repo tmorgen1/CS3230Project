@@ -163,9 +163,10 @@ namespace ClinicDatabaseSystem.View
                 {
                     this.RegisterSuccessful = true;
                     this.Hide();
+                } else
+                {
+                    this.RegisterSuccessful = false;
                 }
-
-                this.RegisterSuccessful = false;
             }
         }
 

@@ -90,12 +90,14 @@ namespace ClinicDatabaseSystem.DAL
             using (MySqlConnection conn = DbConnection.GetConnection())
             {
                 conn.Open();
-                string insertStatement = "insert into visit_info values (@pId, @dateTime, @systolic, @diastolic, @bodyTemp, @pulse, @weight, @symptoms, @initialDiagnosis, @finalDiagnosis)";
+                string insertStatement = "insert into visit_info values (@pId, @nId, @dateTime, @systolic, @diastolic, @bodyTemp, @pulse, @weight, @symptoms, @initialDiagnosis, @finalDiagnosis)";
 
                 using (MySqlCommand comm = new MySqlCommand(insertStatement, conn))
                 {
                     comm.Parameters.Add("@pId", MySqlDbType.Int32);
                     comm.Parameters["@pId"].Value = visitInfo.PatientId;
+                    comm.Parameters.Add("@nId", MySqlDbType.Int32);
+                    comm.Parameters["@nId"].Value = visitInfo.NurseId;
                     comm.Parameters.Add("@dateTime", MySqlDbType.DateTime);
                     comm.Parameters["@dateTime"].Value = visitInfo.VisitDateTime;
                     comm.Parameters.Add("@systolic", MySqlDbType.String);
