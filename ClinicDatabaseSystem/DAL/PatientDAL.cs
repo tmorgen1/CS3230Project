@@ -45,7 +45,6 @@ namespace ClinicDatabaseSystem.DAL
                     comm.Parameters.Add("@zip", MySqlDbType.VarChar);
                     comm.Parameters["@zip"].Value = zip;
 
-                    // look into sql transactions
                     try
                     {
                         comm.Transaction = conn.BeginTransaction();

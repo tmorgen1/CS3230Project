@@ -63,6 +63,7 @@ namespace ClinicDatabaseSystem.Model
         /// <param name="visitDateTime">The result date time.</param>
         /// <param name="results">The results.</param>
         /// <param name="abnormal">if set to <c>true</c> [abnormal].</param>
+        /// <param name="testResultDateTime"></param>
         public TestResult(int testId, int patientId, DateTime visitDateTime, string results, bool abnormal, DateTime testResultDateTime)
         {
             this.TestId = testId;

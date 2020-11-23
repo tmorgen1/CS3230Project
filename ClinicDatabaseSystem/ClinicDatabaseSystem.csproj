@@ -156,31 +156,31 @@
     <Compile Include="View\AdminQueryPage.xaml.cs">
       <DependentUpon>AdminQueryPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ConfirmFinalDiagnosisContentDialog.xaml.cs">
+    <Compile Include="View\ContentDialogs\ConfirmFinalDiagnosisContentDialog.xaml.cs">
       <DependentUpon>ConfirmFinalDiagnosisContentDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ConfirmOrderTestContentDialog.xaml.cs">
+    <Compile Include="View\ContentDialogs\ConfirmOrderTestContentDialog.xaml.cs">
       <DependentUpon>ConfirmOrderTestContentDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CreateAppointmentPatientSelectedContentDialog.xaml.cs">
+    <Compile Include="View\ContentDialogs\CreateAppointmentPatientSelectedContentDialog.xaml.cs">
       <DependentUpon>CreateAppointmentPatientSelectedContentDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CreateTestResultContentDialog.xaml.cs">
+    <Compile Include="View\ContentDialogs\CreateTestResultContentDialog.xaml.cs">
       <DependentUpon>CreateTestResultContentDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CreateVisitInfoContentDialog.xaml.cs">
+    <Compile Include="View\ContentDialogs\CreateVisitInfoContentDialog.xaml.cs">
       <DependentUpon>CreateVisitInfoContentDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\EditAppointmentContentDialog.xaml.cs">
+    <Compile Include="View\ContentDialogs\EditAppointmentContentDialog.xaml.cs">
       <DependentUpon>EditAppointmentContentDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\EditPatientContentDialog.xaml.cs">
+    <Compile Include="View\ContentDialogs\EditPatientContentDialog.xaml.cs">
       <DependentUpon>EditPatientContentDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\OrderedTestsContentDialog.xaml.cs">
+    <Compile Include="View\ContentDialogs\OrderedTestsContentDialog.xaml.cs">
       <DependentUpon>OrderedTestsContentDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\OrderTestContentDialog.xaml.cs">
+    <Compile Include="View\ContentDialogs\OrderTestContentDialog.xaml.cs">
       <DependentUpon>OrderTestContentDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PatientAppointmentsPage.xaml.cs">
@@ -189,20 +189,20 @@
     <Compile Include="View\PatientRecordsPage.xaml.cs">
       <DependentUpon>PatientRecordsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\LoginContentDialog.xaml.cs">
+    <Compile Include="View\ContentDialogs\LoginContentDialog.xaml.cs">
       <DependentUpon>LoginContentDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\RegisterPatientContentDialog.xaml.cs">
+    <Compile Include="View\ContentDialogs\RegisterPatientContentDialog.xaml.cs">
       <DependentUpon>RegisterPatientContentDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ViewTestResultContentDialog.xaml.cs">
+    <Compile Include="View\ContentDialogs\ViewTestResultContentDialog.xaml.cs">
       <DependentUpon>ViewTestResultContentDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ViewVisitInfoContentDialog.xaml.cs">
+    <Compile Include="View\ContentDialogs\ViewVisitInfoContentDialog.xaml.cs">
       <DependentUpon>ViewVisitInfoContentDialog.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -230,39 +230,39 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ConfirmFinalDiagnosisContentDialog.xaml">
+    <Page Include="View\ContentDialogs\ConfirmFinalDiagnosisContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ConfirmOrderTestContentDialog.xaml">
+    <Page Include="View\ContentDialogs\ConfirmOrderTestContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CreateAppointmentPatientSelectedContentDialog.xaml">
+    <Page Include="View\ContentDialogs\CreateAppointmentPatientSelectedContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CreateTestResultContentDialog.xaml">
+    <Page Include="View\ContentDialogs\CreateTestResultContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CreateVisitInfoContentDialog.xaml">
+    <Page Include="View\ContentDialogs\CreateVisitInfoContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\EditAppointmentContentDialog.xaml">
+    <Page Include="View\ContentDialogs\EditAppointmentContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\EditPatientContentDialog.xaml">
+    <Page Include="View\ContentDialogs\EditPatientContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\OrderedTestsContentDialog.xaml">
+    <Page Include="View\ContentDialogs\OrderedTestsContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\OrderTestContentDialog.xaml">
+    <Page Include="View\ContentDialogs\OrderTestContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -274,7 +274,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\LoginContentDialog.xaml">
+    <Page Include="View\ContentDialogs\LoginContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -282,15 +282,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\RegisterPatientContentDialog.xaml">
+    <Page Include="View\ContentDialogs\RegisterPatientContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ViewTestResultContentDialog.xaml">
+    <Page Include="View\ContentDialogs\ViewTestResultContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ViewVisitInfoContentDialog.xaml">
+    <Page Include="View\ContentDialogs\ViewVisitInfoContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

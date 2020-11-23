@@ -22,7 +22,7 @@ namespace ClinicDatabaseSystem.View
         private readonly string testName;
         private readonly AppointmentNameInfo appointmentNameInfo;
         private readonly bool viewResultsOnly;
-        private VisitInformationController visitInformationController;
+        private readonly VisitInformationController visitInformationController;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewTestResultContentDialog"/> class.
@@ -31,6 +31,7 @@ namespace ClinicDatabaseSystem.View
         /// <param name="appointmentNameInfo">The appointment name information.</param>
         /// <param name="testName">Name of the test.</param>
         /// <param name="viewResultsOnly">if set to <c>true</c> [view results only].</param>
+        /// <param name="visitInformationController"></param>
         public ViewTestResultContentDialog(TestResult testResult, AppointmentNameInfo appointmentNameInfo, string testName, bool viewResultsOnly, VisitInformationController visitInformationController)
         {
             this.InitializeComponent();

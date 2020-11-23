@@ -42,19 +42,19 @@ namespace ClinicDatabaseSystem.View
             try
             {
                 var result = AdministrationDAL.AdminQuery(this.queryTextBox.Text);
-                this.loadDataTable(result.Result);
+                this.loadDataTable(result);
             }
             catch (MySqlException sqlExc)
             {
                 var messageDialog =
-                    new MessageDialog("Error No: " + sqlExc.Number + ": " + sqlExc.SqlState, "Sql Error") {
+                    new MessageDialog("Error No: " + sqlExc.Number + ": " + sqlExc.Message, "Sql Error") {
                         CancelCommandIndex = 0, DefaultCommandIndex = 0
                     };
                 await messageDialog.ShowAsync();
             }
             catch (Exception)
             {
-                var messageDialog = new MessageDialog("Invalid sql statement.", "Sql Error") {
+                var messageDialog = new MessageDialog("Invalid sql query.", "Sql Error") {
                     CancelCommandIndex = 0, DefaultCommandIndex = 0
                 };
                 await messageDialog.ShowAsync();
@@ -66,7 +66,7 @@ namespace ClinicDatabaseSystem.View
             this.dataGrid.Columns.Clear();
             if (result == null)
             {
-                this.queryErrorTextBlock.Text = "Error in sql";
+                this.queryErrorTextBlock.Text = "Error in sql query";
                 this.queryErrorTextBlock.Visibility = Visibility.Visible;
                 return;
             }
@@ -95,8 +95,8 @@ namespace ClinicDatabaseSystem.View
 
             try
             {
-                var result = AdministrationDAL.GenerateReport(begDate, endDate);
-                this.loadDataTable(result.Result);
+                var result =  AdministrationDAL.GenerateReport(begDate, endDate);
+                this.loadDataTable(result);
             }
             catch (MySqlException sqlExc)
             {

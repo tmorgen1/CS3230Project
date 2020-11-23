@@ -23,13 +23,14 @@ namespace ClinicDatabaseSystem.View
         private IList<TestResult> orderedTestResults;
         private TestResult selectedTestResult;
         private readonly bool viewResultsOnly;
-        private VisitInformationController visitInformationController;
+        private readonly VisitInformationController visitInformationController;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OrderedTestsContentDialog"/> class.
         /// </summary>
         /// <param name="appointmentNameInfo">The appointment name information.</param>
         /// <param name="viewResultsOnly">if set to <c>true</c> [view results only].</param>
+        /// <param name="visitInformationController"></param>
         public OrderedTestsContentDialog(AppointmentNameInfo appointmentNameInfo, bool viewResultsOnly, VisitInformationController visitInformationController)
         {
             this.InitializeComponent();

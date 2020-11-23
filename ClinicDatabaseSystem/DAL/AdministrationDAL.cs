@@ -18,7 +18,7 @@ namespace ClinicDatabaseSystem.DAL
         /// </summary>
         /// <param name="query">The query.</param>
         /// <returns>DataTable containing query data.</returns>
-        public static async Task<DataTable> AdminQuery(string query)
+        public static DataTable AdminQuery(string query)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())
             {
@@ -37,7 +37,13 @@ namespace ClinicDatabaseSystem.DAL
             }
         }
 
-        public static async Task<DataTable> GenerateReport(DateTime begDate, DateTime endDate)
+        /// <summary>
+        /// Generates a report of all visit information between the two given dates.
+        /// </summary>
+        /// <param name="begDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns>DataTable containing query data.</returns>
+        public static DataTable GenerateReport(DateTime begDate, DateTime endDate)
         {
             using (MySqlConnection conn = DbConnection.GetConnection())
             {

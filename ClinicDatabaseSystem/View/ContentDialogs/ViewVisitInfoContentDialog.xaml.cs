@@ -22,12 +22,13 @@ namespace ClinicDatabaseSystem.View
 
         private readonly AppointmentNameInfo appointmentNameInfo;
         private bool hasInitialFinalDiagnosis;
-        private VisitInformationController visitInformationController;
+        private readonly VisitInformationController visitInformationController;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewVisitInfoContentDialog"/> class.
         /// </summary>
         /// <param name="appointmentNameInfo">The appointment name information.</param>
+        /// <param name="visitInformationController"></param>
         public ViewVisitInfoContentDialog(AppointmentNameInfo appointmentNameInfo, VisitInformationController visitInformationController)
         {
             this.InitializeComponent();
@@ -41,6 +42,7 @@ namespace ClinicDatabaseSystem.View
         /// </summary>
         /// <param name="appointmentNameInfo">The appointment name information.</param>
         /// <param name="finalDiagnosis">The final diagnosis.</param>
+        /// <param name="visitInformationController"></param>
         public ViewVisitInfoContentDialog(AppointmentNameInfo appointmentNameInfo, string finalDiagnosis, VisitInformationController visitInformationController)
         {
             this.InitializeComponent();

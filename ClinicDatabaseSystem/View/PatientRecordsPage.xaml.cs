@@ -4,6 +4,7 @@ using ClinicDatabaseSystem.Model;
 using ClinicDatabaseSystem.ViewModel;
 using System;
 using System.Collections.Generic;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -32,9 +33,21 @@ namespace ClinicDatabaseSystem.View
             this.updateCurrentUserTextBlocks();
         }
 
-        private void newPatientButton_Click(object sender, RoutedEventArgs e)
+        private async void newPatientButton_Click(object sender, RoutedEventArgs e)
         {
-            this.displayRegisterPatientContentDialog();
+            try
+            {
+                this.displayRegisterPatientContentDialog();
+            }
+            catch (Exception exception)
+            {
+                var messageDialog = new MessageDialog(exception.Message, "Sql Transaction Error")
+                {
+                    CancelCommandIndex = 0,
+                    DefaultCommandIndex = 0
+                };
+                await messageDialog.ShowAsync();
+            }
         }
 
         private async void displayRegisterPatientContentDialog()
@@ -62,9 +75,21 @@ namespace ClinicDatabaseSystem.View
             this.idTextBlock.Text = LoginController.CurrentNurse.NurseId.ToString();
         }
 
-        private void editPatientButton_Click(object sender, RoutedEventArgs e)
+        private async void editPatientButton_Click(object sender, RoutedEventArgs e)
         {
-            this.displayEditPatientContentDialog(this.selectedPatient);
+            try
+            {
+                this.displayEditPatientContentDialog(this.selectedPatient);
+            }
+            catch (Exception exception)
+            {
+                var messageDialog = new MessageDialog(exception.Message, "Sql Transaction Error")
+                {
+                    CancelCommandIndex = 0,
+                    DefaultCommandIndex = 0
+                };
+                await messageDialog.ShowAsync();
+            }
         }
 
         private async void displayEditPatientContentDialog(Patient patient)
