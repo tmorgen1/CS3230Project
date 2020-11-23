@@ -139,7 +139,7 @@ namespace ClinicDatabaseSystem.View
             var date = this.visitInfoAppointment.ScheduledDate;
             this.symptomsRichEditBox.Document.GetText(0, out var symptoms);
             this.initialDiagnosisRichEditBox.Document.GetText(0, out var diagnosis);
-            var visitInformation = new VisitInformation(patientId, date,
+            var visitInformation = new VisitInformation(patientId, LoginController.CurrentNurse.NurseId, date,
                 this.systolicBpTextBox.Text, this.diastolicBpTextBox.Text, this.bodyTempTextBox.Text,
                 this.pulseTextBox.Text, this.weightTextBox.Text, symptoms, diagnosis, null);
             return VisitInformationDAL.InsertVisitInfo(visitInformation);
@@ -392,7 +392,7 @@ namespace ClinicDatabaseSystem.View
             var date = this.visitInfoAppointment.ScheduledDate;
             this.symptomsRichEditBox.Document.GetText(0, out var symptoms);
             this.initialDiagnosisRichEditBox.Document.GetText(0, out var diagnosis);
-            var visitInfo = new VisitInformation(patientId, date,
+            var visitInfo = new VisitInformation(patientId, LoginController.CurrentNurse.NurseId, date,
                 this.systolicBpTextBox.Text, this.diastolicBpTextBox.Text, this.bodyTempTextBox.Text,
                 this.pulseTextBox.Text, this.weightTextBox.Text, symptoms, diagnosis, null);
             this.Hide();

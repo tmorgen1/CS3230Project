@@ -16,6 +16,14 @@ namespace ClinicDatabaseSystem.Model
         public int PatientId { get; set; }
 
         /// <summary>
+        /// Gets or sets the nurse identifier.
+        /// </summary>
+        /// <value>
+        /// The nurse identifier.
+        /// </value>
+        public int NurseId { get; set; }
+
+        /// <summary>
         /// Gets or sets the visit date time.
         /// </summary>
         /// <value>
@@ -91,6 +99,7 @@ namespace ClinicDatabaseSystem.Model
         /// Initializes a new instance of the <see cref="VisitInformation"/> class.
         /// </summary>
         /// <param name="patientId">The patient identifier.</param>
+        /// <param name="nurseId">The nurse identifier.</param>
         /// <param name="visitDateTime">The visit date time.</param>
         /// <param name="systolicBp">The systolic bp.</param>
         /// <param name="diastolicBp">The diastolic bp.</param>
@@ -100,9 +109,10 @@ namespace ClinicDatabaseSystem.Model
         /// <param name="symptoms">The symptoms.</param>
         /// <param name="initialDiagnosis">The initial diagnosis.</param>
         /// <param name="finalDiagnosis">The final diagnosis.</param>
-        public VisitInformation(int patientId, DateTime visitDateTime, string systolicBp, string diastolicBp, string bodyTemp, string pulse, string weight, string symptoms, string initialDiagnosis, string finalDiagnosis)
+        public VisitInformation(int patientId, int nurseId, DateTime visitDateTime, string systolicBp, string diastolicBp, string bodyTemp, string pulse, string weight, string symptoms, string initialDiagnosis, string finalDiagnosis)
         {
             this.PatientId = patientId;
+            this.NurseId = nurseId;
             this.VisitDateTime = visitDateTime;
             this.SystolicBp = systolicBp;
             this.DiastolicBp = diastolicBp;

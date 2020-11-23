@@ -1,7 +1,6 @@
 ﻿using ClinicDatabaseSystem.Model;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
 
 namespace ClinicDatabaseSystem.DAL
 {
@@ -32,6 +31,7 @@ namespace ClinicDatabaseSystem.DAL
                     using (MySqlDataReader reader = comm.ExecuteReader())
                     {
                         int pIdOrdinal = reader.GetOrdinal("patientID");
+                        int nIdOrdinal = reader.GetOrdinal("nurseID");
                         int dateTimeOrdinal = reader.GetOrdinal("dateTime");
                         int systolicBpOrdinal = reader.GetOrdinal("systolicBP");
                         int diastolicBpOrdinal = reader.GetOrdinal("diastolicBP");
@@ -45,6 +45,7 @@ namespace ClinicDatabaseSystem.DAL
                         while (reader.Read())
                         {
                             int pId = !reader.IsDBNull(pIdOrdinal) ? reader.GetInt32(pIdOrdinal) : 0;
+                            int nId = !reader.IsDBNull(nIdOrdinal) ? reader.GetInt32(nIdOrdinal) : 0;
                             DateTime dateTime = !reader.IsDBNull(dateTimeOrdinal)
                                 ? reader.GetDateTime(dateTimeOrdinal)
                                 : default(DateTime);
@@ -69,7 +70,7 @@ namespace ClinicDatabaseSystem.DAL
                                 ? reader.GetString(finalDiagnosisOrdinal)
                                 : null;
 
-                            return new VisitInformation(pId, dateTime, systolicBp, diastolicBp, bodyTemp, pulse,
+                            return new VisitInformation(pId, nId, dateTime, systolicBp, diastolicBp, bodyTemp, pulse,
                                 weight, symptoms, initialDiagnosis, finalDiagnosis);
                         }
                     }
@@ -154,7 +155,7 @@ namespace ClinicDatabaseSystem.DAL
             using (MySqlConnection conn = DbConnection.GetConnection())
             {
                 conn.Open();
-                string editStatement = "update visit_info set patientID = @pId, dateTime = @dateTime, systolicBP = @systolic, diastolicBP = @diastolic, bodyTemp = @bodyTemp, " +
+                string editStatement = "update visit_info set patientID = @pId, nurseID = @nId, dateTime = @dateTime, systolicBP = @systolic, diastolicBP = @diastolic, bodyTemp = @bodyTemp, " +
                                        "pulse = @pulse, weight = @weight, symptoms = @symptoms, initialDiagnosis = @initialDiagnosis, finalDiagnosis = @finalDiagnosis" +
                                        " where patientID = @oldPId and dateTime = @oldDateTime";
 
@@ -162,6 +163,8 @@ namespace ClinicDatabaseSystem.DAL
                 {
                     comm.Parameters.Add("@pId", MySqlDbType.Int32);
                     comm.Parameters["@pId"].Value = newVisitInfo.PatientId;
+                    comm.Parameters.Add("@nId", MySqlDbType.Int32);
+                    comm.Parameters["@nId"].Value = newVisitInfo.NurseId;
                     comm.Parameters.Add("@dateTime", MySqlDbType.DateTime);
                     comm.Parameters["@dateTime"].Value = newVisitInfo.VisitDateTime;
                     comm.Parameters.Add("@systolic", MySqlDbType.String);
@@ -199,7 +202,7 @@ namespace ClinicDatabaseSystem.DAL
         public static bool AddFinalDiagnosis(VisitInformation visitInfo, string finalDiagnosis)
         {
             VisitInformation oldVisitInfo = visitInfo;
-            VisitInformation newVisitInfo = new VisitInformation(oldVisitInfo.PatientId, oldVisitInfo.VisitDateTime, oldVisitInfo.SystolicBp, oldVisitInfo.DiastolicBp,
+            VisitInformation newVisitInfo = new VisitInformation(oldVisitInfo.PatientId, oldVisitInfo.NurseId, oldVisitInfo.VisitDateTime, oldVisitInfo.SystolicBp, oldVisitInfo.DiastolicBp,
                 oldVisitInfo.BodyTemp, oldVisitInfo.Pulse, oldVisitInfo.Weight, oldVisitInfo.Symptoms, oldVisitInfo.InitialDiagnosis, finalDiagnosis);
 
             return EditVisitInfo(oldVisitInfo, newVisitInfo);

@@ -112,7 +112,7 @@ namespace ClinicDatabaseSystem.View
                 var date = this.appointmentNameInfo.Appointment.ScheduledDate;
                 this.symptomsRichEditBox.Document.GetText(0, out var symptoms);
                 this.initialDiagnosisRichEditBox.Document.GetText(0, out var diagnosis);
-                var visitInformation = new VisitInformation(patientId, date,
+                var visitInformation = new VisitInformation(patientId, LoginController.CurrentNurse.NurseId, date,
                     this.systolicBpTextBox.Text, this.diastolicBpTextBox.Text, this.bodyTempTextBox.Text,
                     this.pulseTextBox.Text, this.weightTextBox.Text, symptoms, diagnosis, finalDiagnosis.Trim());
                 ConfirmFinalDiagnosisContentDialog confirmFinalDiagnosisContentDialog = new ConfirmFinalDiagnosisContentDialog(visitInformation, this.appointmentNameInfo, finalDiagnosis.Trim(), this.visitInformationController);
