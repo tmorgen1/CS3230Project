@@ -10,7 +10,7 @@
     Background="#353535">
 
     <Grid>
-        <TextBox x:Name="queryTextBox" HorizontalAlignment="Left" Margin="374,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="890" TextChanged="queryTextBox_TextChanged"/>
+        <TextBox x:Name="queryTextBox" HorizontalAlignment="Left" Margin="374,40,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="890" TextChanged="queryTextBox_TextChanged" PlaceholderText="Put your SQL query here..."/>
         <Button x:Name="executeButton" IsEnabled="False" Foreground="White" Background="#3c6e71" Content="Execute Query" Margin="27,213,0,0" VerticalAlignment="Top" Click="Button_Click"/>
 
         <controls:DataGrid x:Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Center" Height="679" Width="1694" AlternatingRowBackground="DimGray" AutoGenerateColumns="False" Foreground="White" IsReadOnly="True" Margin="195,150,0,0" >

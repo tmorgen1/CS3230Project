@@ -50,11 +50,11 @@ namespace ClinicDatabaseSystem.DAL
                 conn.Open();
                 string query = "SELECT V.dateTime AS 'Visit Date', V.patientID AS 'Patient ID', CONCAT(P.firstName, ' ', P.lastName) " +
                                "AS 'Patient Name', CONCAT(D.firstName, ' ', D.lastName) AS 'Doctor Name', CONCAT(N.firstName, ' ', N.lastName) " +
-                               "AS 'Nurse Name', T.name AS 'Test Name', TR.abnormal AS 'Test Abnormality', V.finalDiagnosis AS 'Final Diagnosis' " +
-                               "FROM visit_info V, patient P, doctor D, nurse N, test_result TR, test T, appointment A WHERE " +
-                               "( V.dateTime BETWEEN @begDate AND @endDate ) AND V.patientID = P.patientID AND " +
-                               "A.doctorID = D.doctorID AND V.nurseID = N.nurseID AND TR.patientID = V.patientID AND TR.dateTime = V.dateTime AND" +
-                               " TR.testID = T.testID AND A.dateTime = V.dateTime AND A.patientID = V.patientID";
+                               "AS 'Nurse Name', TR.abnormal AS 'Test Abnormality', T.name AS 'Test Name', V.finalDiagnosis AS 'Final Diagnosis' " +
+                               "FROM visit_info V left outer join test_result TR on V.patientID = TR.patientID and V.dateTime = TR.dateTime left " +
+                               "outer join test T on T.testID = TR.testID, patient P, doctor D, nurse N, appointment A WHERE ( V.dateTime BETWEEN @begDate AND @endDate ) " +
+                               "AND V.patientID = P.patientID AND A.doctorID = D.doctorID AND V.nurseID = N.nurseID AND A.dateTime = V.dateTime AND A.patientID = V.patientID" +
+                               " ORDER BY V.dateTime, P.lastName";
 
                 using (MySqlCommand comm = new MySqlCommand(query, conn))
                 {
