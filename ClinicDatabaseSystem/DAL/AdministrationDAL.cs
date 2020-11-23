@@ -35,8 +35,36 @@ namespace ClinicDatabaseSystem.DAL
                     return dataTable;
                 }
             }
+        }
 
-            return null;
+        public static async Task<DataTable> GenerateReport(DateTime begDate, DateTime endDate)
+        {
+            using (MySqlConnection conn = DbConnection.GetConnection())
+            {
+                conn.Open();
+                string query = "select V.dateTime as 'Visit Date', V.patientID, CONCAT(P.firstName + ' ' + P.lastName) as 'Patient Name'," +
+                               " CONCAT(D.firstName + ' ' + D.lastName) as 'Doctor Name', CONCAT(N.firstName + ' ' + N.lastName) as 'Nurse Name', " +
+                               "T.name as 'Test Name', TR.abnormal as 'Test Abnormality', V.finalDiagnosis as 'Final Diagnosis'" +
+                               " from visit_info V, patient P, doctor D, nurse N, test_result TR, test T where (dateTime between @begDate and @endDate) and" +
+                               "V.patientID = P.patientID and V.doctorID = D.doctorID and V.nurseID = N.nurseID and TR.patientID = V.patientID and TR.dateTime = V.dateTime and" +
+                               " TR.testID = T.testID";
+
+                using (MySqlCommand comm = new MySqlCommand(query, conn))
+                {
+                    comm.Parameters.Add("@begDate", MySqlDbType.DateTime);
+                    comm.Parameters["@begDate"].Value = begDate;
+                    comm.Parameters.Add("@endDate", MySqlDbType.DateTime);
+                    comm.Parameters["@endDate"].Value = endDate;
+
+                    var dataTable = new DataTable();
+                    using (var dataAdapter = new MySqlDataAdapter(comm))
+                    {
+                        dataAdapter.Fill(dataTable);
+                    }
+
+                    return dataTable;
+                }
+            }
         }
 
         /// <summary>

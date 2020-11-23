@@ -33,5 +33,6 @@
         <Button x:Name="viewReportButton" IsEnabled="False" Content="View Report" Foreground="White" Background="#3c6e71" Margin="27,268,0,0" VerticalAlignment="Top" Width="109" Click="viewReportButton_Click"/>
         <TextBlock x:Name="queryErrorTextBlock" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Left" Margin="374,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="datesErrorTextBlock" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Left" Margin="374,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Button x:Name="logoutButton" Foreground="White" Background="#3c6e71" Content="Logout" Margin="27,394,0,0" VerticalAlignment="Top" Width="109" Click="logoutButton_Click"/>
     </Grid>
 </Page>
