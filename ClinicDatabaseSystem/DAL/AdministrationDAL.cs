@@ -42,12 +42,13 @@ namespace ClinicDatabaseSystem.DAL
             using (MySqlConnection conn = DbConnection.GetConnection())
             {
                 conn.Open();
-                string query = "select V.dateTime as 'Visit Date', V.patientID, CONCAT(P.firstName + ' ' + P.lastName) as 'Patient Name'," +
-                               " CONCAT(D.firstName + ' ' + D.lastName) as 'Doctor Name', CONCAT(N.firstName + ' ' + N.lastName) as 'Nurse Name', " +
-                               "T.name as 'Test Name', TR.abnormal as 'Test Abnormality', V.finalDiagnosis as 'Final Diagnosis'" +
-                               " from visit_info V, patient P, doctor D, nurse N, test_result TR, test T where (dateTime between @begDate and @endDate) and" +
-                               "V.patientID = P.patientID and V.doctorID = D.doctorID and V.nurseID = N.nurseID and TR.patientID = V.patientID and TR.dateTime = V.dateTime and" +
-                               " TR.testID = T.testID";
+                string query = "SELECT V.dateTime AS 'Visit Date', V.patientID AS 'Patient ID', CONCAT(P.firstName, ' ', P.lastName) " +
+                               "AS 'Patient Name', CONCAT(D.firstName, ' ', D.lastName) AS 'Doctor Name', CONCAT(N.firstName, ' ', N.lastName) " +
+                               "AS 'Nurse Name', T.name AS 'Test Name', TR.abnormal AS 'Test Abnormality', V.finalDiagnosis AS 'Final Diagnosis' " +
+                               "FROM visit_info V, patient P, doctor D, nurse N, test_result TR, test T, appointment A WHERE " +
+                               "( V.dateTime BETWEEN @begDate AND @endDate ) AND V.patientID = P.patientID AND " +
+                               "A.doctorID = D.doctorID AND V.nurseID = N.nurseID AND TR.patientID = V.patientID AND TR.dateTime = V.dateTime AND" +
+                               " TR.testID = T.testID AND A.dateTime = V.dateTime AND A.patientID = V.patientID";
 
                 using (MySqlCommand comm = new MySqlCommand(query, conn))
                 {
